@@ -538,26 +538,54 @@ document.addEventListener(
 
 
 /* =====================================
-   FINALIZAR COMPRA
+   /* =====================================
+   FINALIZAR COMPRA - PIX
 ===================================== */
 
 function finalizarCompra() {
 
-    if (
-        carrinho.length === 0
-    ) {
+    if (carrinho.length === 0) {
 
-        alert(
-            "Seu carrinho está vazio."
-        );
+        alert("Seu carrinho está vazio.");
 
         return;
 
     }
 
+    let total = 0;
 
-    alert(
-        "O checkout será configurado na próxima etapa."
-    );
+    carrinho.forEach(produto => {
+        total += produto.preco;
+    });
 
-}
+
+    /*
+       =====================================
+       CHAVE PIX DE TESTE
+
+       Depois você troca somente este valor.
+       =====================================
+    */
+
+    const chavePix = "SUA-CHAVE-PIX-AQUI";
+
+
+    const valor = formatarPreco(total);
+
+
+    const mensagem = `
+FENIX STORE
+
+Valor: R$ ${valor}
+
+Chave PIX:
+${chavePix}
+
+Após realizar o pagamento,
+envie o comprovante para o suporte.
+`;
+
+
+    alert(mensagem);
+
+
