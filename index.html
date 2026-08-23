@@ -1,8 +1,8 @@
-```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -12,12 +12,12 @@
 
     <meta
         name="description"
-        content="Fenix Store — produtos digitais para seus jogos favoritos."
+        content="Fenix Store - Produtos digitais para jogos online"
     >
 
-    <meta name="theme-color" content="#08070d">
+    <meta name="theme-color" content="#07080d">
 
-    <title>Fenix Store — Produtos Digitais</title>
+    <title>Fenix Store | Produtos Digitais</title>
 
     <link
         rel="icon"
@@ -29,43 +29,60 @@
         rel="stylesheet"
         href="./style.css"
     >
+
 </head>
+
 
 <body>
 
+
+<!-- =========================================
+     HEADER
+========================================= -->
+
 <header class="header">
 
-    <a href="#inicio" class="logo" aria-label="Fenix Store — Início">
-        <span>FENIX</span> STORE
+    <a href="#inicio" class="logo">
+        <span>Fenix</span> Store
     </a>
 
-    <nav class="menu" aria-label="Navegação principal">
+
+    <nav class="menu">
+
         <a href="#inicio">Início</a>
+
         <a href="#jogos">Jogos</a>
+
         <a href="#produtos">Produtos</a>
+
         <a href="#ofertas">Ofertas</a>
+
     </nav>
+
 
     <div class="header-actions">
 
         <button
             type="button"
             class="icon-button"
-            id="search-button"
-            aria-label="Abrir pesquisa"
-            aria-expanded="false"
+            onclick="abrirPesquisa()"
+            aria-label="Pesquisar"
         >
             🔎
         </button>
 
+
         <button
             type="button"
             class="cart-button"
-            id="cart-button"
-            aria-label="Abrir carrinho"
+            onclick="abrirCarrinho()"
+            aria-label="Carrinho"
         >
+
             🛒
+
             <span id="cart-count">0</span>
+
         </button>
 
     </div>
@@ -73,45 +90,30 @@
 </header>
 
 
-<!-- PESQUISA -->
+<!-- =========================================
+     PESQUISA
+========================================= -->
 
 <div
     id="search-box"
     class="search-box"
-    aria-hidden="true"
 >
 
     <div class="search-content">
 
-        <div class="search-input-wrapper">
-
-            <span>🔎</span>
-
-            <input
-                id="search-input"
-                type="search"
-                placeholder="Pesquisar produto ou jogo..."
-                autocomplete="off"
-            >
-
-            <button
-                type="button"
-                id="clear-search"
-                class="clear-search"
-                aria-label="Limpar pesquisa"
-            >
-                ×
-            </button>
-
-        </div>
+        <input
+            id="search-input"
+            type="search"
+            placeholder="Pesquisar produto ou jogo..."
+            autocomplete="off"
+        >
 
         <button
             type="button"
-            id="close-search"
-            class="close-search"
+            onclick="fecharPesquisa()"
             aria-label="Fechar pesquisa"
         >
-            Fechar
+            ✕
         </button>
 
     </div>
@@ -119,932 +121,734 @@
 </div>
 
 
-<main>
+<!-- =========================================
+     HERO
+========================================= -->
 
-    <!-- HERO -->
+<section
+    id="inicio"
+    class="hero"
+>
 
-    <section id="inicio" class="hero">
+    <div class="hero-content">
 
-        <div class="hero-content">
-
-            <div class="hero-badge">
-                <span>🔥</span>
-                FENIX STORE
-            </div>
-
-            <h1>
-                Seus jogos.
-                <span>Seus itens.</span>
-            </h1>
-
-            <p>
-                Produtos digitais para seus jogos favoritos,
-                com uma experiência simples, rápida e segura.
-            </p>
-
-            <div class="hero-buttons">
-
-                <a
-                    href="#produtos"
-                    class="btn btn-primary"
-                >
-                    Ver produtos
-                    <span>→</span>
-                </a>
-
-                <a
-                    href="#jogos"
-                    class="btn btn-secondary"
-                >
-                    Explorar jogos
-                </a>
-
-            </div>
-
-            <div class="hero-trust">
-
-                <div>
-                    <strong>⚡</strong>
-                    <span>Entrega digital</span>
-                </div>
-
-                <div>
-                    <strong>🔒</strong>
-                    <span>Pagamento via PIX</span>
-                </div>
-
-                <div>
-                    <strong>🎧</strong>
-                    <span>Suporte</span>
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="hero-visual">
-
-            <div class="hero-glow"></div>
-
-            <div class="fire-circle">
-
-                <div class="fire-ring"></div>
-
-                <div class="fire">
-                    🔥
-                </div>
-
-                <span class="floating-card card-one">
-                    ⚡ Entrega rápida
-                </span>
-
-                <span class="floating-card card-two">
-                    💎 Produtos digitais
-                </span>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- BENEFÍCIOS -->
-
-    <section class="benefits">
-
-        <div class="benefit">
-            <div class="benefit-icon">⚡</div>
-            <div>
-                <h3>Entrega digital</h3>
-                <p>Sem envio físico.</p>
-            </div>
-        </div>
-
-        <div class="benefit">
-            <div class="benefit-icon">🔒</div>
-            <div>
-                <h3>Pagamento via PIX</h3>
-                <p>Rápido e prático.</p>
-            </div>
-        </div>
-
-        <div class="benefit">
-            <div class="benefit-icon">💎</div>
-            <div>
-                <h3>Produtos digitais</h3>
-                <p>Para seus jogos favoritos.</p>
-            </div>
-        </div>
-
-        <div class="benefit">
-            <div class="benefit-icon">🎧</div>
-            <div>
-                <h3>Suporte</h3>
-                <p>Estamos aqui para ajudar.</p>
-            </div>
-        </div>
-
-    </section>
-
-
-    <!-- JOGOS -->
-
-    <section id="jogos" class="section">
-
-        <div class="section-title">
-
-            <span>CATEGORIAS</span>
-
-            <h2>Escolha seu jogo</h2>
-
-            <p>
-                Encontre produtos para o seu jogo favorito.
-            </p>
-
-        </div>
-
-        <div class="categories">
-
-            <button
-                type="button"
-                class="category"
-                data-category="todos"
-            >
-                <div class="category-icon category-all">🎮</div>
-                <h3>Todos</h3>
-                <p>Ver todos os produtos</p>
-            </button>
-
-            <button
-                type="button"
-                class="category"
-                data-category="freefire"
-            >
-                <div class="category-icon">🔥</div>
-                <h3>Free Fire</h3>
-                <p>Diamantes e produtos</p>
-            </button>
-
-            <button
-                type="button"
-                class="category"
-                data-category="fortnite"
-            >
-                <div class="category-icon">🟣</div>
-                <h3>Fortnite</h3>
-                <p>V-Bucks e produtos</p>
-            </button>
-
-            <button
-                type="button"
-                class="category"
-                data-category="roblox"
-            >
-                <div class="category-icon">🟦</div>
-                <h3>Roblox</h3>
-                <p>Robux e produtos</p>
-            </button>
-
-            <button
-                type="button"
-                class="category"
-                data-category="valorant"
-            >
-                <div class="category-icon">🎯</div>
-                <h3>Valorant</h3>
-                <p>VP e produtos</p>
-            </button>
-
-            <button
-                type="button"
-                class="category"
-                data-category="eafc"
-            >
-                <div class="category-icon">⚽</div>
-                <h3>EA Sports FC</h3>
-                <p>FC Points</p>
-            </button>
-
-            <button
-                type="button"
-                class="category"
-                data-category="minecraft"
-            >
-                <div class="category-icon">🟩</div>
-                <h3>Minecraft</h3>
-                <p>Produtos digitais</p>
-            </button>
-
-        </div>
-
-    </section>
-
-
-    <!-- PRODUTOS -->
-
-    <section id="produtos" class="section products-section">
-
-        <div class="section-title">
-
-            <span>LOJA</span>
-
-            <div class="products-heading">
-
-                <div>
-                    <h2>Produtos em destaque</h2>
-
-                    <p>
-                        Escolha seu produto e adicione ao carrinho.
-                    </p>
-                </div>
-
-                <div
-                    id="results-count"
-                    class="results-count"
-                >
-                    6 produtos
-                </div>
-
-            </div>
-
+        <div class="hero-tag">
+            🔥 FENIX STORE
         </div>
 
 
-        <div class="filters-wrapper">
+        <h1>
+            Seus jogos.
+            <span>Seus itens.</span>
+        </h1>
 
-            <div
-                class="filters"
-                id="filters"
-                role="tablist"
-                aria-label="Filtrar produtos"
-            >
 
-                <button
-                    type="button"
-                    class="filter active"
-                    data-filter="todos"
-                >
-                    Todos
-                </button>
+        <p>
+            Compre diamantes, Robux, V-Bucks,
+            VP, FC Points e outros produtos
+            digitais para seus jogos favoritos.
+        </p>
 
-                <button
-                    type="button"
-                    class="filter"
-                    data-filter="freefire"
-                >
-                    Free Fire
-                </button>
 
-                <button
-                    type="button"
-                    class="filter"
-                    data-filter="fortnite"
-                >
-                    Fortnite
-                </button>
-
-                <button
-                    type="button"
-                    class="filter"
-                    data-filter="roblox"
-                >
-                    Roblox
-                </button>
-
-                <button
-                    type="button"
-                    class="filter"
-                    data-filter="valorant"
-                >
-                    Valorant
-                </button>
-
-                <button
-                    type="button"
-                    class="filter"
-                    data-filter="eafc"
-                >
-                    EA FC
-                </button>
-
-                <button
-                    type="button"
-                    class="filter"
-                    data-filter="minecraft"
-                >
-                    Minecraft
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <div id="products" class="products">
-
-
-            <!-- FREE FIRE -->
-
-            <article
-                class="product"
-                data-game="freefire"
-                data-name="Pacote de Diamantes Free Fire"
-            >
-
-                <div class="product-image">
-
-                    <img
-                        src="./imagens/freefire.jpg"
-                        alt="Pacote de Diamantes Free Fire"
-                        loading="lazy"
-                    >
-
-                    <span class="discount">-20%</span>
-
-                    <span class="product-status">
-                        Mais vendido
-                    </span>
-
-                </div>
-
-                <div class="product-info">
-
-                    <span class="product-category">
-                        FREE FIRE
-                    </span>
-
-                    <h3>Pacote de Diamantes</h3>
-
-                    <p class="description">
-                        Produto digital para Free Fire.
-                    </p>
-
-                    <div class="price">
-
-                        <del>R$ 49,90</del>
-
-                        <strong>R$ 39,90</strong>
-
-                        <span>Você economiza R$ 10,00</span>
-
-                    </div>
-
-                    <button
-                        type="button"
-                        class="buy-button"
-                        data-product="Pacote de Diamantes Free Fire"
-                        data-price="39.90"
-                    >
-                        🛒 Adicionar ao carrinho
-                    </button>
-
-                </div>
-
-            </article>
-
-
-            <!-- FORTNITE -->
-
-            <article
-                class="product"
-                data-game="fortnite"
-                data-name="V-Bucks Fortnite"
-            >
-
-                <div class="product-image">
-
-                    <img
-                        src="./imagens/fortnite.jpg"
-                        alt="V-Bucks Fortnite"
-                        loading="lazy"
-                    >
-
-                    <span class="discount">-15%</span>
-
-                </div>
-
-                <div class="product-info">
-
-                    <span class="product-category">
-                        FORTNITE
-                    </span>
-
-                    <h3>V-Bucks</h3>
-
-                    <p class="description">
-                        Créditos digitais para Fortnite.
-                    </p>
-
-                    <div class="price">
-
-                        <del>R$ 59,90</del>
-
-                        <strong>R$ 49,90</strong>
-
-                        <span>Você economiza R$ 10,00</span>
-
-                    </div>
-
-                    <button
-                        type="button"
-                        class="buy-button"
-                        data-product="V-Bucks Fortnite"
-                        data-price="49.90"
-                    >
-                        🛒 Adicionar ao carrinho
-                    </button>
-
-                </div>
-
-            </article>
-
-
-            <!-- ROBLOX -->
-
-            <article
-                class="product"
-                data-game="roblox"
-                data-name="Robux Roblox"
-            >
-
-                <div class="product-image">
-
-                    <img
-                        src="./imagens/roblox.jpg"
-                        alt="Robux Roblox"
-                        loading="lazy"
-                    >
-
-                    <span class="discount">-10%</span>
-
-                </div>
-
-                <div class="product-info">
-
-                    <span class="product-category">
-                        ROBLOX
-                    </span>
-
-                    <h3>Robux</h3>
-
-                    <p class="description">
-                        Moeda virtual para Roblox.
-                    </p>
-
-                    <div class="price">
-
-                        <del>R$ 54,90</del>
-
-                        <strong>R$ 49,90</strong>
-
-                        <span>Você economiza R$ 5,00</span>
-
-                    </div>
-
-                    <button
-                        type="button"
-                        class="buy-button"
-                        data-product="Robux Roblox"
-                        data-price="49.90"
-                    >
-                        🛒 Adicionar ao carrinho
-                    </button>
-
-                </div>
-
-            </article>
-
-
-            <!-- VALORANT -->
-
-            <article
-                class="product"
-                data-game="valorant"
-                data-name="Valorant Points"
-            >
-
-                <div class="product-image">
-
-                    <img
-                        src="./imagens/valorant.jpg"
-                        alt="Valorant Points"
-                        loading="lazy"
-                    >
-
-                    <span class="discount">-12%</span>
-
-                </div>
-
-                <div class="product-info">
-
-                    <span class="product-category">
-                        VALORANT
-                    </span>
-
-                    <h3>Valorant Points</h3>
-
-                    <p class="description">
-                        Créditos digitais para Valorant.
-                    </p>
-
-                    <div class="price">
-
-                        <del>R$ 69,90</del>
-
-                        <strong>R$ 61,90</strong>
-
-                        <span>Você economiza R$ 8,00</span>
-
-                    </div>
-
-                    <button
-                        type="button"
-                        class="buy-button"
-                        data-product="Valorant Points"
-                        data-price="61.90"
-                    >
-                        🛒 Adicionar ao carrinho
-                    </button>
-
-                </div>
-
-            </article>
-
-
-            <!-- EA FC -->
-
-            <article
-                class="product"
-                data-game="eafc"
-                data-name="FC Points"
-            >
-
-                <div class="product-image">
-
-                    <img
-                        src="./imagens/eafc.jpg"
-                        alt="FC Points"
-                        loading="lazy"
-                    >
-
-                    <span class="discount">-18%</span>
-
-                </div>
-
-                <div class="product-info">
-
-                    <span class="product-category">
-                        EA SPORTS FC
-                    </span>
-
-                    <h3>FC Points</h3>
-
-                    <p class="description">
-                        Pontos para EA Sports FC.
-                    </p>
-
-                    <div class="price">
-
-                        <del>R$ 79,90</del>
-
-                        <strong>R$ 65,90</strong>
-
-                        <span>Você economiza R$ 14,00</span>
-
-                    </div>
-
-                    <button
-                        type="button"
-                        class="buy-button"
-                        data-product="FC Points"
-                        data-price="65.90"
-                    >
-                        🛒 Adicionar ao carrinho
-                    </button>
-
-                </div>
-
-            </article>
-
-
-            <!-- MINECRAFT -->
-
-            <article
-                class="product"
-                data-game="minecraft"
-                data-name="Gift Card Minecraft"
-            >
-
-                <div class="product-image">
-
-                    <img
-                        src="./imagens/minecraft.jpg"
-                        alt="Gift Card Minecraft"
-                        loading="lazy"
-                    >
-
-                    <span class="discount">-10%</span>
-
-                </div>
-
-                <div class="product-info">
-
-                    <span class="product-category">
-                        MINECRAFT
-                    </span>
-
-                    <h3>Gift Card</h3>
-
-                    <p class="description">
-                        Produto digital para Minecraft.
-                    </p>
-
-                    <div class="price">
-
-                        <del>R$ 89,90</del>
-
-                        <strong>R$ 79,90</strong>
-
-                        <span>Você economiza R$ 10,00</span>
-
-                    </div>
-
-                    <button
-                        type="button"
-                        class="buy-button"
-                        data-product="Gift Card Minecraft"
-                        data-price="79.90"
-                    >
-                        🛒 Adicionar ao carrinho
-                    </button>
-
-                </div>
-
-            </article>
-
-        </div>
-
-
-        <div id="no-results" class="no-results">
-
-            <div>🔎</div>
-
-            <h3>Nenhum produto encontrado</h3>
-
-            <p>
-                Tente pesquisar outro produto ou escolher outra categoria.
-            </p>
-
-            <button
-                type="button"
-                id="reset-products"
-                class="btn btn-secondary"
-            >
-                Ver todos os produtos
-            </button>
-
-        </div>
-
-    </section>
-
-
-    <!-- CONFIANÇA -->
-
-    <section class="trust-section">
-
-        <div class="section-title">
-
-            <span>POR QUE COMPRAR?</span>
-
-            <h2>Uma experiência simples para você</h2>
-
-            <p>
-                Tudo pensado para facilitar sua compra digital.
-            </p>
-
-        </div>
-
-        <div class="trust-grid">
-
-            <div class="trust-card">
-                <span>🔒</span>
-                <h3>Pagamento via PIX</h3>
-                <p>
-                    Uma opção prática para realizar seu pagamento.
-                </p>
-            </div>
-
-            <div class="trust-card">
-                <span>⚡</span>
-                <h3>Entrega digital</h3>
-                <p>
-                    Produtos digitais sem necessidade de envio físico.
-                </p>
-            </div>
-
-            <div class="trust-card">
-                <span>🎧</span>
-                <h3>Suporte</h3>
-                <p>
-                    Entre em contato quando precisar de ajuda.
-                </p>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- OFERTA -->
-
-    <section id="ofertas" class="offer">
-
-        <div class="offer-content">
-
-            <span>🔥 OFERTA ESPECIAL</span>
-
-            <h2>Economize nos seus jogos</h2>
-
-            <p>
-                Encontre produtos digitais com preços especiais.
-            </p>
+        <div class="hero-buttons">
 
             <a
                 href="#produtos"
                 class="btn btn-primary"
             >
-                Ver ofertas
-                <span>→</span>
+                Ver produtos
+            </a>
+
+
+            <a
+                href="#jogos"
+                class="btn btn-secondary"
+            >
+                Explorar jogos
             </a>
 
         </div>
 
-        <div class="offer-icon">
-            🔥
+    </div>
+
+
+    <div class="hero-visual">
+
+        <div class="fire-circle">
+
+            <div class="fire">
+                🔥
+            </div>
+
         </div>
 
-    </section>
+    </div>
 
-</main>
+</section>
 
 
-<!-- CARRINHO -->
+<!-- =========================================
+     BENEFÍCIOS
+========================================= -->
+
+<section class="benefits">
+
+    <div class="benefit">
+
+        <div class="benefit-icon">
+            ⚡
+        </div>
+
+        <div>
+            <h3>Entrega rápida</h3>
+            <p>Produtos digitais.</p>
+        </div>
+
+    </div>
+
+
+    <div class="benefit">
+
+        <div class="benefit-icon">
+            🔒
+        </div>
+
+        <div>
+            <h3>Compra segura</h3>
+            <p>Pagamento via PIX.</p>
+        </div>
+
+    </div>
+
+
+    <div class="benefit">
+
+        <div class="benefit-icon">
+            💎
+        </div>
+
+        <div>
+            <h3>Vários produtos</h3>
+            <p>Para seus jogos favoritos.</p>
+        </div>
+
+    </div>
+
+
+    <div class="benefit">
+
+        <div class="benefit-icon">
+            🎧
+        </div>
+
+        <div>
+            <h3>Suporte</h3>
+            <p>Atendimento ao cliente.</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     JOGOS
+========================================= -->
+
+<section
+    id="jogos"
+    class="section"
+>
+
+    <div class="section-title">
+
+        <span>CATEGORIAS</span>
+
+        <h2>Escolha seu jogo</h2>
+
+        <p>
+            Encontre rapidamente os produtos
+            do seu jogo favorito.
+        </p>
+
+    </div>
+
+
+    <div class="categories">
+
+
+        <button
+            type="button"
+            class="category"
+            onclick="filtrarProdutos('todos')"
+        >
+
+            <div class="category-icon">
+                🎮
+            </div>
+
+            <h3>Todos</h3>
+
+            <p>
+                Todos os produtos
+            </p>
+
+        </button>
+
+
+        <button
+            type="button"
+            class="category"
+            onclick="filtrarProdutos('freefire')"
+        >
+
+            <div class="category-icon">
+                🔥
+            </div>
+
+            <h3>Free Fire</h3>
+
+            <p>
+                Diamantes
+            </p>
+
+        </button>
+
+
+        <button
+            type="button"
+            class="category"
+            onclick="filtrarProdutos('fortnite')"
+        >
+
+            <div class="category-icon">
+                🟣
+            </div>
+
+            <h3>Fortnite</h3>
+
+            <p>
+                V-Bucks
+            </p>
+
+        </button>
+
+
+        <button
+            type="button"
+            class="category"
+            onclick="filtrarProdutos('roblox')"
+        >
+
+            <div class="category-icon">
+                🟦
+            </div>
+
+            <h3>Roblox</h3>
+
+            <p>
+                Robux
+            </p>
+
+        </button>
+
+
+        <button
+            type="button"
+            class="category"
+            onclick="filtrarProdutos('valorant')"
+        >
+
+            <div class="category-icon">
+                🎯
+            </div>
+
+            <h3>Valorant</h3>
+
+            <p>
+                VP
+            </p>
+
+        </button>
+
+
+        <button
+            type="button"
+            class="category"
+            onclick="filtrarProdutos('eafc')"
+        >
+
+            <div class="category-icon">
+                ⚽
+            </div>
+
+            <h3>EA Sports FC</h3>
+
+            <p>
+                FC Points
+            </p>
+
+        </button>
+
+
+        <button
+            type="button"
+            class="category"
+            onclick="filtrarProdutos('minecraft')"
+        >
+
+            <div class="category-icon">
+                🟩
+            </div>
+
+            <h3>Minecraft</h3>
+
+            <p>
+                Minecoins
+            </p>
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     PRODUTOS
+========================================= -->
+
+<section
+    id="produtos"
+    class="section products-section"
+>
+
+    <div class="section-title">
+
+        <span>LOJA</span>
+
+        <h2>Produtos</h2>
+
+        <p>
+            Escolha seu jogo e selecione o pacote desejado.
+        </p>
+
+    </div>
+
+
+    <!-- FILTROS -->
+
+    <div class="filters">
+
+        <button
+            type="button"
+            class="filter active"
+            data-filter="todos"
+            onclick="filtrarProdutos('todos', this)"
+        >
+            Todos
+        </button>
+
+
+        <button
+            type="button"
+            class="filter"
+            data-filter="freefire"
+            onclick="filtrarProdutos('freefire', this)"
+        >
+            🔥 Free Fire
+        </button>
+
+
+        <button
+            type="button"
+            class="filter"
+            data-filter="fortnite"
+            onclick="filtrarProdutos('fortnite', this)"
+        >
+            🟣 Fortnite
+        </button>
+
+
+        <button
+            type="button"
+            class="filter"
+            data-filter="roblox"
+            onclick="filtrarProdutos('roblox', this)"
+        >
+            🟦 Roblox
+        </button>
+
+
+        <button
+            type="button"
+            class="filter"
+            data-filter="valorant"
+            onclick="filtrarProdutos('valorant', this)"
+        >
+            🎯 Valorant
+        </button>
+
+
+        <button
+            type="button"
+            class="filter"
+            data-filter="eafc"
+            onclick="filtrarProdutos('eafc', this)"
+        >
+            ⚽ EA FC
+        </button>
+
+
+        <button
+            type="button"
+            class="filter"
+            data-filter="minecraft"
+            onclick="filtrarProdutos('minecraft', this)"
+        >
+            🟩 Minecraft
+        </button>
+
+    </div>
+
+
+    <!-- PRODUTOS GERADOS PELO JS -->
+
+    <div
+        id="products"
+        class="products"
+    ></div>
+
+
+    <div
+        id="no-results"
+        class="no-results"
+    >
+
+        <div class="no-results-icon">
+            🔎
+        </div>
+
+        <h3>
+            Nenhum produto encontrado
+        </h3>
+
+        <p>
+            Tente pesquisar outro produto ou jogo.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     CONFIANÇA
+========================================= -->
+
+<section class="trust-section">
+
+    <div class="section-title">
+
+        <span>POR QUE COMPRAR?</span>
+
+        <h2>
+            Feito para você comprar com tranquilidade
+        </h2>
+
+    </div>
+
+
+    <div class="trust-grid">
+
+        <div class="trust-card">
+
+            <span>🔒</span>
+
+            <h3>
+                Pagamento via PIX
+            </h3>
+
+            <p>
+                Pagamento simples e rápido.
+            </p>
+
+        </div>
+
+
+        <div class="trust-card">
+
+            <span>⚡</span>
+
+            <h3>
+                Entrega digital
+            </h3>
+
+            <p>
+                Produtos digitais sem envio físico.
+            </p>
+
+        </div>
+
+
+        <div class="trust-card">
+
+            <span>🎧</span>
+
+            <h3>
+                Suporte
+            </h3>
+
+            <p>
+                Entre em contato quando precisar.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     OFERTA
+========================================= -->
+
+<section
+    id="ofertas"
+    class="offer"
+>
+
+    <div>
+
+        <span>
+            🔥 OFERTA ESPECIAL
+        </span>
+
+        <h2>
+            Até 50% OFF
+        </h2>
+
+        <p>
+            Aproveite nossas ofertas digitais.
+        </p>
+
+        <a
+            href="#produtos"
+            class="btn btn-primary"
+        >
+            Ver ofertas
+        </a>
+
+    </div>
+
+
+    <div class="offer-icon">
+        🔥
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     CARRINHO
+========================================= -->
 
 <div
     id="cart-modal"
     class="modal"
-    aria-hidden="true"
 >
 
-    <aside
-        class="cart"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="cart-title"
-    >
+    <div class="cart">
 
         <button
             type="button"
             class="close"
-            id="close-cart"
+            onclick="fecharCarrinho()"
             aria-label="Fechar carrinho"
         >
             ×
         </button>
 
-        <div class="cart-header">
 
-            <span class="cart-label">SEU PEDIDO</span>
+        <h2>
+            🛒 Seu carrinho
+        </h2>
 
-            <h2 id="cart-title">🛒 Carrinho</h2>
-
-            <p id="cart-subtitle">
-                Confira seus produtos antes de continuar.
-            </p>
-
-        </div>
 
         <div id="cart-items"></div>
 
-        <div
-            id="cart-summary"
-            class="cart-summary"
-        >
 
-            <div>
-                <span>Itens</span>
-                <strong id="cart-items-total">0</strong>
-            </div>
+        <div class="cart-total">
 
-            <div>
-                <span>Subtotal</span>
-                <strong id="cart-total">R$ 0,00</strong>
-            </div>
+            <span>
+                Total
+            </span>
+
+            <strong id="cart-total">
+                R$ 0,00
+            </strong>
 
         </div>
+
 
         <button
             type="button"
             class="checkout"
-            id="checkout-button"
+            onclick="finalizarCompra()"
         >
-            Continuar para pagamento
-            <span>→</span>
+            Finalizar compra
         </button>
 
-        <button
-            type="button"
-            class="continue-shopping"
-            id="continue-shopping"
-        >
-            Continuar comprando
-        </button>
-
-    </aside>
+    </div>
 
 </div>
 
 
-<!-- PIX -->
+<!-- =========================================
+     CHECKOUT
+========================================= -->
 
 <div
     id="pix-modal"
     class="modal checkout-modal"
-    aria-hidden="true"
 >
 
-    <div
-        class="pix-checkout"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="pix-title"
-    >
+    <div class="pix-checkout">
 
         <button
             type="button"
             class="close"
-            id="close-pix"
-            aria-label="Fechar pagamento"
+            onclick="fecharPix()"
+            aria-label="Fechar"
         >
             ×
         </button>
 
+
         <div class="pix-header">
 
-            <span class="pix-icon">💠</span>
-
-            <span class="checkout-step">
-                ETAPA FINAL
+            <span class="pix-icon">
+                💠
             </span>
 
-            <h2 id="pix-title">
-                Pagamento via PIX
+            <h2>
+                Finalizar pedido
             </h2>
 
             <p>
-                Realize o pagamento usando a chave abaixo.
+                Confira seus dados antes de realizar o PIX.
             </p>
 
         </div>
 
-        <div class="checkout-progress">
-            <span class="done">1</span>
-            <i></i>
-            <span class="active">2</span>
-            <i></i>
-            <span>3</span>
-        </div>
+
+        <!-- PEDIDO -->
 
         <div class="order-box">
 
-            <span>Pedido</span>
+            <span>
+                Pedido
+            </span>
 
-            <strong id="order-number">—</strong>
+            <strong id="order-number">
+                —
+            </strong>
 
         </div>
+
+
+        <!-- DADOS DO JOGADOR -->
+
+        <div class="player-data">
+
+            <h3>
+                🎮 Dados da conta
+            </h3>
+
+            <p>
+                Informe os dados necessários para a entrega.
+            </p>
+
+
+            <label for="player-name">
+                Nome / Nick
+            </label>
+
+            <input
+                id="player-name"
+                type="text"
+                placeholder="Ex: João123"
+                maxlength="60"
+            >
+
+
+            <label for="player-id">
+                ID do jogador
+            </label>
+
+            <input
+                id="player-id"
+                type="text"
+                placeholder="Ex: 123456789"
+                maxlength="40"
+            >
+
+
+            <small>
+                Nunca informe sua senha.
+            </small>
+
+        </div>
+
+
+        <!-- RESUMO -->
+
+        <div class="order-summary">
+
+            <h3>
+                📦 Resumo do pedido
+            </h3>
+
+            <div id="checkout-items"></div>
+
+        </div>
+
+
+        <!-- TOTAL -->
 
         <div class="pix-total">
 
-            <span>Valor do pedido</span>
+            <span>
+                Valor do pedido
+            </span>
 
-            <strong id="pix-total">R$ 0,00</strong>
+            <strong id="pix-total">
+                R$ 0,00
+            </strong>
 
         </div>
 
+
+        <!-- PIX -->
+
         <div class="pix-key-box">
 
-            <span>Chave PIX</span>
+            <span>
+                Chave PIX
+            </span>
+
 
             <div class="pix-key-row">
 
                 <code id="pix-key">
-                    —
+                    53997094670
                 </code>
+
 
                 <button
                     type="button"
-                    id="copy-pix"
+                    onclick="copiarPix()"
                 >
                     📋 Copiar
                 </button>
@@ -1053,9 +857,15 @@
 
         </div>
 
+
+        <!-- INSTRUÇÕES -->
+
         <div class="pix-instructions">
 
-            <h3>Como pagar</h3>
+            <h3>
+                Como pagar
+            </h3>
+
 
             <ol>
 
@@ -1068,28 +878,38 @@
                 </li>
 
                 <li>
-                    Copie a chave acima.
+                    Copie a chave PIX acima.
                 </li>
 
                 <li>
-                    Confira o valor e faça o pagamento.
+                    Confira o valor.
+                </li>
+
+                <li>
+                    Realize o pagamento.
+                </li>
+
+                <li>
+                    Envie o comprovante ao suporte.
                 </li>
 
             </ol>
 
         </div>
 
+
         <button
             type="button"
             class="payment-done"
-            id="payment-done"
+            onclick="pagamentoRealizado()"
         >
             ✅ Já fiz o pagamento
         </button>
 
+
         <p class="checkout-warning">
-            O aviso de pagamento não confirma automaticamente a transação.
-            A confirmação deverá ser feita pelo responsável pela loja.
+            Após o pagamento, aguarde a confirmação.
+            Nunca envie sua senha do jogo.
         </p>
 
     </div>
@@ -1097,55 +917,71 @@
 </div>
 
 
-<!-- TOAST -->
-
-<div
-    id="toast-container"
-    class="toast-container"
-    aria-live="polite"
-    aria-atomic="true"
-></div>
-
-
-<!-- FOOTER -->
+<!-- =========================================
+     FOOTER
+========================================= -->
 
 <footer>
 
     <div class="footer-content">
 
-        <div class="footer-brand">
+
+        <div>
 
             <div class="logo">
                 <span>FENIX</span> STORE
             </div>
 
             <p>
-                Produtos digitais para seus jogos favoritos.
+                Produtos digitais para jogos online.
             </p>
 
         </div>
 
+
         <div>
 
-            <h3>Jogos</h3>
+            <h3>
+                Jogos
+            </h3>
 
-            <a href="#jogos">Free Fire</a>
-            <a href="#jogos">Fortnite</a>
-            <a href="#jogos">Roblox</a>
-            <a href="#jogos">Valorant</a>
+            <a href="#produtos">
+                Free Fire
+            </a>
+
+            <a href="#produtos">
+                Fortnite
+            </a>
+
+            <a href="#produtos">
+                Roblox
+            </a>
+
+            <a href="#produtos">
+                Valorant
+            </a>
 
         </div>
 
+
         <div>
 
-            <h3>Atendimento</h3>
+            <h3>
+                Atendimento
+            </h3>
 
-            <p>Suporte online</p>
-            <p>Segunda a sexta</p>
+            <p>
+                Suporte online
+            </p>
+
+            <p>
+                Segunda a sexta
+            </p>
 
         </div>
 
     </div>
+
 
     <div class="copyright">
 
@@ -1160,5 +996,5 @@
 <script src="./script.js"></script>
 
 </body>
+
 </html>
-```
