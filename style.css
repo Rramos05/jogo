@@ -2188,6 +2188,161 @@ footer {
     .product-image {
         height: 210px;
     }
+    /* =========================================================
+   ALTERAÇÕES FENIX STORE
+   Preço oficial/base + R$ 2,00
+   ========================================================= */
+
+/* Remove visualmente qualquer desconto antigo */
+.discount {
+    display: none !important;
+}
+
+/* O preço agora aparece sozinho */
+.price {
+    display: block;
+    margin-bottom: 15px;
+}
+
+.price del {
+    display: none !important;
+}
+
+.price strong {
+    display: block;
+    font-size: 23px;
+    font-weight: 900;
+    color: #ffffff;
+}
+
+/* Destaque no preço */
+.product:hover .price strong {
+    color: #c4b5fd;
+}
+
+/* Carrinho vazio */
+.empty-cart {
+    text-align: center;
+    padding: 70px 20px;
+    color: #777f96;
+}
+
+.empty-cart-icon {
+    width: 75px;
+    height: 75px;
+    margin: 0 auto 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 20px;
+
+    background: rgba(124, 58, 237, .12);
+    border: 1px solid rgba(167, 139, 250, .15);
+
+    font-size: 34px;
+}
+
+.empty-cart h3 {
+    color: #ffffff;
+    margin-bottom: 8px;
+    font-size: 17px;
+}
+
+.empty-cart p {
+    color: #777f96;
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   BOTÃO DE COMPRA
+   ========================================================= */
+
+.buy-button {
+    position: relative;
+    overflow: hidden;
+}
+
+.buy-button::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+
+    width: 60%;
+    height: 100%;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.18),
+        transparent
+    );
+
+    transform: skewX(-20deg);
+    transition: .5s;
+}
+
+.buy-button:hover::after {
+    left: 130%;
+}
+
+
+/* =========================================================
+   CART COUNT
+   ========================================================= */
+
+#cart-count {
+    transition: transform .2s ease;
+}
+
+.cart-button:hover #cart-count {
+    transform: scale(1.12);
+}
+
+
+/* =========================================================
+   PRODUTO COM PREÇO NOVO
+   ========================================================= */
+
+.product .price strong {
+    background: linear-gradient(
+        90deg,
+        #ffffff,
+        #c4b5fd
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+
+/* =========================================================
+   MODAIS
+   ========================================================= */
+
+body.modal-open {
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   RESPONSIVO EXTRA
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .product .price strong {
+        font-size: 21px;
+    }
+
+    .empty-cart {
+        padding: 50px 15px;
+    }
+}
 
     .cart {
         padding: 22px;
