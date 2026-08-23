@@ -567,7 +567,7 @@ function finalizarCompra() {
        =====================================
     */
 
-    const chavePix = "SUA-CHAVE-PIX-AQUI";
+    const chavePix ="00020101021126330014br.gov.bcb.pix0111057474980295204000053039865802BR5915RUAN R BARANANO6011HULHA NEGRA62070503***63040A51";
 
 
     const valor = formatarPreco(total);
