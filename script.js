@@ -1,5 +1,6 @@
 /* =========================================
    FENIX STORE - SCRIPT
+   VERSÃO COM + R$ 2,00 SOBRE O PREÇO BASE
 ========================================= */
 
 
@@ -8,6 +9,15 @@
 ========================================= */
 
 const CHAVE_PIX = "53997094670";
+
+/*
+    VALOR ADICIONAL DA FENIX STORE
+
+    Exemplo:
+    preço base = R$ 10,00
+    preço Fenix = R$ 12,00
+*/
+const TAXA_FENIX = 2.00;
 
 let carrinho = [];
 
@@ -22,7 +32,8 @@ let pesquisaAtual = "";
 
 try {
 
-    const salvo = localStorage.getItem("fenix_carrinho");
+    const salvo =
+        localStorage.getItem("fenix_carrinho");
 
     if (salvo) {
         carrinho = JSON.parse(salvo);
@@ -45,7 +56,21 @@ try {
 
 document.addEventListener("DOMContentLoaded", () => {
 
+    /*
+        Primeiro atualizamos os preços dos produtos.
+    */
+    atualizarPrecosProdutos();
+
+
+    /*
+        Depois carregamos o carrinho.
+    */
     atualizarCarrinho();
+
+
+    /* =====================================
+       CHAVE PIX
+    ===================================== */
 
     const pixKey =
         document.getElementById("pix-key");
@@ -54,6 +79,10 @@ document.addEventListener("DOMContentLoaded", () => {
         pixKey.textContent = CHAVE_PIX;
     }
 
+
+    /* =====================================
+       PESQUISA
+    ===================================== */
 
     const searchInput =
         document.getElementById("search-input");
@@ -67,6 +96,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
+
+    /* =====================================
+       MODAL CARRINHO
+    ===================================== */
 
     const cartModal =
         document.getElementById("cart-modal");
@@ -87,6 +120,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+    /* =====================================
+       MODAL PIX
+    ===================================== */
+
     const pixModal =
         document.getElementById("pix-modal");
 
@@ -106,13 +143,212 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+    /* =====================================
+       FILTROS
+    ===================================== */
+
     aplicarFiltros();
 
 });
 
 
 /* =========================================
-   SALVAR
+   PREÇOS
+========================================= */
+
+/*
+    Lê o preço original que está no <del>
+    e acrescenta R$ 2,00.
+
+    Exemplo:
+
+    HTML:
+    <del>R$ 25,00</del>
+
+    Resultado:
+    R$ 27,00
+*/
+
+function obterPrecoBaseProduto(produto) {
+
+    if (!produto) {
+        return 0;
+    }
+
+
+    const elemento =
+        produto.querySelector(".price del");
+
+
+    if (!elemento) {
+        return 0;
+    }
+
+
+    const texto =
+        elemento.textContent
+            .replace(/[^\d,.-]/g, "")
+            .replace(/\./g, "")
+            .replace(",", ".");
+
+
+    const preco =
+        Number(texto);
+
+
+    if (!Number.isFinite(preco)) {
+        return 0;
+    }
+
+
+    return preco;
+
+}
+
+
+/*
+    Retorna o preço final da Fenix.
+*/
+
+function obterPrecoFinalProduto(produto) {
+
+    const precoBase =
+        obterPrecoBaseProduto(produto);
+
+
+    return precoBase + TAXA_FENIX;
+
+}
+
+
+/*
+    Atualiza TODOS os preços automaticamente.
+
+    Também substitui o onclick antigo dos botões.
+*/
+
+function atualizarPrecosProdutos() {
+
+    const produtos =
+        document.querySelectorAll(".product");
+
+
+    produtos.forEach(produto => {
+
+        const precoBase =
+            obterPrecoBaseProduto(produto);
+
+
+        if (!Number.isFinite(precoBase)) {
+            return;
+        }
+
+
+        const precoFinal =
+            precoBase + TAXA_FENIX;
+
+
+        /* =================================
+           ELEMENTOS DE PREÇO
+        ================================= */
+
+        const preco =
+            produto.querySelector(".price");
+
+
+        if (preco) {
+
+            /*
+                Não usamos mais "desconto".
+                O valor anterior passa a ser
+                apenas a referência/base.
+            */
+
+            preco.innerHTML = `
+
+                <span class="price-label">
+                    Preço normal
+                </span>
+
+                <strong>
+                    R$ ${formatarPreco(precoFinal)}
+                </strong>
+
+            `;
+
+        }
+
+
+        /* =================================
+           REMOVE BADGE DE DESCONTO
+        ================================= */
+
+        const desconto =
+            produto.querySelector(".discount");
+
+
+        if (desconto) {
+            desconto.remove();
+        }
+
+
+        /* =================================
+           BOTÃO DE COMPRA
+        ================================= */
+
+        const botao =
+            produto.querySelector(".buy-button");
+
+
+        if (botao) {
+
+            const nome =
+                produto.querySelector("h3")
+                    ?.textContent
+                    ?.trim() || "Produto";
+
+
+            /*
+                Guardamos o preço no elemento.
+            */
+
+            botao.dataset.price =
+                precoFinal.toFixed(2);
+
+
+            botao.dataset.productName =
+                nome;
+
+
+            /*
+                Remove o onclick antigo.
+            */
+
+            botao.removeAttribute("onclick");
+
+
+            /*
+                Novo evento.
+            */
+
+            botao.onclick = () => {
+
+                adicionarCarrinho(
+                    nome,
+                    precoFinal
+                );
+
+            };
+
+        }
+
+    });
+
+}
+
+
+/* =========================================
+   SALVAR CARRINHO
 ========================================= */
 
 function salvarCarrinho() {
@@ -165,28 +401,44 @@ function fecharCarrinho() {
 
 
 /* =========================================
-   ADICIONAR
+   ADICIONAR AO CARRINHO
 ========================================= */
 
 function adicionarCarrinho(nome, preco) {
 
     preco = Number(preco);
 
-    if (!nome || !Number.isFinite(preco)) {
+
+    if (
+        !nome ||
+        !Number.isFinite(preco) ||
+        preco < 0
+    ) {
         return;
     }
 
 
     const existente =
         carrinho.find(
-            produto => produto.nome === nome
+            produto =>
+                produto.nome === nome
         );
 
 
     if (existente) {
 
         existente.quantidade =
-            Number(existente.quantidade || 1) + 1;
+            Number(
+                existente.quantidade || 1
+            ) + 1;
+
+
+        /*
+            Garante que o preço atualizado
+            continue sendo usado.
+        */
+
+        existente.preco = preco;
 
     } else {
 
@@ -255,23 +507,33 @@ function atualizarCarrinho() {
         const quantidade =
             Math.max(
                 1,
-                Number(produto.quantidade || 1)
+                Number(
+                    produto.quantidade || 1
+                )
             );
 
+
         const preco =
-            Number(produto.preco || 0);
+            Number(
+                produto.preco || 0
+            );
 
 
-        total += preco * quantidade;
+        total +=
+            preco * quantidade;
 
-        quantidadeTotal += quantidade;
+
+        quantidadeTotal +=
+            quantidade;
 
     });
 
 
     if (contador) {
+
         contador.textContent =
             quantidadeTotal;
+
     }
 
 
@@ -285,31 +547,25 @@ function atualizarCarrinho() {
     }
 
 
+    /* =====================================
+       CARRINHO VAZIO
+    ===================================== */
+
     if (carrinho.length === 0) {
 
         container.innerHTML = `
 
-            <div style="
-                text-align:center;
-                padding:55px 10px;
-                color:#777f96;
-            ">
+            <div class="cart-empty">
 
-                <div style="
-                    font-size:50px;
-                    margin-bottom:15px;
-                ">
+                <div class="cart-empty-icon">
                     🛒
                 </div>
 
-                <h3 style="
-                    color:white;
-                    margin-bottom:8px;
-                ">
+                <h3>
                     Seu carrinho está vazio
                 </h3>
 
-                <p style="font-size:13px;">
+                <p>
                     Adicione um produto para começar.
                 </p>
 
@@ -320,81 +576,102 @@ function atualizarCarrinho() {
     }
 
 
-    carrinho.forEach((produto, index) => {
+    /* =====================================
+       PRODUTOS DO CARRINHO
+    ===================================== */
 
-        const quantidade =
-            Number(produto.quantidade || 1);
+    carrinho.forEach(
+        (produto, index) => {
 
-        const subtotal =
-            Number(produto.preco || 0) *
-            quantidade;
-
-
-        const item =
-            document.createElement("div");
-
-
-        item.className = "cart-item";
+            const quantidade =
+                Math.max(
+                    1,
+                    Number(
+                        produto.quantidade || 1
+                    )
+                );
 
 
-        item.innerHTML = `
+            const subtotal =
+                Number(
+                    produto.preco || 0
+                ) * quantidade;
 
-            <div>
 
-                <div class="cart-item-name">
-                    ${escaparHTML(produto.nome)}
+            const item =
+                document.createElement("div");
+
+
+            item.className =
+                "cart-item";
+
+
+            item.innerHTML = `
+
+                <div class="cart-item-content">
+
+                    <div class="cart-item-name">
+                        ${escaparHTML(
+                            produto.nome
+                        )}
+                    </div>
+
+                    <div class="cart-item-price">
+                        R$ ${formatarPreco(subtotal)}
+                    </div>
+
+                    <div class="cart-actions">
+
+                        <button
+                            type="button"
+                            class="quantity-button"
+                            onclick="alterarQuantidade(${index}, -1)"
+                        >
+                            −
+                        </button>
+
+                        <span class="quantity-number">
+                            ${quantidade}
+                        </span>
+
+                        <button
+                            type="button"
+                            class="quantity-button"
+                            onclick="alterarQuantidade(${index}, 1)"
+                        >
+                            +
+                        </button>
+
+                        <button
+                            type="button"
+                            class="remove-button"
+                            onclick="removerProduto(${index})"
+                        >
+                            Remover
+                        </button>
+
+                    </div>
+
                 </div>
 
-                <div class="cart-item-price">
-                    R$ ${formatarPreco(subtotal)}
-                </div>
-
-                <div class="cart-actions">
-
-                    <button
-                        type="button"
-                        class="quantity-button"
-                        onclick="alterarQuantidade(${index}, -1)"
-                    >
-                        −
-                    </button>
-
-                    <span class="quantity-number">
-                        ${quantidade}
-                    </span>
-
-                    <button
-                        type="button"
-                        class="quantity-button"
-                        onclick="alterarQuantidade(${index}, 1)"
-                    >
-                        +
-                    </button>
-
-                    <button
-                        type="button"
-                        class="remove-button"
-                        onclick="removerProduto(${index})"
-                    >
-                        Remover
-                    </button>
-
-                </div>
-
-            </div>
-
-        `;
+            `;
 
 
-        container.appendChild(item);
+            container.appendChild(item);
 
-    });
+        }
+    );
 
+
+    /* =====================================
+       TOTAL
+    ===================================== */
 
     if (totalElement) {
 
         totalElement.textContent =
-            "R$ " + formatarPreco(total);
+            "R$ " +
+            formatarPreco(total);
 
     }
 
@@ -413,14 +690,19 @@ function alterarQuantidade(index, valor) {
 
 
     const quantidadeAtual =
-        Number(carrinho[index].quantidade || 1);
+        Number(
+            carrinho[index].quantidade || 1
+        );
 
 
     carrinho[index].quantidade =
-        quantidadeAtual + Number(valor);
+        quantidadeAtual +
+        Number(valor);
 
 
-    if (carrinho[index].quantidade <= 0) {
+    if (
+        carrinho[index].quantidade <= 0
+    ) {
 
         carrinho.splice(index, 1);
 
@@ -435,7 +717,7 @@ function alterarQuantidade(index, valor) {
 
 
 /* =========================================
-   REMOVER
+   REMOVER PRODUTO
 ========================================= */
 
 function removerProduto(index) {
@@ -451,9 +733,11 @@ function removerProduto(index) {
 
     carrinho.splice(index, 1);
 
+
     salvarCarrinho();
 
     atualizarCarrinho();
+
 
     mostrarToast(
         `${nome} removido do carrinho.`
@@ -472,10 +756,19 @@ function obterTotal() {
         (total, produto) => {
 
             const preco =
-                Number(produto.preco || 0);
+                Number(
+                    produto.preco || 0
+                );
+
 
             const quantidade =
-                Number(produto.quantidade || 1);
+                Math.max(
+                    1,
+                    Number(
+                        produto.quantidade || 1
+                    )
+                );
+
 
             return total +
                 preco * quantidade;
@@ -507,11 +800,31 @@ function formatarPreco(valor) {
 function escaparHTML(texto) {
 
     return String(texto)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
@@ -523,7 +836,9 @@ function escaparHTML(texto) {
 function animarContador() {
 
     const contador =
-        document.getElementById("cart-count");
+        document.getElementById(
+            "cart-count"
+        );
 
 
     if (!contador) {
@@ -534,23 +849,30 @@ function animarContador() {
     contador.animate(
 
         [
+
             {
-                transform: "scale(1)"
+                transform:
+                    "scale(1)"
             },
 
             {
-                transform: "scale(1.45)"
+                transform:
+                    "scale(1.45)"
             },
 
             {
-                transform: "scale(1)"
+                transform:
+                    "scale(1)"
             }
 
         ],
 
         {
+
             duration: 400,
+
             easing: "ease-out"
+
         }
 
     );
@@ -570,11 +892,15 @@ function filtrarProdutos(
     filtroAtual =
         categoria || "todos";
 
+
     pesquisaAtual = "";
 
 
     const input =
-        document.getElementById("search-input");
+        document.getElementById(
+            "search-input"
+        );
+
 
     if (input) {
         input.value = "";
@@ -585,19 +911,25 @@ function filtrarProdutos(
         .querySelectorAll(".filter")
         .forEach(filtro => {
 
-            filtro.classList.remove("active");
+            filtro.classList.remove(
+                "active"
+            );
 
         });
 
 
     if (botao) {
 
-        botao.classList.add("active");
+        botao.classList.add(
+            "active"
+        );
 
     } else {
 
         const filtros =
-            document.querySelectorAll(".filter");
+            document.querySelectorAll(
+                ".filter"
+            );
 
 
         filtros.forEach(filtro => {
@@ -612,61 +944,81 @@ function filtrarProdutos(
                 texto.includes("todos")
             ) {
 
-                filtro.classList.add("active");
+                filtro.classList.add(
+                    "active"
+                );
 
             }
+
 
             if (
                 categoria === "freefire" &&
                 texto.includes("free fire")
             ) {
 
-                filtro.classList.add("active");
+                filtro.classList.add(
+                    "active"
+                );
 
             }
+
 
             if (
                 categoria === "fortnite" &&
                 texto.includes("fortnite")
             ) {
 
-                filtro.classList.add("active");
+                filtro.classList.add(
+                    "active"
+                );
 
             }
+
 
             if (
                 categoria === "roblox" &&
                 texto.includes("roblox")
             ) {
 
-                filtro.classList.add("active");
+                filtro.classList.add(
+                    "active"
+                );
 
             }
+
 
             if (
                 categoria === "valorant" &&
                 texto.includes("valorant")
             ) {
 
-                filtro.classList.add("active");
+                filtro.classList.add(
+                    "active"
+                );
 
             }
+
 
             if (
                 categoria === "eafc" &&
                 texto.includes("ea fc")
             ) {
 
-                filtro.classList.add("active");
+                filtro.classList.add(
+                    "active"
+                );
 
             }
+
 
             if (
                 categoria === "minecraft" &&
                 texto.includes("minecraft")
             ) {
 
-                filtro.classList.add("active");
+                filtro.classList.add(
+                    "active"
+                );
 
             }
 
@@ -679,14 +1031,21 @@ function filtrarProdutos(
 
 
     const section =
-        document.getElementById("produtos");
+        document.getElementById(
+            "produtos"
+        );
 
 
     if (section) {
 
         section.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
+
+            behavior:
+                "smooth",
+
+            block:
+                "start"
+
         });
 
     }
@@ -701,7 +1060,9 @@ function filtrarProdutos(
 function aplicarFiltros() {
 
     const produtos =
-        document.querySelectorAll(".product");
+        document.querySelectorAll(
+            ".product"
+        );
 
 
     let encontrados = 0;
@@ -737,13 +1098,15 @@ function aplicarFiltros() {
 
         if (mostrar) {
 
-            produto.style.display = "";
+            produto.style.display =
+                "";
 
             encontrados++;
 
         } else {
 
-            produto.style.display = "none";
+            produto.style.display =
+                "none";
 
         }
 
@@ -751,7 +1114,9 @@ function aplicarFiltros() {
 
 
     const noResults =
-        document.getElementById("no-results");
+        document.getElementById(
+            "no-results"
+        );
 
 
     if (noResults) {
@@ -773,7 +1138,9 @@ function aplicarFiltros() {
 function abrirPesquisa() {
 
     const box =
-        document.getElementById("search-box");
+        document.getElementById(
+            "search-box"
+        );
 
 
     if (!box) {
@@ -781,13 +1148,21 @@ function abrirPesquisa() {
     }
 
 
-    box.classList.toggle("active");
+    box.classList.toggle(
+        "active"
+    );
 
 
-    if (box.classList.contains("active")) {
+    if (
+        box.classList.contains(
+            "active"
+        )
+    ) {
 
         const input =
-            document.getElementById("search-input");
+            document.getElementById(
+                "search-input"
+            );
 
 
         if (input) {
@@ -802,11 +1177,15 @@ function abrirPesquisa() {
 function fecharPesquisa() {
 
     const box =
-        document.getElementById("search-box");
+        document.getElementById(
+            "search-box"
+        );
 
 
     if (box) {
-        box.classList.remove("active");
+        box.classList.remove(
+            "active"
+        );
     }
 
 }
@@ -815,7 +1194,9 @@ function fecharPesquisa() {
 function pesquisarProduto() {
 
     const input =
-        document.getElementById("search-input");
+        document.getElementById(
+            "search-input"
+        );
 
 
     if (!input) {
@@ -835,14 +1216,21 @@ function pesquisarProduto() {
     if (pesquisaAtual) {
 
         const section =
-            document.getElementById("produtos");
+            document.getElementById(
+                "produtos"
+            );
 
 
         if (section) {
 
             section.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
+
+                behavior:
+                    "smooth",
+
+                block:
+                    "start"
+
             });
 
         }
@@ -878,21 +1266,28 @@ function finalizarCompra() {
 
 
     const totalElement =
-        document.getElementById("pix-total");
+        document.getElementById(
+            "pix-total"
+        );
 
 
     const pedidoElement =
-        document.getElementById("order-number");
+        document.getElementById(
+            "order-number"
+        );
 
 
     const chaveElement =
-        document.getElementById("pix-key");
+        document.getElementById(
+            "pix-key"
+        );
 
 
     if (totalElement) {
 
         totalElement.textContent =
-            "R$ " + formatarPreco(total);
+            "R$ " +
+            formatarPreco(total);
 
     }
 
@@ -917,12 +1312,16 @@ function finalizarCompra() {
 
 
     const pixModal =
-        document.getElementById("pix-modal");
+        document.getElementById(
+            "pix-modal"
+        );
 
 
     if (pixModal) {
 
-        pixModal.classList.add("active");
+        pixModal.classList.add(
+            "active"
+        );
 
     }
 
@@ -936,12 +1335,16 @@ function finalizarCompra() {
 function fecharPix() {
 
     const modal =
-        document.getElementById("pix-modal");
+        document.getElementById(
+            "pix-modal"
+        );
 
 
     if (modal) {
 
-        modal.classList.remove("active");
+        modal.classList.remove(
+            "active"
+        );
 
     }
 
@@ -956,6 +1359,7 @@ async function copiarPix() {
             CHAVE_PIX
         );
 
+
         mostrarToast(
             "Chave PIX copiada!"
         );
@@ -963,18 +1367,27 @@ async function copiarPix() {
     } catch (erro) {
 
         const area =
-            document.createElement("textarea");
+            document.createElement(
+                "textarea"
+            );
 
 
         area.value =
             CHAVE_PIX;
 
 
-        document.body.appendChild(area);
+        document.body.appendChild(
+            area
+        );
+
 
         area.select();
 
-        document.execCommand("copy");
+
+        document.execCommand(
+            "copy"
+        );
+
 
         area.remove();
 
@@ -996,8 +1409,8 @@ function gerarNumeroPedido() {
 
     const agora =
         Date.now()
-        .toString()
-        .slice(-8);
+            .toString()
+            .slice(-8);
 
 
     return "FNX-" + agora;
@@ -1014,13 +1427,18 @@ function pagamentoRealizado() {
     const pedido =
         document.getElementById(
             "order-number"
-        )?.textContent || "FNX";
+        )?.textContent ||
+        "FNX";
 
 
     mostrarToast(
-        "Pagamento informado. Pedido " +
+
+        "Pagamento informado. " +
+        "Pedido " +
         pedido +
-        ". Entre em contato com o suporte para confirmação."
+        ". Entre em contato com " +
+        "o suporte para confirmação."
+
     );
 
 }
@@ -1036,7 +1454,9 @@ let toastTimer = null;
 function mostrarToast(mensagem) {
 
     const toast =
-        document.getElementById("toast");
+        document.getElementById(
+            "toast"
+        );
 
 
     if (!toast) {
@@ -1048,16 +1468,22 @@ function mostrarToast(mensagem) {
         mensagem;
 
 
-    toast.classList.add("show");
+    toast.classList.add(
+        "show"
+    );
 
 
-    clearTimeout(toastTimer);
+    clearTimeout(
+        toastTimer
+    );
 
 
     toastTimer =
         setTimeout(() => {
 
-            toast.classList.remove("show");
+            toast.classList.remove(
+                "show"
+            );
 
         }, 2800);
 
