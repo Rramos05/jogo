@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NEXUS STORE</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- CABEÇALHO -->
+    <header class="header">
+
+        <div class="logo">
+            <span>NEXUS</span> STORE
+        </div>
+
+        <nav class="menu">
+            <a href="#inicio">Início</a>
+            <a href="#produtos">Produtos</a>
+            <a href="#categorias">Categorias</a>
+            <a href="#ofertas">Ofertas</a>
+        </nav>
+
+        <div class="header-actions">
+
+            <button class="search-button" onclick="abrirPesquisa()">
+                🔎
+            </button>
+
+            <button class="cart-button" onclick="abrirCarrinho()">
+                🛒
+                <span id="cart-count">0</span>
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- PESQUISA -->
+    <div id="search-box" class="search-box">
+
+        <input
+            type="text"
+            id="search-input"
+            placeholder="Pesquisar produtos..."
+            onkeyup="pesquisarProduto()"
+        >
+
+    </div>
+
+
+    <!-- HERO -->
+    <main>
+
+        <section id="inicio" class="hero">
+
+            <div class="hero-content">
+
+                <span class="hero-tag">
+                    🔥 OFERTAS EXCLUSIVAS
+                </span>
+
+                <h1>
+                    A melhor loja para
+                    <strong>gamers.</strong>
+                </h1>
+
+                <p>
+                    Encontre jogos, acessórios e produtos digitais
+                    com preços especiais.
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a href="#produtos" class="btn-primary">
+                        Comprar agora
+                    </a>
+
+                    <a href="#categorias" class="btn-secondary">
+                        Ver categorias
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="hero-image">
+                🎮
+            </div>
+
+        </section>
+
+
+        <!-- BENEFÍCIOS -->
+        <section class="benefits">
+
+            <div class="benefit">
+                <span>🚀</span>
+                <div>
+                    <h3>Entrega rápida</h3>
+                    <p>Receba seu produto rapidamente.</p>
+                </div>
+            </div>
+
+            <div class="benefit">
+                <span>🔒</span>
+                <div>
+                    <h3>Compra segura</h3>
+                    <p>Seus dados protegidos.</p>
+                </div>
+            </div>
+
+            <div class="benefit">
+                <span>💳</span>
+                <div>
+                    <h3>Pagamento fácil</h3>
+                    <p>Várias formas de pagamento.</p>
+                </div>
+            </div>
+
+            <div class="benefit">
+                <span>🎧</span>
+                <div>
+                    <h3>Suporte</h3>
+                    <p>Atendimento para você.</p>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- CATEGORIAS -->
+        <section id="categorias" class="section">
+
+            <div class="section-title">
+                <span>CATEGORIAS</span>
+                <h2>Encontre o que procura</h2>
+            </div>
+
+            <div class="categories">
+
+                <div class="category">
+                    <div class="category-icon">🎮</div>
+                    <h3>Jogos</h3>
+                    <p>Os melhores jogos</p>
+                </div>
+
+                <div class="category">
+                    <div class="category-icon">🕹️</div>
+                    <h3>Consoles</h3>
+                    <p>Consoles e acessórios</p>
+                </div>
+
+                <div class="category">
+                    <div class="category-icon">🎧</div>
+                    <h3>Acessórios</h3>
+                    <p>Equipamentos gamer</p>
+                </div>
+
+                <div class="category">
+                    <div class="category-icon">💻</div>
+                    <h3>PC Gamer</h3>
+                    <p>Produtos para computador</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PRODUTOS -->
+        <section id="produtos" class="section products-section">
+
+            <div class="section-title">
+
+                <span>PRODUTOS</span>
+
+                <h2>Mais vendidos</h2>
+
+            </div>
+
+            <div id="products" class="products">
+
+                <!-- PRODUTO 1 -->
+                <article class="product">
+
+                    <div class="product-image">
+                        🎮
+                        <span class="discount">-20%</span>
+                    </div>
+
+                    <div class="product-info">
+
+                        <span class="product-category">
+                            JOGOS
+                        </span>
+
+                        <h3>Game Premium</h3>
+
+                        <p class="description">
+                            Jogo digital para PC.
+                        </p>
+
+                        <div class="price">
+
+                            <del>R$ 99,90</del>
+
+                            <strong>
+                                R$ 79,90
+                            </strong>
+
+                        </div>
+
+                        <button
+                            class="buy-button"
+                            onclick="adicionarCarrinho('Game Premium', 79.90)"
+                        >
+                            Adicionar ao carrinho
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <!-- PRODUTO 2 -->
+                <article class="product">
+
+                    <div class="product-image">
+                        🎧
+                        <span class="discount">-15%</span>
+                    </div>
+
+                    <div class="product-info">
+
+                        <span class="product-category">
+                            ACESSÓRIOS
+                        </span>
+
+                        <h3>Headset Gamer</h3>
+
+                        <p class="description">
+                            Headset com áudio de alta qualidade.
+                        </p>
+
+                        <div class="price">
+
+                            <del>R$ 199,90</del>
+
+                            <strong>
+                                R$ 169,90
+                            </strong>
+
+                        </div>
+
+                        <button
+                            class="buy-button"
+                            onclick="adicionarCarrinho('Headset Gamer', 169.90)"
+                        >
+                            Adicionar ao carrinho
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <!-- PRODUTO 3 -->
+                <article class="product">
+
+                    <div class="product-image">
+                        ⌨️
+                        <span class="discount">-10%</span>
+                    </div>
+
+                    <div class="product-info">
+
+                        <span class="product-category">
+                            PC GAMER
+                        </span>
+
+                        <h3>Teclado Mecânico</h3>
+
+                        <p class="description">
+                            Teclado mecânico RGB para gamers.
+                        </p>
+
+                        <div class="price">
+
+                            <del>R$ 299,90</del>
+
+                            <strong>
+                                R$ 269,90
+                            </strong>
+
+                        </div>
+
+                        <button
+                            class="buy-button"
+                            onclick="adicionarCarrinho('Teclado Mecânico', 269.90)"
+                        >
+                            Adicionar ao carrinho
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <!-- PRODUTO 4 -->
+                <article class="product">
+
+                    <div class="product-image">
+                        🖱️
+                        <span class="discount">-25%</span>
+                    </div>
+
+                    <div class="product-info">
+
+                        <span class="product-category">
+                            ACESSÓRIOS
+                        </span>
+
+                        <h3>Mouse Gamer RGB</h3>
+
+                        <p class="description">
+                            Mouse gamer de alta precisão.
+                        </p>
+
+                        <div class="price">
+
+                            <del>R$ 159,90</del>
+
+                            <strong>
+                                R$ 119,90
+                            </strong>
+
+                        </div>
+
+                        <button
+                            class="buy-button"
+                            onclick="adicionarCarrinho('Mouse Gamer RGB', 119.90)"
+                        >
+                            Adicionar ao carrinho
+                        </button>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- OFERTA -->
+        <section id="ofertas" class="offer">
+
+            <div>
+
+                <span>OFERTA ESPECIAL</span>
+
+                <h2>
+                    Até 50% OFF
+                </h2>
+
+                <p>
+                    Aproveite nossas ofertas por tempo limitado.
+                </p>
+
+                <a href="#produtos" class="btn-primary">
+                    Aproveitar oferta
+                </a>
+
+            </div>
+
+            <div class="offer-icon">
+                ⚡
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- CARRINHO -->
+    <div id="cart-modal" class="modal">
+
+        <div class="cart">
+
+            <button
+                class="close"
+                onclick="fecharCarrinho()"
+            >
+                ×
+            </button>
+
+            <h2>Seu carrinho</h2>
+
+            <div id="cart-items"></div>
+
+            <div class="cart-total">
+
+                <span>Total</span>
+
+                <strong id="cart-total">
+                    R$ 0,00
+                </strong>
+
+            </div>
+
+            <button class="checkout">
+                Finalizar compra
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- RODAPÉ -->
+    <footer>
+
+        <div class="footer-content">
+
+            <div>
+
+                <div class="logo">
+                    <span>NEXUS</span> STORE
+                </div>
+
+                <p>
+                    Sua loja gamer completa.
+                </p>
+
+            </div>
+
+            <div>
+
+                <h3>Links</h3>
+
+                <a href="#inicio">Início</a>
+                <a href="#produtos">Produtos</a>
+                <a href="#categorias">Categorias</a>
+
+            </div>
+
+            <div>
+
+                <h3>Atendimento</h3>
+
+                <p>Suporte online</p>
+                <p>Segunda a sexta</p>
+
+            </div>
+
+        </div>
+
+        <div class="copyright">
+            © 2026 NEXUS STORE — Todos os direitos reservados.
+        </div>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
