@@ -2348,3 +2348,141 @@ body.modal-open {
         padding: 22px;
     }
 }
+/* =========================================================
+   FENIX STORE - PREÇOS
+   ========================================================= */
+
+.discount {
+    display: none !important;
+}
+
+.price {
+    display: block;
+    margin-top: 12px;
+    margin-bottom: 16px;
+}
+
+.price del {
+    display: none !important;
+}
+
+.price strong {
+    display: block;
+    font-size: 23px;
+    font-weight: 900;
+    color: #ffffff;
+}
+
+.product:hover .price strong {
+    color: #c4b5fd;
+}
+
+
+/* =========================================================
+   CARRINHO VAZIO
+   ========================================================= */
+
+.empty-cart {
+    text-align: center;
+    padding: 70px 20px;
+}
+
+.empty-cart-icon {
+    width: 75px;
+    height: 75px;
+    margin: 0 auto 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 20px;
+
+    background: rgba(124,58,237,.12);
+    border: 1px solid rgba(167,139,250,.2);
+
+    font-size: 34px;
+}
+
+.empty-cart h3 {
+    color: #ffffff;
+    margin-bottom: 8px;
+}
+
+.empty-cart p {
+    color: #777f96;
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   PREÇO
+   ========================================================= */
+
+.product .price strong {
+    background:
+        linear-gradient(
+            90deg,
+            #ffffff,
+            #c4b5fd
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+}
+
+
+/* =========================================================
+   BOTÕES
+   ========================================================= */
+
+.buy-button {
+    position: relative;
+    overflow: hidden;
+}
+
+.buy-button:active {
+    transform: scale(.98);
+}
+
+
+/* =========================================================
+   CARRINHO
+   ========================================================= */
+
+.cart-item {
+    animation: cartItemIn .25s ease;
+}
+
+@keyframes cartItemIn {
+
+    from {
+        opacity: 0;
+        transform: translateX(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVO
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .price strong {
+        font-size: 21px;
+    }
+
+    .empty-cart {
+        padding: 50px 15px;
+    }
+
+}
