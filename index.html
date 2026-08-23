@@ -4,40 +4,21 @@
 <head>
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta
         name="description"
         content="Fenix Store - Produtos digitais para jogos online"
     >
 
-    <meta
-        name="theme-color"
-        content="#07080d"
-    >
-
     <title>Fenix Store</title>
 
-    <link
-        rel="icon"
-        type="image/png"
-        href="./imagens/favicon.png"
-    >
+    <link rel="icon" type="image/png" href="./imagens/favicon.png">
 
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-
-<!-- =====================================
-     HEADER
-===================================== -->
 
 <header class="header">
 
@@ -45,13 +26,11 @@
         <span>Fenix</span> Store
     </a>
 
-    <nav class="menu" id="main-menu">
-
+    <nav class="menu">
         <a href="#inicio">Início</a>
         <a href="#jogos">Jogos</a>
         <a href="#produtos">Produtos</a>
         <a href="#ofertas">Ofertas</a>
-
     </nav>
 
     <div class="header-actions">
@@ -60,7 +39,6 @@
             class="icon-button"
             onclick="abrirPesquisa()"
             aria-label="Pesquisar"
-            title="Pesquisar"
         >
             🔎
         </button>
@@ -69,19 +47,9 @@
             class="cart-button"
             onclick="abrirCarrinho()"
             aria-label="Carrinho"
-            title="Carrinho"
         >
             🛒
             <span id="cart-count">0</span>
-        </button>
-
-        <button
-            class="menu-button"
-            onclick="alternarMenu()"
-            aria-label="Abrir menu"
-            aria-expanded="false"
-        >
-            ☰
         </button>
 
     </div>
@@ -89,47 +57,25 @@
 </header>
 
 
-<!-- =====================================
-     PESQUISA
-===================================== -->
-
-<div
-    id="search-box"
-    class="search-box"
->
+<div id="search-box" class="search-box">
 
     <div class="search-content">
 
         <input
             id="search-input"
-            type="search"
+            type="text"
             placeholder="Pesquisar produto ou jogo..."
-            autocomplete="off"
             oninput="pesquisarProduto()"
         >
 
-        <button
-            onclick="fecharPesquisa()"
-            aria-label="Fechar pesquisa"
-        >
-            ✕
-        </button>
+        <button onclick="fecharPesquisa()">✕</button>
 
     </div>
-
-    <p id="search-result-info" class="search-result-info"></p>
 
 </div>
 
 
-<!-- =====================================
-     HERO
-===================================== -->
-
-<section
-    id="inicio"
-    class="hero"
->
+<section id="inicio" class="hero">
 
     <div class="hero-content">
 
@@ -149,119 +95,67 @@
 
         <div class="hero-buttons">
 
-            <a
-                href="#produtos"
-                class="btn btn-primary"
-            >
+            <a href="#produtos" class="btn btn-primary">
                 Ver produtos
             </a>
 
-            <a
-                href="#jogos"
-                class="btn btn-secondary"
-            >
+            <a href="#jogos" class="btn btn-secondary">
                 Explorar jogos
             </a>
 
         </div>
 
-        <div class="hero-status">
-
-            <span class="status-dot"></span>
-
-            Loja online
-
-            <span class="status-separator">•</span>
-
-            Entrega digital
-
-        </div>
-
     </div>
-
 
     <div class="hero-visual">
 
-        <div class="hero-ring ring-one"></div>
-        <div class="hero-ring ring-two"></div>
-
         <div class="fire-circle">
-
-            <div class="fire">
-                🔥
-            </div>
-
+            <div class="fire">🔥</div>
         </div>
 
     </div>
 
 </section>
 
-
-<!-- =====================================
-     BENEFÍCIOS
-===================================== -->
 
 <section class="benefits">
 
     <div class="benefit">
-
         <div class="benefit-icon">⚡</div>
-
         <div>
             <h3>Entrega rápida</h3>
             <p>Produtos digitais.</p>
         </div>
-
     </div>
 
-
     <div class="benefit">
-
         <div class="benefit-icon">🔒</div>
-
         <div>
             <h3>Compra segura</h3>
             <p>Segurança na compra.</p>
         </div>
-
     </div>
 
-
     <div class="benefit">
-
         <div class="benefit-icon">💎</div>
-
         <div>
             <h3>Produtos digitais</h3>
             <p>Para seus jogos favoritos.</p>
         </div>
-
     </div>
 
-
     <div class="benefit">
-
         <div class="benefit-icon">🎧</div>
-
         <div>
             <h3>Suporte</h3>
             <p>Atendimento ao cliente.</p>
         </div>
-
     </div>
 
 </section>
 
 
-<!-- =====================================
-     JOGOS
-===================================== -->
-
-<section
-    id="jogos"
-    class="section"
->
+<section id="jogos" class="section">
 
     <div class="section-title">
 
@@ -275,105 +169,48 @@
 
     </div>
 
-
     <div class="categories">
 
-
-        <button
-            class="category"
-            onclick="filtrarProdutos('todos')"
-        >
-
+        <button class="category" onclick="filtrarProdutos('todos')">
             <div class="category-icon">🎮</div>
-
             <h3>Todos</h3>
-
             <p>Todos os produtos</p>
-
         </button>
 
-
-        <button
-            class="category"
-            onclick="filtrarProdutos('freefire')"
-        >
-
+        <button class="category" onclick="filtrarProdutos('freefire')">
             <div class="category-icon">🔥</div>
-
             <h3>Free Fire</h3>
-
             <p>Diamantes e produtos</p>
-
         </button>
 
-
-        <button
-            class="category"
-            onclick="filtrarProdutos('fortnite')"
-        >
-
+        <button class="category" onclick="filtrarProdutos('fortnite')">
             <div class="category-icon">🟣</div>
-
             <h3>Fortnite</h3>
-
             <p>V-Bucks e produtos</p>
-
         </button>
 
-
-        <button
-            class="category"
-            onclick="filtrarProdutos('roblox')"
-        >
-
+        <button class="category" onclick="filtrarProdutos('roblox')">
             <div class="category-icon">🟦</div>
-
             <h3>Roblox</h3>
-
             <p>Robux e produtos</p>
-
         </button>
 
-
-        <button
-            class="category"
-            onclick="filtrarProdutos('valorant')"
-        >
-
+        <button class="category" onclick="filtrarProdutos('valorant')">
             <div class="category-icon">🎯</div>
-
             <h3>Valorant</h3>
-
             <p>VP e produtos</p>
-
         </button>
 
-
-        <button
-            class="category"
-            onclick="filtrarProdutos('eafc')"
-        >
-
+        <button class="category" onclick="filtrarProdutos('eafc')">
             <div class="category-icon">⚽</div>
-
             <h3>EA Sports FC</h3>
-
             <p>FC Points</p>
-
         </button>
 
-
-        <button
-            class="category"
-            onclick="filtrarProdutos('minecraft')"
-        >
-
+        <button class="category" onclick="filtrarProdutos('minecraft')">
             <div class="category-icon">🟩</div>
-
             <h3>Minecraft</h3>
-
             <p>Produtos digitais</p>
-
         </button>
 
     </div>
@@ -381,14 +218,7 @@
 </section>
 
 
-<!-- =====================================
-     PRODUTOS
-===================================== -->
-
-<section
-    id="produtos"
-    class="section products-section"
->
+<section id="produtos" class="section">
 
     <div class="section-title">
 
@@ -403,99 +233,61 @@
     </div>
 
 
-    <!-- FILTROS -->
-
     <div class="filters">
 
-        <button
-            class="filter active"
-            data-filter="todos"
-            onclick="filtrarProdutos('todos', this)"
-        >
+        <button class="filter active"
+            onclick="filtrarProdutos('todos', this)">
             Todos
         </button>
 
-        <button
-            class="filter"
-            data-filter="freefire"
-            onclick="filtrarProdutos('freefire', this)"
-        >
+        <button class="filter"
+            onclick="filtrarProdutos('freefire', this)">
             Free Fire
         </button>
 
-        <button
-            class="filter"
-            data-filter="fortnite"
-            onclick="filtrarProdutos('fortnite', this)"
-        >
+        <button class="filter"
+            onclick="filtrarProdutos('fortnite', this)">
             Fortnite
         </button>
 
-        <button
-            class="filter"
-            data-filter="roblox"
-            onclick="filtrarProdutos('roblox', this)"
-        >
+        <button class="filter"
+            onclick="filtrarProdutos('roblox', this)">
             Roblox
         </button>
 
-        <button
-            class="filter"
-            data-filter="valorant"
-            onclick="filtrarProdutos('valorant', this)"
-        >
+        <button class="filter"
+            onclick="filtrarProdutos('valorant', this)">
             Valorant
         </button>
 
-        <button
-            class="filter"
-            data-filter="eafc"
-            onclick="filtrarProdutos('eafc', this)"
-        >
+        <button class="filter"
+            onclick="filtrarProdutos('eafc', this)">
             EA FC
         </button>
 
-        <button
-            class="filter"
-            data-filter="minecraft"
-            onclick="filtrarProdutos('minecraft', this)"
-        >
+        <button class="filter"
+            onclick="filtrarProdutos('minecraft', this)">
             Minecraft
         </button>
 
     </div>
 
 
-    <div
-        id="products"
-        class="products"
-    >
+    <div id="products" class="products">
 
 
-        <!-- FREE FIRE -->
-
-        <article
-            class="product"
-            data-game="freefire"
-            data-name="Pacote de Diamantes Free Fire"
-        >
+        <article class="product" data-game="freefire">
 
             <div class="product-image">
 
                 <img
                     src="./imagens/freefire.jpg"
-                    alt="Pacote de Diamantes Free Fire"
-                    loading="lazy"
+                    alt="Produto Free Fire"
                 >
 
                 <span class="discount">-20%</span>
 
-                <span class="product-badge">
-                    🔥 Popular
-                </span>
-
             </div>
-
 
             <div class="product-info">
 
@@ -503,25 +295,15 @@
                     FREE FIRE
                 </span>
 
-                <h3>
-                    Pacote de Diamantes
-                </h3>
+                <h3>Pacote de Diamantes</h3>
 
                 <p class="description">
                     Produto digital para Free Fire.
                 </p>
 
-                <div class="rating">
-                    ⭐⭐⭐⭐⭐
-                    <span>4.9</span>
-                </div>
-
                 <div class="price">
-
                     <del>R$ 49,90</del>
-
                     <strong>R$ 39,90</strong>
-
                 </div>
 
                 <button
@@ -539,26 +321,18 @@
         </article>
 
 
-        <!-- FORTNITE -->
-
-        <article
-            class="product"
-            data-game="fortnite"
-            data-name="V-Bucks Fortnite"
-        >
+        <article class="product" data-game="fortnite">
 
             <div class="product-image">
 
                 <img
                     src="./imagens/fortnite.jpg"
-                    alt="V-Bucks Fortnite"
-                    loading="lazy"
+                    alt="Produto Fortnite"
                 >
 
                 <span class="discount">-15%</span>
 
             </div>
-
 
             <div class="product-info">
 
@@ -572,17 +346,9 @@
                     Créditos digitais para Fortnite.
                 </p>
 
-                <div class="rating">
-                    ⭐⭐⭐⭐⭐
-                    <span>4.8</span>
-                </div>
-
                 <div class="price">
-
                     <del>R$ 59,90</del>
-
                     <strong>R$ 49,90</strong>
-
                 </div>
 
                 <button
@@ -600,26 +366,18 @@
         </article>
 
 
-        <!-- ROBLOX -->
-
-        <article
-            class="product"
-            data-game="roblox"
-            data-name="Robux Roblox"
-        >
+        <article class="product" data-game="roblox">
 
             <div class="product-image">
 
                 <img
                     src="./imagens/roblox.jpg"
-                    alt="Robux Roblox"
-                    loading="lazy"
+                    alt="Produto Roblox"
                 >
 
                 <span class="discount">-10%</span>
 
             </div>
-
 
             <div class="product-info">
 
@@ -633,17 +391,9 @@
                     Moeda virtual para Roblox.
                 </p>
 
-                <div class="rating">
-                    ⭐⭐⭐⭐⭐
-                    <span>4.9</span>
-                </div>
-
                 <div class="price">
-
                     <del>R$ 54,90</del>
-
                     <strong>R$ 49,90</strong>
-
                 </div>
 
                 <button
@@ -661,26 +411,18 @@
         </article>
 
 
-        <!-- VALORANT -->
-
-        <article
-            class="product"
-            data-game="valorant"
-            data-name="Valorant Points"
-        >
+        <article class="product" data-game="valorant">
 
             <div class="product-image">
 
                 <img
                     src="./imagens/valorant.jpg"
-                    alt="Valorant Points"
-                    loading="lazy"
+                    alt="Produto Valorant"
                 >
 
                 <span class="discount">-12%</span>
 
             </div>
-
 
             <div class="product-info">
 
@@ -694,17 +436,9 @@
                     Créditos digitais para Valorant.
                 </p>
 
-                <div class="rating">
-                    ⭐⭐⭐⭐⭐
-                    <span>4.8</span>
-                </div>
-
                 <div class="price">
-
                     <del>R$ 69,90</del>
-
                     <strong>R$ 61,90</strong>
-
                 </div>
 
                 <button
@@ -722,26 +456,18 @@
         </article>
 
 
-        <!-- EA FC -->
-
-        <article
-            class="product"
-            data-game="eafc"
-            data-name="FC Points EA Sports FC"
-        >
+        <article class="product" data-game="eafc">
 
             <div class="product-image">
 
                 <img
                     src="./imagens/eafc.jpg"
-                    alt="FC Points EA Sports FC"
-                    loading="lazy"
+                    alt="Produto EA Sports FC"
                 >
 
                 <span class="discount">-18%</span>
 
             </div>
-
 
             <div class="product-info">
 
@@ -755,17 +481,9 @@
                     Pontos para EA Sports FC.
                 </p>
 
-                <div class="rating">
-                    ⭐⭐⭐⭐⭐
-                    <span>4.7</span>
-                </div>
-
                 <div class="price">
-
                     <del>R$ 79,90</del>
-
                     <strong>R$ 65,90</strong>
-
                 </div>
 
                 <button
@@ -783,26 +501,18 @@
         </article>
 
 
-        <!-- MINECRAFT -->
-
-        <article
-            class="product"
-            data-game="minecraft"
-            data-name="Gift Card Minecraft"
-        >
+        <article class="product" data-game="minecraft">
 
             <div class="product-image">
 
                 <img
                     src="./imagens/minecraft.jpg"
-                    alt="Gift Card Minecraft"
-                    loading="lazy"
+                    alt="Produto Minecraft"
                 >
 
                 <span class="discount">-10%</span>
 
             </div>
-
 
             <div class="product-info">
 
@@ -816,17 +526,9 @@
                     Produto digital para Minecraft.
                 </p>
 
-                <div class="rating">
-                    ⭐⭐⭐⭐⭐
-                    <span>4.9</span>
-                </div>
-
                 <div class="price">
-
                     <del>R$ 89,90</del>
-
                     <strong>R$ 79,90</strong>
-
                 </div>
 
                 <button
@@ -843,34 +545,12 @@
 
         </article>
 
-
-    </div>
-
-
-    <div
-        id="no-products"
-        class="no-products"
-    >
-        <div>🔎</div>
-
-        <h3>Nenhum produto encontrado</h3>
-
-        <p>
-            Tente pesquisar outro produto ou categoria.
-        </p>
     </div>
 
 </section>
 
 
-<!-- =====================================
-     OFERTA
-===================================== -->
-
-<section
-    id="ofertas"
-    class="offer"
->
+<section id="ofertas" class="offer">
 
     <div>
 
@@ -882,10 +562,7 @@
             Aproveite nossas ofertas digitais.
         </p>
 
-        <a
-            href="#produtos"
-            class="btn btn-primary"
-        >
+        <a href="#produtos" class="btn btn-primary">
             Ver ofertas
         </a>
 
@@ -898,72 +575,20 @@
 </section>
 
 
-<!-- =====================================
-     STATUS
-===================================== -->
+<!-- CARRINHO -->
 
-<section class="store-status-section">
+<div id="cart-modal" class="modal">
 
-    <div class="store-status-card">
-
-        <div class="status-icon">
-            ✓
-        </div>
-
-        <div>
-
-            <span>STATUS DA LOJA</span>
-
-            <h3>
-                Todos os sistemas operacionais
-            </h3>
-
-            <p>
-                Acompanhe o status da Fenix Store.
-            </p>
-
-        </div>
-
-        <a
-            href="status.html"
-            class="status-link"
-        >
-            Ver status →
-        </a>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================
-     CARRINHO
-===================================== -->
-
-<div
-    id="cart-modal"
-    class="modal"
-    aria-hidden="true"
->
-
-    <div
-        class="cart"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="cart-title"
-    >
+    <div class="cart">
 
         <button
             class="close"
             onclick="fecharCarrinho()"
-            aria-label="Fechar carrinho"
         >
             ×
         </button>
 
-        <h2 id="cart-title">
-            🛒 Seu carrinho
-        </h2>
+        <h2>🛒 Seu carrinho</h2>
 
         <div id="cart-items"></div>
 
@@ -981,7 +606,7 @@
             class="checkout"
             onclick="finalizarCompra()"
         >
-            Finalizar compra
+            💚 Pagar com PIX
         </button>
 
     </div>
@@ -989,69 +614,32 @@
 </div>
 
 
-<!-- =====================================
-     MODAL PIX
-===================================== -->
+<!-- PAGAMENTO PIX -->
 
-<div
-    id="pix-modal"
-    class="modal modal-center"
-    aria-hidden="true"
->
+<div id="pix-modal" class="modal pix-modal">
 
     <div class="pix-box">
 
         <button
             class="close"
             onclick="fecharPix()"
-            aria-label="Fechar Pix"
         >
             ×
         </button>
 
-        <div class="pix-logo">
+        <div class="pix-icon">
             💚
         </div>
 
-        <span class="modal-label">
-            PAGAMENTO
-        </span>
+        <h2>Pagamento via PIX</h2>
 
-        <h2>
-            Pague com Pix
-        </h2>
-
-        <p>
-            Use a chave Pix abaixo para realizar o pagamento.
+        <p class="pix-subtitle">
+            Faça o pagamento usando a chave abaixo.
         </p>
 
-        <div class="pix-key-box">
+        <div class="pix-total">
 
-            <span id="pix-key">
-                SUA-CHAVE-PIX-AQUI
-            </span>
-
-            <button
-                onclick="copiarPix()"
-            >
-                Copiar
-            </button>
-
-        </div>
-
-        <div class="pix-order">
-
-            <span>Pedido</span>
-
-            <strong id="pix-order-number">
-                -
-            </strong>
-
-        </div>
-
-        <div class="pix-order">
-
-            <span>Total</span>
+            <span>Total da compra</span>
 
             <strong id="pix-total">
                 R$ 0,00
@@ -1059,32 +647,57 @@
 
         </div>
 
+        <div class="pix-key-box">
+
+            <span>Chave PIX</span>
+
+            <div class="pix-key">
+                <input
+                    id="pix-key"
+                    type="text"
+                    readonly
+                    value="53997094670"
+                >
+
+                <button onclick="copiarPix()">
+                    Copiar
+                </button>
+            </div>
+
+        </div>
+
+        <p
+            id="copy-message"
+            class="copy-message"
+        ></p>
+
+        <div class="pix-instructions">
+
+            <h3>Como pagar</h3>
+
+            <p>1. Abra o aplicativo do seu banco.</p>
+
+            <p>2. Escolha a opção PIX.</p>
+
+            <p>3. Use a chave PIX acima.</p>
+
+            <p>4. Confira o valor antes de enviar.</p>
+
+            <p>5. Após o pagamento, envie o comprovante ao suporte.</p>
+
+        </div>
+
         <button
-            class="checkout"
-            onclick="fecharPix()"
+            class="pix-confirm"
+            onclick="confirmarPagamento()"
         >
-            Já realizei o pagamento
+            ✅ Já fiz o pagamento
         </button>
 
     </div>
 
 </div>
 
-
-<!-- =====================================
-     NOTIFICAÇÕES
-===================================== -->
-
-<div
-    id="toast-container"
-    class="toast-container"
-    aria-live="polite"
-></div>
-
-
-<!-- =====================================
-     FOOTER
-===================================== -->
 
 <footer>
 
@@ -1093,20 +706,14 @@
         <div>
 
             <div class="logo">
-                <span>Fenix</span> Store
+                <span>FENIX</span> STORE
             </div>
 
             <p>
                 Produtos digitais para jogos online.
             </p>
 
-            <div class="footer-status">
-                <span class="status-dot"></span>
-                Loja online
-            </div>
-
         </div>
-
 
         <div>
 
@@ -1119,7 +726,6 @@
 
         </div>
 
-
         <div>
 
             <h3>Atendimento</h3>
@@ -1127,14 +733,9 @@
             <p>Suporte online</p>
             <p>Segunda a sexta</p>
 
-            <a href="status.html">
-                Status da loja
-            </a>
-
         </div>
 
     </div>
-
 
     <div class="copyright">
 
@@ -1149,5 +750,4 @@
 <script src="script.js"></script>
 
 </body>
-
 </html>
