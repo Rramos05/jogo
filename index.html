@@ -1,474 +1,1057 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>NEXUS STORE</title>
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Fenix Store</title>
 
     <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
-    <!-- CABEÇALHO -->
-    <header class="header">
 
-        <div class="logo">
-            <span>NEXUS</span> STORE
-        </div>
+<!-- =========================
+     CABEÇALHO
+========================= -->
 
-        <nav class="menu">
-            <a href="#inicio">Início</a>
-            <a href="#produtos">Produtos</a>
-            <a href="#categorias">Categorias</a>
-            <a href="#ofertas">Ofertas</a>
-        </nav>
+<header class="header">
 
-        <div class="header-actions">
-
-            <button class="search-button" onclick="abrirPesquisa()">
-                🔎
-            </button>
-
-            <button class="cart-button" onclick="abrirCarrinho()">
-                🛒
-                <span id="cart-count">0</span>
-            </button>
-
-        </div>
-
-    </header>
+    <div class="logo">
+        <span>FENIX</span> STORE
+    </div>
 
 
-    <!-- PESQUISA -->
-    <div id="search-box" class="search-box">
+    <nav class="menu">
 
-        <input
-            type="text"
-            id="search-input"
-            placeholder="Pesquisar produtos..."
-            onkeyup="pesquisarProduto()"
+        <a href="#inicio">
+            Início
+        </a>
+
+        <a href="#jogos">
+            Jogos
+        </a>
+
+        <a href="#produtos">
+            Produtos
+        </a>
+
+        <a href="#ofertas">
+            Ofertas
+        </a>
+
+    </nav>
+
+
+    <div class="header-actions">
+
+        <button
+            class="search-button"
+            onclick="abrirPesquisa()"
+        >
+            🔎
+        </button>
+
+
+        <button
+            class="cart-button"
+            onclick="abrirCarrinho()"
         >
 
+            🛒
+
+            <span id="cart-count">
+                0
+            </span>
+
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<!-- =========================
+     PESQUISA
+========================= -->
+
+<div
+    id="search-box"
+    class="search-box"
+>
+
+    <input
+        type="text"
+        id="search-input"
+        placeholder="Pesquisar jogo ou produto..."
+        onkeyup="pesquisarProduto()"
+    >
+
+</div>
+
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<main>
+
+
+<section
+    id="inicio"
+    class="hero"
+>
+
+
+    <div class="hero-content">
+
+
+        <span class="hero-tag">
+            🔥 FENIX STORE
+        </span>
+
+
+        <h1>
+
+            Seus jogos.
+            <strong>
+                Seus itens.
+            </strong>
+
+        </h1>
+
+
+        <p>
+
+            Compre produtos digitais para seus
+            jogos favoritos de forma rápida,
+            prática e segura.
+
+        </p>
+
+
+        <div class="hero-buttons">
+
+
+            <a
+                href="#produtos"
+                class="btn-primary"
+            >
+                Ver produtos
+            </a>
+
+
+            <a
+                href="#jogos"
+                class="btn-secondary"
+            >
+                Explorar jogos
+            </a>
+
+
+        </div>
+
+
     </div>
 
 
-    <!-- HERO -->
-    <main>
+    <div class="hero-image">
 
-        <section id="inicio" class="hero">
+        🔥
 
-            <div class="hero-content">
+    </div>
 
-                <span class="hero-tag">
-                    🔥 OFERTAS EXCLUSIVAS
+
+</section>
+
+
+
+<!-- =========================
+     BENEFÍCIOS
+========================= -->
+
+<section class="benefits">
+
+
+    <div class="benefit">
+
+        <span>
+            ⚡
+        </span>
+
+        <div>
+
+            <h3>
+                Entrega rápida
+            </h3>
+
+            <p>
+                Receba seu produto rapidamente.
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="benefit">
+
+        <span>
+            🔒
+        </span>
+
+        <div>
+
+            <h3>
+                Compra segura
+            </h3>
+
+            <p>
+                Seus dados protegidos.
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="benefit">
+
+        <span>
+            💎
+        </span>
+
+        <div>
+
+            <h3>
+                Produtos digitais
+            </h3>
+
+            <p>
+                Produtos para seus jogos.
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="benefit">
+
+        <span>
+            🎧
+        </span>
+
+        <div>
+
+            <h3>
+                Suporte
+            </h3>
+
+            <p>
+                Atendimento aos clientes.
+            </p>
+
+        </div>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =========================
+     JOGOS
+========================= -->
+
+<section
+    id="jogos"
+    class="section"
+>
+
+
+    <div class="section-title">
+
+        <span>
+            JOGOS
+        </span>
+
+        <h2>
+            Escolha seu jogo
+        </h2>
+
+    </div>
+
+
+
+    <div class="categories">
+
+
+        <div class="category">
+
+            <div class="category-icon">
+                🔥
+            </div>
+
+            <h3>
+                Free Fire
+            </h3>
+
+            <p>
+                Diamantes e produtos digitais
+            </p>
+
+        </div>
+
+
+
+        <div class="category">
+
+            <div class="category-icon">
+                🟣
+            </div>
+
+            <h3>
+                Fortnite
+            </h3>
+
+            <p>
+                V-Bucks e produtos digitais
+            </p>
+
+        </div>
+
+
+
+        <div class="category">
+
+            <div class="category-icon">
+                🟦
+            </div>
+
+            <h3>
+                Roblox
+            </h3>
+
+            <p>
+                Robux e produtos digitais
+            </p>
+
+        </div>
+
+
+
+        <div class="category">
+
+            <div class="category-icon">
+                🎯
+            </div>
+
+            <h3>
+                Valorant
+            </h3>
+
+            <p>
+                VP e produtos digitais
+            </p>
+
+        </div>
+
+
+
+        <div class="category">
+
+            <div class="category-icon">
+                ⚽
+            </div>
+
+            <h3>
+                EA Sports FC
+            </h3>
+
+            <p>
+                FC Points e produtos
+            </p>
+
+        </div>
+
+
+
+        <div class="category">
+
+            <div class="category-icon">
+                🟩
+            </div>
+
+            <h3>
+                Minecraft
+            </h3>
+
+            <p>
+                Produtos digitais
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =========================
+     PRODUTOS
+========================= -->
+
+<section
+    id="produtos"
+    class="section products-section"
+>
+
+
+    <div class="section-title">
+
+        <span>
+            PRODUTOS
+        </span>
+
+        <h2>
+            Mais vendidos
+        </h2>
+
+    </div>
+
+
+
+    <div
+        id="products"
+        class="products"
+    >
+
+
+
+        <!-- FREE FIRE -->
+
+        <article class="product">
+
+
+            <div class="product-image">
+
+                🔥
+
+                <span class="discount">
+                    -20%
                 </span>
 
-                <h1>
-                    A melhor loja para
-                    <strong>gamers.</strong>
-                </h1>
+            </div>
 
-                <p>
-                    Encontre jogos, acessórios e produtos digitais
-                    com preços especiais.
+
+            <div class="product-info">
+
+
+                <span class="product-category">
+                    FREE FIRE
+                </span>
+
+
+                <h3>
+                    Pacote de Diamantes
+                </h3>
+
+
+                <p class="description">
+                    Pacote digital de diamantes.
                 </p>
 
-                <div class="hero-buttons">
 
-                    <a href="#produtos" class="btn-primary">
-                        Comprar agora
-                    </a>
+                <div class="price">
 
-                    <a href="#categorias" class="btn-secondary">
-                        Ver categorias
-                    </a>
+                    <del>
+                        R$ 49,90
+                    </del>
+
+                    <strong>
+                        R$ 39,90
+                    </strong>
 
                 </div>
 
-            </div>
 
-            <div class="hero-image">
-                🎮
-            </div>
+                <button
+                    class="buy-button"
+                    onclick="
+                    adicionarCarrinho(
+                        'Pacote de Diamantes',
+                        39.90
+                    )
+                    "
+                >
+                    Comprar
+                </button>
 
-        </section>
-
-
-        <!-- BENEFÍCIOS -->
-        <section class="benefits">
-
-            <div class="benefit">
-                <span>🚀</span>
-                <div>
-                    <h3>Entrega rápida</h3>
-                    <p>Receba seu produto rapidamente.</p>
-                </div>
-            </div>
-
-            <div class="benefit">
-                <span>🔒</span>
-                <div>
-                    <h3>Compra segura</h3>
-                    <p>Seus dados protegidos.</p>
-                </div>
-            </div>
-
-            <div class="benefit">
-                <span>💳</span>
-                <div>
-                    <h3>Pagamento fácil</h3>
-                    <p>Várias formas de pagamento.</p>
-                </div>
-            </div>
-
-            <div class="benefit">
-                <span>🎧</span>
-                <div>
-                    <h3>Suporte</h3>
-                    <p>Atendimento para você.</p>
-                </div>
-            </div>
-
-        </section>
-
-
-        <!-- CATEGORIAS -->
-        <section id="categorias" class="section">
-
-            <div class="section-title">
-                <span>CATEGORIAS</span>
-                <h2>Encontre o que procura</h2>
-            </div>
-
-            <div class="categories">
-
-                <div class="category">
-                    <div class="category-icon">🎮</div>
-                    <h3>Jogos</h3>
-                    <p>Os melhores jogos</p>
-                </div>
-
-                <div class="category">
-                    <div class="category-icon">🕹️</div>
-                    <h3>Consoles</h3>
-                    <p>Consoles e acessórios</p>
-                </div>
-
-                <div class="category">
-                    <div class="category-icon">🎧</div>
-                    <h3>Acessórios</h3>
-                    <p>Equipamentos gamer</p>
-                </div>
-
-                <div class="category">
-                    <div class="category-icon">💻</div>
-                    <h3>PC Gamer</h3>
-                    <p>Produtos para computador</p>
-                </div>
 
             </div>
 
-        </section>
+
+        </article>
 
 
-        <!-- PRODUTOS -->
-        <section id="produtos" class="section products-section">
 
-            <div class="section-title">
+        <!-- FORTNITE -->
 
-                <span>PRODUTOS</span>
-
-                <h2>Mais vendidos</h2>
-
-            </div>
-
-            <div id="products" class="products">
-
-                <!-- PRODUTO 1 -->
-                <article class="product">
-
-                    <div class="product-image">
-                        🎮
-                        <span class="discount">-20%</span>
-                    </div>
-
-                    <div class="product-info">
-
-                        <span class="product-category">
-                            JOGOS
-                        </span>
-
-                        <h3>Game Premium</h3>
-
-                        <p class="description">
-                            Jogo digital para PC.
-                        </p>
-
-                        <div class="price">
-
-                            <del>R$ 99,90</del>
-
-                            <strong>
-                                R$ 79,90
-                            </strong>
-
-                        </div>
-
-                        <button
-                            class="buy-button"
-                            onclick="adicionarCarrinho('Game Premium', 79.90)"
-                        >
-                            Adicionar ao carrinho
-                        </button>
-
-                    </div>
-
-                </article>
+        <article class="product">
 
 
-                <!-- PRODUTO 2 -->
-                <article class="product">
+            <div class="product-image">
 
-                    <div class="product-image">
-                        🎧
-                        <span class="discount">-15%</span>
-                    </div>
+                🟣
 
-                    <div class="product-info">
-
-                        <span class="product-category">
-                            ACESSÓRIOS
-                        </span>
-
-                        <h3>Headset Gamer</h3>
-
-                        <p class="description">
-                            Headset com áudio de alta qualidade.
-                        </p>
-
-                        <div class="price">
-
-                            <del>R$ 199,90</del>
-
-                            <strong>
-                                R$ 169,90
-                            </strong>
-
-                        </div>
-
-                        <button
-                            class="buy-button"
-                            onclick="adicionarCarrinho('Headset Gamer', 169.90)"
-                        >
-                            Adicionar ao carrinho
-                        </button>
-
-                    </div>
-
-                </article>
-
-
-                <!-- PRODUTO 3 -->
-                <article class="product">
-
-                    <div class="product-image">
-                        ⌨️
-                        <span class="discount">-10%</span>
-                    </div>
-
-                    <div class="product-info">
-
-                        <span class="product-category">
-                            PC GAMER
-                        </span>
-
-                        <h3>Teclado Mecânico</h3>
-
-                        <p class="description">
-                            Teclado mecânico RGB para gamers.
-                        </p>
-
-                        <div class="price">
-
-                            <del>R$ 299,90</del>
-
-                            <strong>
-                                R$ 269,90
-                            </strong>
-
-                        </div>
-
-                        <button
-                            class="buy-button"
-                            onclick="adicionarCarrinho('Teclado Mecânico', 269.90)"
-                        >
-                            Adicionar ao carrinho
-                        </button>
-
-                    </div>
-
-                </article>
-
-
-                <!-- PRODUTO 4 -->
-                <article class="product">
-
-                    <div class="product-image">
-                        🖱️
-                        <span class="discount">-25%</span>
-                    </div>
-
-                    <div class="product-info">
-
-                        <span class="product-category">
-                            ACESSÓRIOS
-                        </span>
-
-                        <h3>Mouse Gamer RGB</h3>
-
-                        <p class="description">
-                            Mouse gamer de alta precisão.
-                        </p>
-
-                        <div class="price">
-
-                            <del>R$ 159,90</del>
-
-                            <strong>
-                                R$ 119,90
-                            </strong>
-
-                        </div>
-
-                        <button
-                            class="buy-button"
-                            onclick="adicionarCarrinho('Mouse Gamer RGB', 119.90)"
-                        >
-                            Adicionar ao carrinho
-                        </button>
-
-                    </div>
-
-                </article>
+                <span class="discount">
+                    -15%
+                </span>
 
             </div>
 
-        </section>
+
+            <div class="product-info">
 
 
-        <!-- OFERTA -->
-        <section id="ofertas" class="offer">
+                <span class="product-category">
+                    FORTNITE
+                </span>
 
-            <div>
 
-                <span>OFERTA ESPECIAL</span>
+                <h3>
+                    V-Bucks
+                </h3>
 
-                <h2>
-                    Até 50% OFF
-                </h2>
 
-                <p>
-                    Aproveite nossas ofertas por tempo limitado.
+                <p class="description">
+                    Créditos digitais para Fortnite.
                 </p>
 
-                <a href="#produtos" class="btn-primary">
-                    Aproveitar oferta
-                </a>
+
+                <div class="price">
+
+                    <del>
+                        R$ 59,90
+                    </del>
+
+                    <strong>
+                        R$ 49,90
+                    </strong>
+
+                </div>
+
+
+                <button
+                    class="buy-button"
+                    onclick="
+                    adicionarCarrinho(
+                        'V-Bucks Fortnite',
+                        49.90
+                    )
+                    "
+                >
+                    Comprar
+                </button>
+
 
             </div>
 
-            <div class="offer-icon">
-                ⚡
-            </div>
 
-        </section>
-
-    </main>
+        </article>
 
 
-    <!-- CARRINHO -->
-    <div id="cart-modal" class="modal">
 
-        <div class="cart">
+        <!-- ROBLOX -->
 
-            <button
-                class="close"
-                onclick="fecharCarrinho()"
-            >
-                ×
-            </button>
+        <article class="product">
 
-            <h2>Seu carrinho</h2>
 
-            <div id="cart-items"></div>
+            <div class="product-image">
 
-            <div class="cart-total">
+                🟦
 
-                <span>Total</span>
-
-                <strong id="cart-total">
-                    R$ 0,00
-                </strong>
+                <span class="discount">
+                    -10%
+                </span>
 
             </div>
 
-            <button class="checkout">
-                Finalizar compra
-            </button>
 
-        </div>
+            <div class="product-info">
+
+
+                <span class="product-category">
+                    ROBLOX
+                </span>
+
+
+                <h3>
+                    Robux
+                </h3>
+
+
+                <p class="description">
+                    Moeda virtual para Roblox.
+                </p>
+
+
+                <div class="price">
+
+                    <del>
+                        R$ 54,90
+                    </del>
+
+                    <strong>
+                        R$ 49,90
+                    </strong>
+
+                </div>
+
+
+                <button
+                    class="buy-button"
+                    onclick="
+                    adicionarCarrinho(
+                        'Robux Roblox',
+                        49.90
+                    )
+                    "
+                >
+                    Comprar
+                </button>
+
+
+            </div>
+
+
+        </article>
+
+
+
+        <!-- VALORANT -->
+
+        <article class="product">
+
+
+            <div class="product-image">
+
+                🎯
+
+                <span class="discount">
+                    -12%
+                </span>
+
+            </div>
+
+
+            <div class="product-info">
+
+
+                <span class="product-category">
+                    VALORANT
+                </span>
+
+
+                <h3>
+                    Valorant Points
+                </h3>
+
+
+                <p class="description">
+                    Créditos para Valorant.
+                </p>
+
+
+                <div class="price">
+
+                    <del>
+                        R$ 69,90
+                    </del>
+
+                    <strong>
+                        R$ 61,90
+                    </strong>
+
+                </div>
+
+
+                <button
+                    class="buy-button"
+                    onclick="
+                    adicionarCarrinho(
+                        'Valorant Points',
+                        61.90
+                    )
+                    "
+                >
+                    Comprar
+                </button>
+
+
+            </div>
+
+
+        </article>
+
+
+
+        <!-- EA SPORTS FC -->
+
+        <article class="product">
+
+
+            <div class="product-image">
+
+                ⚽
+
+                <span class="discount">
+                    -18%
+                </span>
+
+            </div>
+
+
+            <div class="product-info">
+
+
+                <span class="product-category">
+                    EA SPORTS FC
+                </span>
+
+
+                <h3>
+                    FC Points
+                </h3>
+
+
+                <p class="description">
+                    Pontos para EA Sports FC.
+                </p>
+
+
+                <div class="price">
+
+                    <del>
+                        R$ 79,90
+                    </del>
+
+                    <strong>
+                        R$ 65,90
+                    </strong>
+
+                </div>
+
+
+                <button
+                    class="buy-button"
+                    onclick="
+                    adicionarCarrinho(
+                        'FC Points',
+                        65.90
+                    )
+                    "
+                >
+                    Comprar
+                </button>
+
+
+            </div>
+
+
+        </article>
+
+
+
+        <!-- MINECRAFT -->
+
+        <article class="product">
+
+
+            <div class="product-image">
+
+                🟩
+
+                <span class="discount">
+                    -10%
+                </span>
+
+            </div>
+
+
+            <div class="product-info">
+
+
+                <span class="product-category">
+                    MINECRAFT
+                </span>
+
+
+                <h3>
+                    Gift Card Minecraft
+                </h3>
+
+
+                <p class="description">
+                    Produto digital para Minecraft.
+                </p>
+
+
+                <div class="price">
+
+                    <del>
+                        R$ 89,90
+                    </del>
+
+                    <strong>
+                        R$ 79,90
+                    </strong>
+
+                </div>
+
+
+                <button
+                    class="buy-button"
+                    onclick="
+                    adicionarCarrinho(
+                        'Gift Card Minecraft',
+                        79.90
+                    )
+                    "
+                >
+                    Comprar
+                </button>
+
+
+            </div>
+
+
+        </article>
+
 
     </div>
 
 
-    <!-- RODAPÉ -->
-    <footer>
+</section>
 
-        <div class="footer-content">
 
-            <div>
 
-                <div class="logo">
-                    <span>NEXUS</span> STORE
-                </div>
+<!-- =========================
+     OFERTA
+========================= -->
 
-                <p>
-                    Sua loja gamer completa.
-                </p>
+<section
+    id="ofertas"
+    class="offer"
+>
 
-            </div>
 
-            <div>
+    <div>
 
-                <h3>Links</h3>
+        <span>
+            🔥 OFERTA ESPECIAL
+        </span>
 
-                <a href="#inicio">Início</a>
-                <a href="#produtos">Produtos</a>
-                <a href="#categorias">Categorias</a>
 
-            </div>
+        <h2>
+            Até 50% OFF
+        </h2>
 
-            <div>
 
-                <h3>Atendimento</h3>
+        <p>
+            Aproveite nossas ofertas
+            digitais por tempo limitado.
+        </p>
 
-                <p>Suporte online</p>
-                <p>Segunda a sexta</p>
 
-            </div>
+        <a
+            href="#produtos"
+            class="btn-primary"
+        >
+            Ver ofertas
+        </a>
+
+    </div>
+
+
+    <div class="offer-icon">
+        🔥
+    </div>
+
+
+</section>
+
+
+</main>
+
+
+
+<!-- =========================
+     CARRINHO
+========================= -->
+
+<div
+    id="cart-modal"
+    class="modal"
+>
+
+
+    <div class="cart">
+
+
+        <button
+            class="close"
+            onclick="fecharCarrinho()"
+        >
+            ×
+        </button>
+
+
+        <h2>
+            Seu carrinho
+        </h2>
+
+
+        <div id="cart-items"></div>
+
+
+        <div class="cart-total">
+
+            <span>
+                Total
+            </span>
+
+            <strong id="cart-total">
+                R$ 0,00
+            </strong>
 
         </div>
 
-        <div class="copyright">
-            © 2026 NEXUS STORE — Todos os direitos reservados.
+
+        <button class="checkout">
+            Finalizar compra
+        </button>
+
+
+    </div>
+
+
+</div>
+
+
+
+<!-- =========================
+     RODAPÉ
+========================= -->
+
+<footer>
+
+
+    <div class="footer-content">
+
+
+        <div>
+
+            <div class="logo">
+
+                <span>
+                    FENIX
+                </span>
+
+                STORE
+
+            </div>
+
+
+            <p>
+                Sua loja de produtos digitais
+                para jogos online.
+            </p>
+
         </div>
 
-    </footer>
 
 
-    <script src="script.js"></script>
+        <div>
+
+            <h3>
+                Jogos
+            </h3>
+
+            <a href="#jogos">
+                Free Fire
+            </a>
+
+            <a href="#jogos">
+                Fortnite
+            </a>
+
+            <a href="#jogos">
+                Roblox
+            </a>
+
+            <a href="#jogos">
+                Valorant
+            </a>
+
+        </div>
+
+
+
+        <div>
+
+            <h3>
+                Atendimento
+            </h3>
+
+            <p>
+                Suporte online
+            </p>
+
+            <p>
+                Segunda a sexta
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+
+    <div class="copyright">
+
+        © 2026 Fwnix Store —
+        Todos os direitos reservados.
+
+    </div>
+
+
+</footer>
+
+
+
+<script src="script.js"></script>
+
 
 </body>
+
 </html>
