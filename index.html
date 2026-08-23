@@ -1,1057 +1,296 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<!-- FREE FIRE -->
+<article class="product" data-game="freefire">
 
-<head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>Fenix Store</title>
-
-    <link rel="stylesheet" href="style.css">
-
-</head>
-
-<body>
-
-
-<!-- =========================
-     CABEÇALHO
-========================= -->
-
-<header class="header">
-
-    <div class="logo">
-        <span>FENIX</span> STORE
-    </div>
-
-
-    <nav class="menu">
-
-        <a href="#inicio">
-            Início
-        </a>
-
-        <a href="#jogos">
-            Jogos
-        </a>
-
-        <a href="#produtos">
-            Produtos
-        </a>
-
-        <a href="#ofertas">
-            Ofertas
-        </a>
-
-    </nav>
-
-
-    <div class="header-actions">
-
-        <button
-            class="search-button"
-            onclick="abrirPesquisa()"
-        >
-            🔎
-        </button>
-
-
-        <button
-            class="cart-button"
-            onclick="abrirCarrinho()"
+    <div class="product-image">
+        <img
+            src="imagens/freefire.jpg"
+            alt="Free Fire"
         >
 
-            🛒
-
-            <span id="cart-count">
-                0
-            </span>
-
-        </button>
-
+        <span class="discount">
+            -20%
+        </span>
     </div>
 
-</header>
+    <div class="product-info">
 
-
-
-<!-- =========================
-     PESQUISA
-========================= -->
-
-<div
-    id="search-box"
-    class="search-box"
->
-
-    <input
-        type="text"
-        id="search-input"
-        placeholder="Pesquisar jogo ou produto..."
-        onkeyup="pesquisarProduto()"
-    >
-
-</div>
-
-
-
-<!-- =========================
-     HERO
-========================= -->
-
-<main>
-
-
-<section
-    id="inicio"
-    class="hero"
->
-
-
-    <div class="hero-content">
-
-
-        <span class="hero-tag">
-            🔥 FENIX STORE
+        <span class="product-category">
+            FREE FIRE
         </span>
 
+        <h3>
+            Pacote de Diamantes
+        </h3>
 
-        <h1>
-
-            Seus jogos.
-            <strong>
-                Seus itens.
-            </strong>
-
-        </h1>
-
-
-        <p>
-
-            Compre produtos digitais para seus
-            jogos favoritos de forma rápida,
-            prática e segura.
-
+        <p class="description">
+            Produto digital para Free Fire.
         </p>
 
-
-        <div class="hero-buttons">
-
-
-            <a
-                href="#produtos"
-                class="btn-primary"
-            >
-                Ver produtos
-            </a>
-
-
-            <a
-                href="#jogos"
-                class="btn-secondary"
-            >
-                Explorar jogos
-            </a>
-
-
+        <div class="price">
+            <del>R$ 49,90</del>
+            <strong>R$ 39,90</strong>
         </div>
-
-
-    </div>
-
-
-    <div class="hero-image">
-
-        🔥
-
-    </div>
-
-
-</section>
-
-
-
-<!-- =========================
-     BENEFÍCIOS
-========================= -->
-
-<section class="benefits">
-
-
-    <div class="benefit">
-
-        <span>
-            ⚡
-        </span>
-
-        <div>
-
-            <h3>
-                Entrega rápida
-            </h3>
-
-            <p>
-                Receba seu produto rapidamente.
-            </p>
-
-        </div>
-
-    </div>
-
-
-
-    <div class="benefit">
-
-        <span>
-            🔒
-        </span>
-
-        <div>
-
-            <h3>
-                Compra segura
-            </h3>
-
-            <p>
-                Seus dados protegidos.
-            </p>
-
-        </div>
-
-    </div>
-
-
-
-    <div class="benefit">
-
-        <span>
-            💎
-        </span>
-
-        <div>
-
-            <h3>
-                Produtos digitais
-            </h3>
-
-            <p>
-                Produtos para seus jogos.
-            </p>
-
-        </div>
-
-    </div>
-
-
-
-    <div class="benefit">
-
-        <span>
-            🎧
-        </span>
-
-        <div>
-
-            <h3>
-                Suporte
-            </h3>
-
-            <p>
-                Atendimento aos clientes.
-            </p>
-
-        </div>
-
-    </div>
-
-
-</section>
-
-
-
-<!-- =========================
-     JOGOS
-========================= -->
-
-<section
-    id="jogos"
-    class="section"
->
-
-
-    <div class="section-title">
-
-        <span>
-            JOGOS
-        </span>
-
-        <h2>
-            Escolha seu jogo
-        </h2>
-
-    </div>
-
-
-
-    <div class="categories">
-
-
-        <div class="category">
-
-            <div class="category-icon">
-                🔥
-            </div>
-
-            <h3>
-                Free Fire
-            </h3>
-
-            <p>
-                Diamantes e produtos digitais
-            </p>
-
-        </div>
-
-
-
-        <div class="category">
-
-            <div class="category-icon">
-                🟣
-            </div>
-
-            <h3>
-                Fortnite
-            </h3>
-
-            <p>
-                V-Bucks e produtos digitais
-            </p>
-
-        </div>
-
-
-
-        <div class="category">
-
-            <div class="category-icon">
-                🟦
-            </div>
-
-            <h3>
-                Roblox
-            </h3>
-
-            <p>
-                Robux e produtos digitais
-            </p>
-
-        </div>
-
-
-
-        <div class="category">
-
-            <div class="category-icon">
-                🎯
-            </div>
-
-            <h3>
-                Valorant
-            </h3>
-
-            <p>
-                VP e produtos digitais
-            </p>
-
-        </div>
-
-
-
-        <div class="category">
-
-            <div class="category-icon">
-                ⚽
-            </div>
-
-            <h3>
-                EA Sports FC
-            </h3>
-
-            <p>
-                FC Points e produtos
-            </p>
-
-        </div>
-
-
-
-        <div class="category">
-
-            <div class="category-icon">
-                🟩
-            </div>
-
-            <h3>
-                Minecraft
-            </h3>
-
-            <p>
-                Produtos digitais
-            </p>
-
-        </div>
-
-
-    </div>
-
-
-</section>
-
-
-
-<!-- =========================
-     PRODUTOS
-========================= -->
-
-<section
-    id="produtos"
-    class="section products-section"
->
-
-
-    <div class="section-title">
-
-        <span>
-            PRODUTOS
-        </span>
-
-        <h2>
-            Mais vendidos
-        </h2>
-
-    </div>
-
-
-
-    <div
-        id="products"
-        class="products"
-    >
-
-
-
-        <!-- FREE FIRE -->
-
-        <article class="product">
-
-
-            <div class="product-image">
-
-                🔥
-
-                <span class="discount">
-                    -20%
-                </span>
-
-            </div>
-
-
-            <div class="product-info">
-
-
-                <span class="product-category">
-                    FREE FIRE
-                </span>
-
-
-                <h3>
-                    Pacote de Diamantes
-                </h3>
-
-
-                <p class="description">
-                    Pacote digital de diamantes.
-                </p>
-
-
-                <div class="price">
-
-                    <del>
-                        R$ 49,90
-                    </del>
-
-                    <strong>
-                        R$ 39,90
-                    </strong>
-
-                </div>
-
-
-                <button
-                    class="buy-button"
-                    onclick="
-                    adicionarCarrinho(
-                        'Pacote de Diamantes',
-                        39.90
-                    )
-                    "
-                >
-                    Comprar
-                </button>
-
-
-            </div>
-
-
-        </article>
-
-
-
-        <!-- FORTNITE -->
-
-        <article class="product">
-
-
-            <div class="product-image">
-
-                🟣
-
-                <span class="discount">
-                    -15%
-                </span>
-
-            </div>
-
-
-            <div class="product-info">
-
-
-                <span class="product-category">
-                    FORTNITE
-                </span>
-
-
-                <h3>
-                    V-Bucks
-                </h3>
-
-
-                <p class="description">
-                    Créditos digitais para Fortnite.
-                </p>
-
-
-                <div class="price">
-
-                    <del>
-                        R$ 59,90
-                    </del>
-
-                    <strong>
-                        R$ 49,90
-                    </strong>
-
-                </div>
-
-
-                <button
-                    class="buy-button"
-                    onclick="
-                    adicionarCarrinho(
-                        'V-Bucks Fortnite',
-                        49.90
-                    )
-                    "
-                >
-                    Comprar
-                </button>
-
-
-            </div>
-
-
-        </article>
-
-
-
-        <!-- ROBLOX -->
-
-        <article class="product">
-
-
-            <div class="product-image">
-
-                🟦
-
-                <span class="discount">
-                    -10%
-                </span>
-
-            </div>
-
-
-            <div class="product-info">
-
-
-                <span class="product-category">
-                    ROBLOX
-                </span>
-
-
-                <h3>
-                    Robux
-                </h3>
-
-
-                <p class="description">
-                    Moeda virtual para Roblox.
-                </p>
-
-
-                <div class="price">
-
-                    <del>
-                        R$ 54,90
-                    </del>
-
-                    <strong>
-                        R$ 49,90
-                    </strong>
-
-                </div>
-
-
-                <button
-                    class="buy-button"
-                    onclick="
-                    adicionarCarrinho(
-                        'Robux Roblox',
-                        49.90
-                    )
-                    "
-                >
-                    Comprar
-                </button>
-
-
-            </div>
-
-
-        </article>
-
-
-
-        <!-- VALORANT -->
-
-        <article class="product">
-
-
-            <div class="product-image">
-
-                🎯
-
-                <span class="discount">
-                    -12%
-                </span>
-
-            </div>
-
-
-            <div class="product-info">
-
-
-                <span class="product-category">
-                    VALORANT
-                </span>
-
-
-                <h3>
-                    Valorant Points
-                </h3>
-
-
-                <p class="description">
-                    Créditos para Valorant.
-                </p>
-
-
-                <div class="price">
-
-                    <del>
-                        R$ 69,90
-                    </del>
-
-                    <strong>
-                        R$ 61,90
-                    </strong>
-
-                </div>
-
-
-                <button
-                    class="buy-button"
-                    onclick="
-                    adicionarCarrinho(
-                        'Valorant Points',
-                        61.90
-                    )
-                    "
-                >
-                    Comprar
-                </button>
-
-
-            </div>
-
-
-        </article>
-
-
-
-        <!-- EA SPORTS FC -->
-
-        <article class="product">
-
-
-            <div class="product-image">
-
-                ⚽
-
-                <span class="discount">
-                    -18%
-                </span>
-
-            </div>
-
-
-            <div class="product-info">
-
-
-                <span class="product-category">
-                    EA SPORTS FC
-                </span>
-
-
-                <h3>
-                    FC Points
-                </h3>
-
-
-                <p class="description">
-                    Pontos para EA Sports FC.
-                </p>
-
-
-                <div class="price">
-
-                    <del>
-                        R$ 79,90
-                    </del>
-
-                    <strong>
-                        R$ 65,90
-                    </strong>
-
-                </div>
-
-
-                <button
-                    class="buy-button"
-                    onclick="
-                    adicionarCarrinho(
-                        'FC Points',
-                        65.90
-                    )
-                    "
-                >
-                    Comprar
-                </button>
-
-
-            </div>
-
-
-        </article>
-
-
-
-        <!-- MINECRAFT -->
-
-        <article class="product">
-
-
-            <div class="product-image">
-
-                🟩
-
-                <span class="discount">
-                    -10%
-                </span>
-
-            </div>
-
-
-            <div class="product-info">
-
-
-                <span class="product-category">
-                    MINECRAFT
-                </span>
-
-
-                <h3>
-                    Gift Card Minecraft
-                </h3>
-
-
-                <p class="description">
-                    Produto digital para Minecraft.
-                </p>
-
-
-                <div class="price">
-
-                    <del>
-                        R$ 89,90
-                    </del>
-
-                    <strong>
-                        R$ 79,90
-                    </strong>
-
-                </div>
-
-
-                <button
-                    class="buy-button"
-                    onclick="
-                    adicionarCarrinho(
-                        'Gift Card Minecraft',
-                        79.90
-                    )
-                    "
-                >
-                    Comprar
-                </button>
-
-
-            </div>
-
-
-        </article>
-
-
-    </div>
-
-
-</section>
-
-
-
-<!-- =========================
-     OFERTA
-========================= -->
-
-<section
-    id="ofertas"
-    class="offer"
->
-
-
-    <div>
-
-        <span>
-            🔥 OFERTA ESPECIAL
-        </span>
-
-
-        <h2>
-            Até 50% OFF
-        </h2>
-
-
-        <p>
-            Aproveite nossas ofertas
-            digitais por tempo limitado.
-        </p>
-
-
-        <a
-            href="#produtos"
-            class="btn-primary"
-        >
-            Ver ofertas
-        </a>
-
-    </div>
-
-
-    <div class="offer-icon">
-        🔥
-    </div>
-
-
-</section>
-
-
-</main>
-
-
-
-<!-- =========================
-     CARRINHO
-========================= -->
-
-<div
-    id="cart-modal"
-    class="modal"
->
-
-
-    <div class="cart">
-
 
         <button
-            class="close"
-            onclick="fecharCarrinho()"
+            class="buy-button"
+            onclick="adicionarCarrinho(
+                'Pacote de Diamantes Free Fire',
+                39.90
+            )"
         >
-            ×
+            🛒 Comprar
         </button>
 
+    </div>
 
-        <h2>
-            Seu carrinho
-        </h2>
-
-
-        <div id="cart-items"></div>
+</article>
 
 
-        <div class="cart-total">
+<!-- FORTNITE -->
+<article class="product" data-game="fortnite">
 
-            <span>
-                Total
-            </span>
+    <div class="product-image">
 
-            <strong id="cart-total">
-                R$ 0,00
-            </strong>
+        <img
+            src="imagens/fortnite.jpg"
+            alt="Fortnite"
+        >
 
+        <span class="discount">
+            -15%
+        </span>
+
+    </div>
+
+    <div class="product-info">
+
+        <span class="product-category">
+            FORTNITE
+        </span>
+
+        <h3>
+            V-Bucks
+        </h3>
+
+        <p class="description">
+            Créditos digitais para Fortnite.
+        </p>
+
+        <div class="price">
+            <del>R$ 59,90</del>
+            <strong>R$ 49,90</strong>
         </div>
 
-
-        <button class="checkout">
-            Finalizar compra
+        <button
+            class="buy-button"
+            onclick="adicionarCarrinho(
+                'V-Bucks Fortnite',
+                49.90
+            )"
+        >
+            🛒 Comprar
         </button>
 
+    </div>
+
+</article>
+
+
+<!-- ROBLOX -->
+<article class="product" data-game="roblox">
+
+    <div class="product-image">
+
+        <img
+            src="imagens/roblox.jpg"
+            alt="Roblox"
+        >
+
+        <span class="discount">
+            -10%
+        </span>
 
     </div>
 
+    <div class="product-info">
 
-</div>
+        <span class="product-category">
+            ROBLOX
+        </span>
 
+        <h3>
+            Robux
+        </h3>
 
+        <p class="description">
+            Moeda virtual para Roblox.
+        </p>
 
-<!-- =========================
-     RODAPÉ
-========================= -->
-
-<footer>
-
-
-    <div class="footer-content">
-
-
-        <div>
-
-            <div class="logo">
-
-                <span>
-                    FENIX
-                </span>
-
-                STORE
-
-            </div>
-
-
-            <p>
-                Sua loja de produtos digitais
-                para jogos online.
-            </p>
-
+        <div class="price">
+            <del>R$ 54,90</del>
+            <strong>R$ 49,90</strong>
         </div>
 
-
-
-        <div>
-
-            <h3>
-                Jogos
-            </h3>
-
-            <a href="#jogos">
-                Free Fire
-            </a>
-
-            <a href="#jogos">
-                Fortnite
-            </a>
-
-            <a href="#jogos">
-                Roblox
-            </a>
-
-            <a href="#jogos">
-                Valorant
-            </a>
-
-        </div>
-
-
-
-        <div>
-
-            <h3>
-                Atendimento
-            </h3>
-
-            <p>
-                Suporte online
-            </p>
-
-            <p>
-                Segunda a sexta
-            </p>
-
-        </div>
-
+        <button
+            class="buy-button"
+            onclick="adicionarCarrinho(
+                'Robux Roblox',
+                49.90
+            )"
+        >
+            🛒 Comprar
+        </button>
 
     </div>
 
+</article>
 
 
-    <div class="copyright">
+<!-- VALORANT -->
+<article class="product" data-game="valorant">
 
-        © 2026 Fwnix Store —
-        Todos os direitos reservados.
+    <div class="product-image">
+
+        <img
+            src="imagens/valorant.jpg"
+            alt="Valorant"
+        >
+
+        <span class="discount">
+            -12%
+        </span>
 
     </div>
 
+    <div class="product-info">
 
-</footer>
+        <span class="product-category">
+            VALORANT
+        </span>
+
+        <h3>
+            Valorant Points
+        </h3>
+
+        <p class="description">
+            Créditos digitais para Valorant.
+        </p>
+
+        <div class="price">
+            <del>R$ 69,90</del>
+            <strong>R$ 61,90</strong>
+        </div>
+
+        <button
+            class="buy-button"
+            onclick="adicionarCarrinho(
+                'Valorant Points',
+                61.90
+            )"
+        >
+            🛒 Comprar
+        </button>
+
+    </div>
+
+</article>
 
 
+<!-- EA SPORTS FC -->
+<article class="product" data-game="eafc">
 
-<script src="script.js"></script>
+    <div class="product-image">
+
+        <img
+            src="imagens/eafc.jpg"
+            alt="EA Sports FC"
+        >
+
+        <span class="discount">
+            -18%
+        </span>
+
+    </div>
+
+    <div class="product-info">
+
+        <span class="product-category">
+            EA SPORTS FC
+        </span>
+
+        <h3>
+            FC Points
+        </h3>
+
+        <p class="description">
+            Pontos para EA Sports FC.
+        </p>
+
+        <div class="price">
+            <del>R$ 79,90</del>
+            <strong>R$ 65,90</strong>
+        </div>
+
+        <button
+            class="buy-button"
+            onclick="adicionarCarrinho(
+                'FC Points',
+                65.90
+            )"
+        >
+            🛒 Comprar
+        </button>
+
+    </div>
+
+</article>
 
 
-</body>
+<!-- MINECRAFT -->
+<article class="product" data-game="minecraft">
 
-</html>
+    <div class="product-image">
+
+        <img
+            src="imagens/minecraft.jpg"
+            alt="Minecraft"
+        >
+
+        <span class="discount">
+            -10%
+        </span>
+
+    </div>
+
+    <div class="product-info">
+
+        <span class="product-category">
+            MINECRAFT
+        </span>
+
+        <h3>
+            Gift Card
+        </h3>
+
+        <p class="description">
+            Produto digital para Minecraft.
+        </p>
+
+        <div class="price">
+            <del>R$ 89,90</del>
+            <strong>R$ 79,90</strong>
+        </div>
+
+        <button
+            class="buy-button"
+            onclick="adicionarCarrinho(
+                'Gift Card Minecraft',
+                79.90
+            )"
+        >
+            🛒 Comprar
+        </button>
+
+    </div>
+
+</article>
