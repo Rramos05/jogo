@@ -1,109 +1,73 @@
-/* ========================================
-   PARTICULAS
-======================================== */
+const particles = document.getElementById("particles");
 
-const particleContainer = document.getElementById("particles");
+const amount = window.innerWidth <= 600 ? 18 : 35;
 
-const particleCount = window.innerWidth < 600 ? 20 : 45;
-
-for (let i = 0; i < particleCount; i++) {
+for (let i = 0; i < amount; i++) {
 
     const particle = document.createElement("span");
 
     particle.className = "particle";
 
-    const size = Math.random() * 2 + 1;
-    const duration = Math.random() * 12 + 8;
-    const delay = Math.random() * -15;
+    particle.style.left =
+        `${Math.random() * 100}%`;
 
-    particle.style.width = `${size}px`;
-    particle.style.height = `${size}px`;
+    particle.style.animationDuration =
+        `${8 + Math.random() * 12}s`;
 
-    particle.style.left = `${Math.random() * 100}%`;
+    particle.style.animationDelay =
+        `${Math.random() * -15}s`;
 
-    particle.style.animationDuration = `${duration}s`;
-    particle.style.animationDelay = `${delay}s`;
+    const size =
+        1 + Math.random() * 2;
 
-    particle.style.opacity = Math.random() * .7 + .2;
+    particle.style.width =
+        `${size}px`;
 
-    particleContainer.appendChild(particle);
+    particle.style.height =
+        `${size}px`;
+
+    particles.appendChild(particle);
 }
 
 
-/* ========================================
-   CURSOR
-======================================== */
+/* =================================
+   EFEITO MAGNÉTICO LEVE
+================================= */
 
-const cursor = document.querySelector(".cursor");
-const follower = document.querySelector(".cursor-follower");
-
-let mouseX = window.innerWidth / 2;
-let mouseY = window.innerHeight / 2;
-
-let followerX = mouseX;
-let followerY = mouseY;
-
-document.addEventListener("mousemove", (event) => {
-
-    mouseX = event.clientX;
-    mouseY = event.clientY;
-
-    cursor.style.left = `${mouseX}px`;
-    cursor.style.top = `${mouseY}px`;
-});
-
-
-function animateCursor() {
-
-    followerX += (mouseX - followerX) * 0.12;
-    followerY += (mouseY - followerY) * 0.12;
-
-    follower.style.left = `${followerX}px`;
-    follower.style.top = `${followerY}px`;
-
-    requestAnimationFrame(animateCursor);
-}
-
-animateCursor();
-
-
-/* ========================================
-   EFEITO NOS LINKS
-======================================== */
-
-const cards = document.querySelectorAll("[data-magnetic]");
+const cards =
+    document.querySelectorAll(".social-card");
 
 cards.forEach(card => {
 
-    card.addEventListener("mouseenter", () => {
-
-        follower.style.width = "60px";
-        follower.style.height = "60px";
-
-        follower.style.borderColor =
-            "rgba(255, 101, 0, .9)";
-    });
-
-
     card.addEventListener("mousemove", event => {
 
-        const rect = card.getBoundingClientRect();
+        if (window.innerWidth <= 700) {
+            return;
+        }
+
+        const rect =
+            card.getBoundingClientRect();
 
         const x =
-            event.clientX -
-            rect.left -
-            rect.width / 2;
+            event.clientX - rect.left;
 
         const y =
-            event.clientY -
-            rect.top -
+            event.clientY - rect.top;
+
+        const centerX =
+            rect.width / 2;
+
+        const centerY =
             rect.height / 2;
 
-        const moveX = x * 0.08;
-        const moveY = y * 0.08;
+        const moveX =
+            (x - centerX) * 0.025;
+
+        const moveY =
+            (y - centerY) * 0.025;
 
         card.style.transform =
-            `translate(${moveX}px, ${moveY - 7}px)`;
+            `translate(${moveX}px, ${moveY - 5}px)`;
     });
 
 
@@ -111,49 +75,6 @@ cards.forEach(card => {
 
         card.style.transform = "";
 
-        follower.style.width = "35px";
-        follower.style.height = "35px";
-
-        follower.style.borderColor =
-            "rgba(255, 101, 0, .5)";
     });
-
-});
-
-
-/* ========================================
-   PARALLAX DO FUNDO
-======================================== */
-
-document.addEventListener("mousemove", event => {
-
-    const x =
-        (event.clientX / window.innerWidth - .5) * 2;
-
-    const y =
-        (event.clientY / window.innerHeight - .5) * 2;
-
-    const grid = document.querySelector(".grid");
-
-    if (grid) {
-        grid.style.transform =
-            `translate(${x * 8}px, ${y * 8}px)`;
-    }
-});
-
-
-/* ========================================
-   TÍTULO DINÂMICO
-======================================== */
-
-let originalTitle = document.title;
-
-document.addEventListener("visibilitychange", () => {
-
-    if (document.hidden) {
-        document.title = "Volte aqui 👋";
-    } else {
-        document.title = originalTitle;
-    }
 
 });
