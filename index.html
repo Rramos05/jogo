@@ -1,37 +1,78 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Ruan Ramos Barañano — Instagram e WhatsApp."
+    >
+
+    <meta
+        name="theme-color"
+        content="#030303"
+    >
+
+    <meta
+        name="author"
+        content="Ruan Ramos Barañano"
+    >
 
     <title>Ruan Ramos Barañano</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet"
+    >
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+    <!-- Conteúdo principal -->
     <main class="container">
 
-        <div class="content">
+        <section class="content" aria-labelledby="nome">
 
-            <div class="line"></div>
+            <!-- Linha decorativa superior -->
+            <div class="line" aria-hidden="true"></div>
 
-            <h1>
-                RUAN RAMOS<br>
-                <span>BARAÑANO</span>
-            </h1>
+            <!-- Identificação -->
+            <header>
 
-            <div class="buttons">
+                <h1 id="nome">
+                    RUAN RAMOS
+                    <br>
+                    <span>BARAÑANO</span>
+                </h1>
+
+            </header>
+
+            <!-- Redes sociais e contato -->
+            <nav
+                class="buttons"
+                aria-label="Links de contato e redes sociais"
+            >
 
                 <a
                     href="https://www.instagram.com/ruannn05_/"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="button instagram"
+                    aria-label="Abrir Instagram de Ruan Ramos Barañano"
                 >
-                    <span>◎</span>
-                    INSTAGRAM
+                    <span aria-hidden="true">◎</span>
+                    <span>INSTAGRAM</span>
                 </a>
 
                 <a
@@ -39,20 +80,27 @@
                     target="_blank"
                     rel="noopener noreferrer"
                     class="button whatsapp"
+                    aria-label="Entrar em contato pelo WhatsApp"
                 >
-                    <span>◉</span>
-                    WHATSAPP
+                    <span aria-hidden="true">◉</span>
+                    <span>WHATSAPP</span>
                 </a>
 
-            </div>
+            </nav>
 
-            <div class="line bottom"></div>
+            <!-- Linha decorativa inferior -->
+            <div
+                class="line bottom"
+                aria-hidden="true"
+            ></div>
 
-        </div>
+        </section>
 
     </main>
 
+    <!-- JavaScript -->
     <script src="script.js"></script>
 
 </body>
+
 </html>
