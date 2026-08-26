@@ -1,78 +1,159 @@
-const buttons = document.querySelectorAll(".button");
+/* ========================================
+   PARTICULAS
+======================================== */
 
-/* =========================
-   CURSOR GLOW
-========================= */
+const particleContainer = document.getElementById("particles");
 
-const glow = document.createElement("div");
+const particleCount = window.innerWidth < 600 ? 20 : 45;
 
-glow.classList.add("cursor-glow");
+for (let i = 0; i < particleCount; i++) {
 
-document.body.appendChild(glow);
+    const particle = document.createElement("span");
+
+    particle.className = "particle";
+
+    const size = Math.random() * 2 + 1;
+    const duration = Math.random() * 12 + 8;
+    const delay = Math.random() * -15;
+
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+
+    particle.style.left = `${Math.random() * 100}%`;
+
+    particle.style.animationDuration = `${duration}s`;
+    particle.style.animationDelay = `${delay}s`;
+
+    particle.style.opacity = Math.random() * .7 + .2;
+
+    particleContainer.appendChild(particle);
+}
+
+
+/* ========================================
+   CURSOR
+======================================== */
+
+const cursor = document.querySelector(".cursor");
+const follower = document.querySelector(".cursor-follower");
 
 let mouseX = window.innerWidth / 2;
 let mouseY = window.innerHeight / 2;
 
-let glowX = mouseX;
-let glowY = mouseY;
+let followerX = mouseX;
+let followerY = mouseY;
 
 document.addEventListener("mousemove", (event) => {
+
     mouseX = event.clientX;
     mouseY = event.clientY;
+
+    cursor.style.left = `${mouseX}px`;
+    cursor.style.top = `${mouseY}px`;
 });
 
-function animateGlow() {
-    glowX += (mouseX - glowX) * 0.12;
-    glowY += (mouseY - glowY) * 0.12;
 
-    glow.style.left = `${glowX}px`;
-    glow.style.top = `${glowY}px`;
+function animateCursor() {
 
-    requestAnimationFrame(animateGlow);
+    followerX += (mouseX - followerX) * 0.12;
+    followerY += (mouseY - followerY) * 0.12;
+
+    follower.style.left = `${followerX}px`;
+    follower.style.top = `${followerY}px`;
+
+    requestAnimationFrame(animateCursor);
 }
 
-animateGlow();
+animateCursor();
 
-/* =========================
-   EFEITO MAGNÉTICO
-========================= */
 
-buttons.forEach(button => {
+/* ========================================
+   EFEITO NOS LINKS
+======================================== */
 
-    button.addEventListener("mousemove", event => {
+const cards = document.querySelectorAll("[data-magnetic]");
 
-        const rect = button.getBoundingClientRect();
+cards.forEach(card => {
 
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
+    card.addEventListener("mouseenter", () => {
 
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
+        follower.style.width = "60px";
+        follower.style.height = "60px";
 
-        const moveX = (x - centerX) * 0.08;
-        const moveY = (y - centerY) * 0.08;
-
-        button.style.transform =
-            `translate(${moveX}px, ${moveY - 5}px) scale(1.025)`;
+        follower.style.borderColor =
+            "rgba(255, 101, 0, .9)";
     });
 
-    button.addEventListener("mouseleave", () => {
-        button.style.transform = "";
+
+    card.addEventListener("mousemove", event => {
+
+        const rect = card.getBoundingClientRect();
+
+        const x =
+            event.clientX -
+            rect.left -
+            rect.width / 2;
+
+        const y =
+            event.clientY -
+            rect.top -
+            rect.height / 2;
+
+        const moveX = x * 0.08;
+        const moveY = y * 0.08;
+
+        card.style.transform =
+            `translate(${moveX}px, ${moveY - 7}px)`;
     });
 
-    button.addEventListener("mouseenter", () => {
-        glow.style.width = "260px";
-        glow.style.height = "260px";
-        glow.style.opacity = "0.8";
+
+    card.addEventListener("mouseleave", () => {
+
+        card.style.transform = "";
+
+        follower.style.width = "35px";
+        follower.style.height = "35px";
+
+        follower.style.borderColor =
+            "rgba(255, 101, 0, .5)";
     });
+
 });
 
-/* volta o cursor ao tamanho normal */
 
-document.addEventListener("mouseleave", () => {
-    glow.style.opacity = "0";
+/* ========================================
+   PARALLAX DO FUNDO
+======================================== */
+
+document.addEventListener("mousemove", event => {
+
+    const x =
+        (event.clientX / window.innerWidth - .5) * 2;
+
+    const y =
+        (event.clientY / window.innerHeight - .5) * 2;
+
+    const grid = document.querySelector(".grid");
+
+    if (grid) {
+        grid.style.transform =
+            `translate(${x * 8}px, ${y * 8}px)`;
+    }
 });
 
-document.addEventListener("mouseenter", () => {
-    glow.style.opacity = "1";
+
+/* ========================================
+   TÍTULO DINÂMICO
+======================================== */
+
+let originalTitle = document.title;
+
+document.addEventListener("visibilitychange", () => {
+
+    if (document.hidden) {
+        document.title = "Volte aqui 👋";
+    } else {
+        document.title = originalTitle;
+    }
+
 });
