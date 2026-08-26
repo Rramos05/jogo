@@ -1,15 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+
 :root {
     --orange: #ff6500;
-    --orange-light: #ff9b52;
-    --orange-dark: #b93800;
-
     --black: #030303;
-    --black-soft: #080808;
-
     --white: #ffffff;
-    --gray: #858585;
-
-    --ease: cubic-bezier(.16, 1, .3, 1);
+    --gray: #777;
 }
 
 * {
@@ -25,80 +20,37 @@ body {
 }
 
 body {
+    min-height: 100vh;
+
     background: var(--black);
     color: var(--white);
 
     font-family: "Inter", Arial, sans-serif;
 
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
-/* ========================================
-   CURSOR
-======================================== */
-
-.cursor,
-.cursor-follower {
-    position: fixed;
-
-    top: 0;
-    left: 0;
-
-    pointer-events: none;
-
-    border-radius: 50%;
-
-    z-index: 1000;
-}
-
-.cursor {
-    width: 7px;
-    height: 7px;
-
-    background: var(--orange);
-
-    box-shadow:
-        0 0 10px var(--orange),
-        0 0 25px var(--orange);
-
-    transform: translate(-50%, -50%);
-}
-
-.cursor-follower {
-    width: 35px;
-    height: 35px;
-
-    border: 1px solid rgba(255, 101, 0, .5);
-
-    transform: translate(-50%, -50%);
-
-    transition:
-        width .3s ease,
-        height .3s ease,
-        border-color .3s ease;
-}
-
-/* ========================================
+/* =================================
    FUNDO
-======================================== */
+================================= */
 
 .background {
     position: fixed;
     inset: 0;
 
-    overflow: hidden;
-
-    pointer-events: none;
-
     z-index: 0;
+
+    overflow: hidden;
 
     background:
         radial-gradient(
-            circle at center,
-            rgba(255, 101, 0, .045),
+            circle at 50% 45%,
+            rgba(255, 101, 0, 0.07),
             transparent 35%
         ),
         #030303;
+
+    pointer-events: none;
 }
 
 .glow {
@@ -106,78 +58,82 @@ body {
 
     border-radius: 50%;
 
-    filter: blur(120px);
+    background: var(--orange);
+
+    filter: blur(130px);
 
     pointer-events: none;
 }
 
 .glow-one {
-    width: 450px;
-    height: 450px;
-
-    background: rgba(255, 76, 0, .13);
+    width: 400px;
+    height: 400px;
 
     top: -250px;
     left: 50%;
 
     transform: translateX(-50%);
 
-    animation: glowMove 7s ease-in-out infinite;
+    opacity: 0.09;
+
+    animation: pulse 6s ease-in-out infinite;
 }
 
 .glow-two {
-    width: 300px;
-    height: 300px;
+    width: 250px;
+    height: 250px;
 
-    background: rgba(255, 101, 0, .08);
-
-    bottom: -150px;
     right: -100px;
+    bottom: -100px;
 
-    animation: glowMoveTwo 9s ease-in-out infinite;
+    opacity: 0.06;
+
+    animation: floatGlow 8s ease-in-out infinite;
 }
 
-/* grade */
+/* =================================
+   GRADE
+================================= */
 
 .grid {
     position: absolute;
     inset: 0;
 
-    opacity: .18;
-
     background-image:
         linear-gradient(
-            rgba(255,255,255,.025) 1px,
+            rgba(255, 255, 255, 0.025) 1px,
             transparent 1px
         ),
         linear-gradient(
             90deg,
-            rgba(255,255,255,.025) 1px,
+            rgba(255, 255, 255, 0.025) 1px,
             transparent 1px
         );
 
     background-size: 70px 70px;
 
+    opacity: 0.3;
+
     mask-image: radial-gradient(
-        ellipse at center,
+        circle at center,
         black,
         transparent 75%
     );
 }
 
-/* ========================================
-   PARTICULAS
-======================================== */
+/* =================================
+   PARTÍCULAS
+================================= */
 
 #particles {
     position: fixed;
     inset: 0;
 
-    pointer-events: none;
+    z-index: 1;
 
     overflow: hidden;
 
-    z-index: 1;
+    pointer-events: none;
 }
 
 .particle {
@@ -191,29 +147,30 @@ body {
     background: var(--orange);
 
     box-shadow:
-        0 0 8px var(--orange),
-        0 0 15px rgba(255,101,0,.6);
+        0 0 8px var(--orange);
 
-    animation: floatParticle linear infinite;
+    animation: particleMove linear infinite;
 }
 
-/* ========================================
-   PAGINA
-======================================== */
+/* =================================
+   PÁGINA
+================================= */
 
 .page {
     min-height: 100vh;
 
+    width: 100%;
+
     display: flex;
 
-    justify-content: center;
     align-items: center;
-
-    padding: 30px;
+    justify-content: center;
 
     position: relative;
 
-    z-index: 2;
+    z-index: 5;
+
+    padding: 40px 20px;
 }
 
 .profile {
@@ -224,9 +181,9 @@ body {
     position: relative;
 }
 
-/* ========================================
+/* =================================
    STATUS
-======================================== */
+================================= */
 
 .status {
     display: inline-flex;
@@ -237,25 +194,22 @@ body {
 
     padding: 7px 13px;
 
-    margin-bottom: 32px;
+    margin-bottom: 30px;
 
-    border: 1px solid rgba(255,255,255,.08);
+    border: 1px solid rgba(255, 255, 255, 0.08);
 
-    border-radius: 100px;
+    border-radius: 50px;
 
-    background: rgba(255,255,255,.025);
+    background: rgba(255, 255, 255, 0.025);
 
     color: #777;
 
     font-size: 9px;
-
     font-weight: 800;
 
     letter-spacing: 2px;
 
-    backdrop-filter: blur(10px);
-
-    animation: fadeDown 1s var(--ease) both;
+    animation: fadeDown 0.8s ease both;
 }
 
 .status-dot {
@@ -266,34 +220,31 @@ body {
 
     background: #35e66b;
 
-    box-shadow:
-        0 0 8px #35e66b;
+    box-shadow: 0 0 8px #35e66b;
 
-    animation: blink 2s ease-in-out infinite;
+    animation: blink 2s infinite;
 }
 
-/* ========================================
+/* =================================
    LINHA
-======================================== */
+================================= */
 
 .top-line {
     width: 100%;
     height: 1px;
 
-    margin-bottom: 42px;
-
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255,101,0,.6),
-        transparent
-    );
+    margin-bottom: 40px;
 
     position: relative;
 
     overflow: hidden;
 
-    animation: lineAppear 1.2s var(--ease) .2s both;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 101, 0, 0.5),
+        transparent
+    );
 }
 
 .top-line span {
@@ -302,43 +253,41 @@ body {
     width: 80px;
     height: 1px;
 
+    left: -80px;
+
     background: var(--orange);
 
-    box-shadow:
-        0 0 15px var(--orange);
+    box-shadow: 0 0 12px var(--orange);
 
-    left: -100px;
-
-    animation: lineTravel 4s linear infinite;
+    animation: lineMove 4s linear infinite;
 }
 
-/* ========================================
+/* =================================
    NOME
-======================================== */
+================================= */
 
 .name-wrapper {
-    animation: reveal .9s var(--ease) .25s both;
+    animation: nameEnter 1s cubic-bezier(.16, 1, .3, 1) both;
 }
 
 .eyebrow {
+    margin-bottom: 18px;
+
     color: var(--orange);
 
     font-size: 10px;
-
     font-weight: 800;
 
     letter-spacing: 5px;
 
-    margin-bottom: 18px;
-
     text-shadow:
-        0 0 15px rgba(255,101,0,.4);
+        0 0 15px rgba(255, 101, 0, 0.4);
 }
 
 h1 {
-    font-size: clamp(52px, 10vw, 92px);
+    font-size: clamp(55px, 9vw, 90px);
 
-    line-height: .84;
+    line-height: 0.85;
 
     font-weight: 900;
 
@@ -352,173 +301,132 @@ h1 span {
 
     color: transparent;
 
-    -webkit-text-stroke: 1px rgba(255,255,255,.35);
-
-    text-shadow: none;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.35);
 }
 
 h1 strong {
     display: block;
 
+    margin-top: 14px;
+
     color: var(--orange);
 
-    font-size: .72em;
-
-    margin-top: 14px;
+    font-size: 0.72em;
 
     letter-spacing: -4px;
 
     text-shadow:
-        0 0 10px rgba(255,101,0,.5),
-        0 0 35px rgba(255,101,0,.2);
+        0 0 10px rgba(255, 101, 0, 0.5),
+        0 0 30px rgba(255, 101, 0, 0.2);
 }
 
 .subtitle {
-    margin-top: 28px;
+    margin-top: 27px;
 
-    color: #686868;
+    color: #666;
 
     font-size: 9px;
-
     font-weight: 700;
 
     letter-spacing: 4px;
 }
 
-/* ========================================
+/* =================================
    CARDS
-======================================== */
+================================= */
 
 .links {
     display: grid;
 
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
 
     gap: 14px;
 
-    margin-top: 42px;
+    margin-top: 40px;
 
-    animation: cardsUp 1s var(--ease) .45s both;
+    animation: cardsEnter 1s cubic-bezier(.16, 1, .3, 1) 0.15s both;
 }
 
 .social-card {
-    min-height: 92px;
+    min-height: 90px;
 
     display: flex;
 
     align-items: center;
 
-    gap: 15px;
+    gap: 14px;
 
-    padding: 18px;
+    padding: 17px;
 
     position: relative;
 
     overflow: hidden;
 
-    border: 1px solid rgba(255,255,255,.08);
+    border: 1px solid rgba(255, 255, 255, 0.08);
 
     border-radius: 14px;
 
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,.045),
-            rgba(255,255,255,.01)
-        );
+    background: rgba(255, 255, 255, 0.025);
 
     color: white;
 
     text-decoration: none;
 
-    text-align: left;
-
-    backdrop-filter: blur(15px);
-
     transition:
-        transform .45s var(--ease),
-        border-color .4s ease,
-        background .4s ease,
-        box-shadow .4s ease;
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease;
 }
+
+.social-card:hover {
+    transform: translateY(-6px);
+
+    border-color: rgba(255, 101, 0, 0.65);
+
+    background: rgba(255, 101, 0, 0.07);
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.45),
+        0 0 30px rgba(255, 101, 0, 0.08);
+}
+
+/* brilho */
 
 .social-card::before {
     content: "";
 
     position: absolute;
 
-    width: 150px;
-    height: 150px;
+    top: 0;
+    left: -120%;
 
-    top: -100px;
-    right: -100px;
+    width: 70%;
+    height: 100%;
 
-    border-radius: 50%;
-
-    background: var(--orange);
-
-    filter: blur(70px);
-
-    opacity: 0;
-
-    transition: opacity .5s ease;
-}
-
-.social-card::after {
-    content: "";
-
-    position: absolute;
-
-    width: 80px;
-    height: 200%;
-
-    left: -130px;
-    top: -50%;
-
-    transform: rotate(25deg);
+    transform: skewX(-20deg);
 
     background: linear-gradient(
         90deg,
         transparent,
-        rgba(255,255,255,.15),
+        rgba(255, 255, 255, 0.12),
         transparent
     );
 
-    transition: left .7s ease;
-}
-
-.social-card:hover {
-    border-color: rgba(255,101,0,.65);
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,101,0,.12),
-            rgba(255,255,255,.025)
-        );
-
-    box-shadow:
-        0 15px 50px rgba(0,0,0,.4),
-        0 0 35px rgba(255,101,0,.08);
-
-    transform: translateY(-7px);
+    transition: left 0.7s ease;
 }
 
 .social-card:hover::before {
-    opacity: .18;
+    left: 140%;
 }
 
-.social-card:hover::after {
-    left: 130%;
-}
-
-/* ========================================
-   ICONES
-======================================== */
+/* =================================
+   ÍCONES
+================================= */
 
 .icon {
-    width: 48px;
-    height: 48px;
+    width: 46px;
+    height: 46px;
 
     flex-shrink: 0;
 
@@ -529,32 +437,24 @@ h1 strong {
 
     border-radius: 12px;
 
-    background: rgba(255,101,0,.08);
+    background: rgba(255, 101, 0, 0.08);
 
-    border: 1px solid rgba(255,101,0,.15);
+    border: 1px solid rgba(255, 101, 0, 0.15);
 
     transition:
-        transform .4s var(--ease),
-        background .4s ease;
+        transform 0.3s ease,
+        background 0.3s ease;
 }
 
 .icon svg {
-    width: 25px;
-    height: 25px;
+    width: 24px;
+    height: 24px;
 
     fill: none;
 
     stroke: var(--orange);
 
     stroke-width: 1.8;
-
-    transition:
-        transform .4s var(--ease),
-        filter .4s ease;
-}
-
-.whatsapp-icon svg path {
-    fill: none;
 }
 
 .whatsapp-icon svg path + path {
@@ -564,24 +464,22 @@ h1 strong {
 }
 
 .social-card:hover .icon {
-    background: var(--orange);
+    transform: scale(1.08) rotate(-4deg);
 
-    transform: rotate(-5deg) scale(1.08);
+    background: var(--orange);
 }
 
 .social-card:hover .icon svg {
     stroke: white;
-
-    filter: drop-shadow(0 0 5px rgba(255,255,255,.5));
 }
 
 .social-card:hover .whatsapp-icon svg path + path {
     fill: white;
 }
 
-/* ========================================
-   TEXTO DOS CARDS
-======================================== */
+/* =================================
+   TEXTO
+================================= */
 
 .card-text {
     display: flex;
@@ -590,24 +488,22 @@ h1 strong {
 
     gap: 5px;
 
-    position: relative;
-
-    z-index: 2;
+    text-align: left;
 }
 
 .card-text small {
     color: #666;
 
     font-size: 8px;
-
     font-weight: 800;
 
     letter-spacing: 1.5px;
 }
 
 .card-text strong {
-    font-size: 13px;
+    color: white;
 
+    font-size: 13px;
     font-weight: 800;
 
     letter-spacing: 1px;
@@ -618,15 +514,11 @@ h1 strong {
 
     color: #555;
 
-    font-size: 20px;
-
-    position: relative;
-
-    z-index: 2;
+    font-size: 19px;
 
     transition:
-        color .3s ease,
-        transform .4s var(--ease);
+        color 0.3s ease,
+        transform 0.3s ease;
 }
 
 .social-card:hover .arrow {
@@ -635,26 +527,26 @@ h1 strong {
     transform: translate(3px, -3px);
 }
 
-/* ========================================
+/* =================================
    FOOTER
-======================================== */
+================================= */
 
 footer {
-    margin-top: 38px;
+    margin-top: 35px;
 
-    animation: fadeUp 1s var(--ease) .7s both;
+    animation: fadeUp 0.8s ease 0.4s both;
 }
 
 .bottom-line {
     width: 35px;
     height: 2px;
 
-    margin: 0 auto 16px;
+    margin: 0 auto 15px;
 
     background: var(--orange);
 
     box-shadow:
-        0 0 12px rgba(255,101,0,.7);
+        0 0 10px rgba(255, 101, 0, 0.7);
 }
 
 footer p {
@@ -671,40 +563,38 @@ footer span {
     color: #666;
 }
 
-/* ========================================
+/* =================================
    ANIMAÇÕES
-======================================== */
+================================= */
 
-@keyframes reveal {
+@keyframes nameEnter {
     from {
         opacity: 0;
 
-        transform:
-            translateY(35px)
-            scale(.97);
+        transform: translateY(25px);
 
-        filter: blur(10px);
+        filter: blur(8px);
     }
 
     to {
         opacity: 1;
 
-        transform:
-            translateY(0)
-            scale(1);
+        transform: translateY(0);
 
         filter: blur(0);
     }
 }
 
-@keyframes cardsUp {
+@keyframes cardsEnter {
     from {
         opacity: 0;
-        transform: translateY(35px);
+
+        transform: translateY(25px);
     }
 
     to {
         opacity: 1;
+
         transform: translateY(0);
     }
 }
@@ -712,11 +602,13 @@ footer span {
 @keyframes fadeDown {
     from {
         opacity: 0;
-        transform: translateY(-15px);
+
+        transform: translateY(-10px);
     }
 
     to {
         opacity: 1;
+
         transform: translateY(0);
     }
 }
@@ -724,30 +616,68 @@ footer span {
 @keyframes fadeUp {
     from {
         opacity: 0;
-        transform: translateY(15px);
+
+        transform: translateY(10px);
     }
 
     to {
         opacity: 1;
+
         transform: translateY(0);
     }
 }
 
-@keyframes lineAppear {
-    from {
-        opacity: 0;
-        transform: scaleX(0);
+@keyframes pulse {
+    0%,
+    100% {
+        opacity: 0.06;
+
+        transform: translateX(-50%) scale(0.9);
     }
 
-    to {
-        opacity: 1;
-        transform: scaleX(1);
+    50% {
+        opacity: 0.11;
+
+        transform: translateX(-50%) scale(1.1);
     }
 }
 
-@keyframes lineTravel {
+@keyframes floatGlow {
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(-80px, -60px);
+    }
+}
+
+@keyframes particleMove {
     from {
-        left: -100px;
+        transform: translateY(110vh);
+
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0.7;
+    }
+
+    90% {
+        opacity: 0.4;
+    }
+
+    to {
+        transform: translateY(-10vh);
+
+        opacity: 0;
+    }
+}
+
+@keyframes lineMove {
+    from {
+        left: -80px;
     }
 
     to {
@@ -762,76 +692,45 @@ footer span {
     }
 
     50% {
-        opacity: .35;
+        opacity: 0.35;
     }
 }
 
-@keyframes glowMove {
-    0%,
-    100% {
-        transform: translateX(-50%) scale(.9);
+/* =================================
+   TABLET
+================================= */
+
+@media (max-width: 700px) {
+
+    h1 {
+        font-size: clamp(50px, 13vw, 75px);
     }
 
-    50% {
-        transform: translateX(-50%) scale(1.15);
-    }
-}
-
-@keyframes glowMoveTwo {
-    0%,
-    100% {
-        transform: translate(0, 0);
-    }
-
-    50% {
-        transform: translate(-100px, -80px);
+    .links {
+        grid-template-columns: 1fr;
     }
 }
 
-@keyframes floatParticle {
-    from {
-        transform: translateY(110vh);
-        opacity: 0;
-    }
+/* =================================
+   CELULAR
+================================= */
 
-    10% {
-        opacity: .8;
-    }
-
-    90% {
-        opacity: .5;
-    }
-
-    to {
-        transform: translateY(-10vh);
-        opacity: 0;
-    }
-}
-
-/* ========================================
-   RESPONSIVO
-======================================== */
-
-@media (max-width: 600px) {
-
-    body {
-        overflow: hidden;
-    }
+@media (max-width: 480px) {
 
     .page {
-        padding: 20px;
+        padding: 25px 18px;
     }
 
     .status {
-        margin-bottom: 25px;
+        margin-bottom: 24px;
     }
 
     .top-line {
-        margin-bottom: 32px;
+        margin-bottom: 30px;
     }
 
     h1 {
-        font-size: clamp(45px, 15vw, 65px);
+        font-size: 48px;
 
         letter-spacing: -4px;
     }
@@ -843,21 +742,21 @@ footer span {
     .subtitle {
         margin-top: 22px;
 
+        font-size: 8px;
+
         letter-spacing: 3px;
     }
 
     .links {
-        grid-template-columns: 1fr;
+        margin-top: 30px;
 
         gap: 10px;
-
-        margin-top: 32px;
     }
 
     .social-card {
         min-height: 78px;
 
-        padding: 14px;
+        padding: 13px;
     }
 
     .icon {
@@ -868,20 +767,19 @@ footer span {
     footer {
         margin-top: 25px;
     }
-
-    .cursor,
-    .cursor-follower {
-        display: none;
-    }
 }
+
+/* =================================
+   ACESSIBILIDADE
+================================= */
 
 @media (prefers-reduced-motion: reduce) {
 
     *,
     *::before,
     *::after {
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: .01ms !important;
+        animation: none !important;
+
+        transition: none !important;
     }
 }
