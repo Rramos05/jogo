@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
 
 :root {
     --orange: #ff6500;
-    --orange-light: #ff8a3d;
-    --black: #050505;
+    --orange-light: #ff9b5a;
+    --black: #030303;
     --white: #ffffff;
 }
 
@@ -13,17 +13,41 @@
     box-sizing: border-box;
 }
 
-html,
-body {
-    width: 100%;
-    min-height: 100%;
+html {
+    scroll-behavior: smooth;
 }
 
 body {
+    min-height: 100vh;
     background: var(--black);
     color: var(--white);
     font-family: 'Inter', Arial, sans-serif;
     overflow: hidden;
+}
+
+/* =========================
+   FUNDO
+========================= */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at 50% 50%,
+            rgba(255, 101, 0, 0.08),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 15% 85%,
+            rgba(255, 101, 0, 0.05),
+            transparent 25%
+        );
+
+    z-index: 0;
 }
 
 .container {
@@ -34,55 +58,100 @@ body {
     align-items: center;
 
     position: relative;
+    isolation: isolate;
 }
 
-/* brilho laranja */
+/* brilho central */
 
 .container::before {
     content: "";
-
     position: absolute;
 
-    width: 500px;
-    height: 500px;
+    width: 450px;
+    height: 450px;
 
     background: var(--orange);
-
     border-radius: 50%;
 
     filter: blur(180px);
+    opacity: 0.09;
 
-    opacity: 0.08;
+    animation: pulsar 5s ease-in-out infinite;
 
     pointer-events: none;
 }
 
-/* conteúdo */
+/* brilho que se movimenta */
+
+.container::after {
+    content: "";
+    position: absolute;
+
+    width: 250px;
+    height: 250px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 101, 0, 0.12);
+
+    filter: blur(100px);
+
+    animation: orbitar 10s linear infinite;
+
+    pointer-events: none;
+}
+
+/* =========================
+   CONTEÚDO
+========================= */
 
 .content {
     width: min(850px, 90%);
+
     text-align: center;
 
     position: relative;
-    z-index: 2;
+    z-index: 5;
+
+    animation: entrada 1.2s cubic-bezier(.16, 1, .3, 1);
 }
 
-/* linhas */
+/* =========================
+   LINHAS
+========================= */
 
 .line {
     width: 70px;
     height: 3px;
 
-    background: var(--orange);
-
     margin: 0 auto 35px;
 
-    box-shadow: 0 0 20px rgba(255, 101, 0, 0.7);
+    background: var(--orange);
+
+    box-shadow:
+        0 0 8px var(--orange),
+        0 0 20px rgba(255, 101, 0, 0.8),
+        0 0 40px rgba(255, 101, 0, 0.3);
+
+    animation: linha 1s ease forwards;
 }
 
-/* nome */
+.bottom {
+    width: 35px;
+
+    margin-top: 45px;
+    margin-bottom: 0;
+
+    opacity: 0.6;
+}
+
+/* =========================
+   NOME
+========================= */
 
 h1 {
+    position: relative;
+
     font-size: clamp(45px, 8vw, 90px);
 
     font-weight: 900;
@@ -93,14 +162,23 @@ h1 {
 
     margin-bottom: 50px;
 
-    animation: aparecer 1s ease forwards;
+    animation: nome 1.2s cubic-bezier(.16, 1, .3, 1) 0.15s both;
+
+    text-shadow:
+        0 0 30px rgba(255, 255, 255, 0.03);
 }
 
 h1 span {
     color: var(--orange);
+
+    text-shadow:
+        0 0 10px rgba(255, 101, 0, 0.5),
+        0 0 30px rgba(255, 101, 0, 0.25);
 }
 
-/* botões */
+/* =========================
+   BOTÕES
+========================= */
 
 .buttons {
     display: flex;
@@ -111,12 +189,11 @@ h1 span {
 
     flex-wrap: wrap;
 
-    animation: subir 1s ease 0.2s both;
+    animation: botoes 1s cubic-bezier(.16, 1, .3, 1) 0.35s both;
 }
 
 .button {
     width: 220px;
-
     height: 60px;
 
     display: flex;
@@ -126,66 +203,174 @@ h1 span {
 
     gap: 12px;
 
-    border: 2px solid var(--orange);
+    position: relative;
 
-    border-radius: 8px;
+    border: 1px solid rgba(255, 101, 0, 0.8);
+    border-radius: 10px;
 
-    color: white;
+    background: rgba(255, 255, 255, 0.015);
+
+    color: var(--white);
+    text-decoration: none;
 
     font-size: 14px;
-
     font-weight: 800;
 
     letter-spacing: 1.5px;
 
-    transition:
-        transform 0.3s ease,
-        background 0.3s ease,
-        box-shadow 0.3s ease;
-
-    position: relative;
-
     overflow: hidden;
+
+    backdrop-filter: blur(10px);
+
+    transition:
+        transform 0.35s cubic-bezier(.16, 1, .3, 1),
+        background 0.35s ease,
+        box-shadow 0.35s ease,
+        border-color 0.35s ease;
+}
+
+/* brilho passando pelo botão */
+
+.button::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -120%;
+
+    width: 70%;
+    height: 100%;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.18),
+        transparent
+    );
+
+    transform: skewX(-20deg);
+
+    transition: left 0.6s ease;
+}
+
+/* brilho interno */
+
+.button::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    border-radius: inherit;
+
+    box-shadow:
+        inset 0 0 20px rgba(255, 101, 0, 0.04);
+
+    pointer-events: none;
 }
 
 .button span {
+    position: relative;
+    z-index: 2;
+
     color: var(--orange);
 
     font-size: 22px;
 
-    transition: 0.3s;
+    transition:
+        color 0.3s ease,
+        transform 0.3s ease;
+}
+
+.button {
+    z-index: 1;
 }
 
 .button:hover {
     background: var(--orange);
 
-    transform: translateY(-5px);
+    border-color: var(--orange);
+
+    transform: translateY(-7px) scale(1.025);
 
     box-shadow:
-        0 10px 35px rgba(255, 101, 0, 0.3);
+        0 10px 30px rgba(255, 101, 0, 0.25),
+        0 0 20px rgba(255, 101, 0, 0.2);
+}
+
+.button:hover::before {
+    left: 140%;
 }
 
 .button:hover span {
     color: white;
+
+    transform: scale(1.15) rotate(-5deg);
 }
 
-/* linha inferior */
+/* =========================
+   CURSOR GLOW
+========================= */
 
-.bottom {
-    margin-top: 45px;
-    margin-bottom: 0;
+.cursor-glow {
+    position: fixed;
 
-    width: 35px;
+    width: 180px;
+    height: 180px;
 
-    opacity: 0.6;
+    border-radius: 50%;
+
+    background: rgba(255, 101, 0, 0.08);
+
+    filter: blur(40px);
+
+    pointer-events: none;
+
+    transform: translate(-50%, -50%);
+
+    z-index: 1;
+
+    transition:
+        width 0.3s ease,
+        height 0.3s ease,
+        opacity 0.3s ease;
 }
 
-/* animações */
+/* =========================
+   ANIMAÇÕES
+========================= */
 
-@keyframes aparecer {
+@keyframes entrada {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes nome {
+    from {
+        opacity: 0;
+        transform: translateY(35px);
+        filter: blur(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+@keyframes botoes {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
     }
 
     to {
@@ -194,21 +379,66 @@ h1 span {
     }
 }
 
-@keyframes subir {
+@keyframes linha {
     from {
+        width: 0;
         opacity: 0;
-        transform: translateY(20px);
     }
 
     to {
+        width: 70px;
         opacity: 1;
-        transform: translateY(0);
     }
 }
 
-/* celular */
+@keyframes pulsar {
+    0%,
+    100% {
+        transform: scale(0.9);
+        opacity: 0.06;
+    }
+
+    50% {
+        transform: scale(1.15);
+        opacity: 0.11;
+    }
+}
+
+@keyframes orbitar {
+    0% {
+        transform: translate(-250px, -150px);
+    }
+
+    25% {
+        transform: translate(200px, -180px);
+    }
+
+    50% {
+        transform: translate(250px, 180px);
+    }
+
+    75% {
+        transform: translate(-200px, 200px);
+    }
+
+    100% {
+        transform: translate(-250px, -150px);
+    }
+}
+
+/* =========================
+   CELULAR
+========================= */
 
 @media (max-width: 600px) {
+
+    body {
+        overflow: hidden;
+    }
+
+    .container {
+        padding: 25px 0;
+    }
 
     .content {
         width: 90%;
@@ -216,6 +446,7 @@ h1 span {
 
     h1 {
         font-size: 45px;
+
         letter-spacing: -2px;
 
         margin-bottom: 40px;
@@ -239,5 +470,24 @@ h1 span {
 
     .bottom {
         margin-top: 35px;
+    }
+
+    .cursor-glow {
+        display: none;
+    }
+}
+
+/* =========================
+   ACESSIBILIDADE
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
 }
