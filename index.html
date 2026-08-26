@@ -11,18 +11,10 @@
 
     <meta
         name="description"
-        content="Ruan Ramos Barañano — Instagram e WhatsApp."
+        content="Ruan Ramos Barañano — redes sociais e contato."
     >
 
-    <meta
-        name="theme-color"
-        content="#030303"
-    >
-
-    <meta
-        name="author"
-        content="Ruan Ramos Barañano"
-    >
+    <meta name="theme-color" content="#050505">
 
     <title>Ruan Ramos Barañano</title>
 
@@ -30,7 +22,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet"
     >
 
@@ -39,68 +31,153 @@
 
 <body>
 
-    <!-- Conteúdo principal -->
-    <main class="container">
+    <!-- Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
 
-        <section class="content" aria-labelledby="nome">
+    <!-- Fundo -->
+    <div class="background">
+        <div class="glow glow-one"></div>
+        <div class="glow glow-two"></div>
+        <div class="grid"></div>
+    </div>
 
-            <!-- Linha decorativa superior -->
-            <div class="line" aria-hidden="true"></div>
+    <!-- Partículas -->
+    <div id="particles"></div>
 
-            <!-- Identificação -->
-            <header>
+    <main class="page">
 
-                <h1 id="nome">
-                    RUAN RAMOS
-                    <br>
-                    <span>BARAÑANO</span>
+        <section class="profile">
+
+            <!-- pequeno indicador -->
+            <div class="status">
+                <span class="status-dot"></span>
+                <span>ONLINE</span>
+            </div>
+
+            <!-- linha superior -->
+            <div class="top-line">
+                <span></span>
+            </div>
+
+            <!-- Nome -->
+            <div class="name-wrapper">
+
+                <p class="eyebrow">
+                    BEM-VINDO
+                </p>
+
+                <h1>
+                    RUAN
+                    <span>RAMOS</span>
+                    <strong>BARAÑANO</strong>
                 </h1>
 
-            </header>
+                <p class="subtitle">
+                    ME ENCONTRE NAS REDES
+                </p>
 
-            <!-- Redes sociais e contato -->
-            <nav
-                class="buttons"
-                aria-label="Links de contato e redes sociais"
-            >
+            </div>
+
+            <!-- Links -->
+            <nav class="links" aria-label="Redes sociais e contato">
 
                 <a
                     href="https://www.instagram.com/ruannn05_/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="button instagram"
-                    aria-label="Abrir Instagram de Ruan Ramos Barañano"
+                    class="social-card"
+                    data-magnetic
                 >
-                    <span aria-hidden="true">◎</span>
-                    <span>INSTAGRAM</span>
+
+                    <div class="icon instagram-icon">
+                        <svg
+                            viewBox="0 0 24 24"
+                            aria-hidden="true"
+                        >
+                            <rect
+                                x="3"
+                                y="3"
+                                width="18"
+                                height="18"
+                                rx="5"
+                            />
+
+                            <circle
+                                cx="12"
+                                cy="12"
+                                r="4"
+                            />
+
+                            <circle
+                                cx="17.5"
+                                cy="6.5"
+                                r="1"
+                                class="dot"
+                            />
+                        </svg>
+                    </div>
+
+                    <div class="card-text">
+                        <small>ME SIGA NO</small>
+                        <strong>INSTAGRAM</strong>
+                    </div>
+
+                    <div class="arrow">↗</div>
+
                 </a>
 
                 <a
                     href="https://wa.me/5553997094670"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="button whatsapp"
-                    aria-label="Entrar em contato pelo WhatsApp"
+                    class="social-card"
+                    data-magnetic
                 >
-                    <span aria-hidden="true">◉</span>
-                    <span>WHATSAPP</span>
+
+                    <div class="icon whatsapp-icon">
+                        <svg
+                            viewBox="0 0 24 24"
+                            aria-hidden="true"
+                        >
+                            <path
+                                d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.6 4.2 1.7 6L.2 24l6.3-1.7a11.8 11.8 0 0 0 5.6 1.4h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.2-6.2-3.5-8.4ZM12.1 21.7c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.8 9.8 0 0 1-1.5-5.2c0-5.4 4.4-9.8 9.8-9.8 2.6 0 5.1 1 6.9 2.9a9.7 9.7 0 0 1 2.9 6.9c0 5.4-4.4 9.8-9.8 9.8Z"
+                            />
+
+                            <path
+                                d="M17.7 14.3c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-1.7-.8-2.8-1.5-3.9-3.4-.3-.5.3-.5.8-1.6.1-.2.1-.4 0-.6-.1-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.8s1.2 3.2 1.4 3.4c.2.2 2.4 3.7 5.8 5.1.8.4 1.5.6 2 .7.8.3 1.6.2 2.2.1.7-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.6-.4Z"
+                            />
+                        </svg>
+                    </div>
+
+                    <div class="card-text">
+                        <small>FALE COMIGO</small>
+                        <strong>WHATSAPP</strong>
+                    </div>
+
+                    <div class="arrow">↗</div>
+
                 </a>
 
             </nav>
 
-            <!-- Linha decorativa inferior -->
-            <div
-                class="line bottom"
-                aria-hidden="true"
-            ></div>
+            <!-- rodapé -->
+            <footer>
+
+                <div class="bottom-line"></div>
+
+                <p>
+                    © 2026
+                    <span>RUAN RAMOS BARAÑANO</span>
+                </p>
+
+            </footer>
 
         </section>
 
     </main>
 
-    <!-- JavaScript -->
     <script src="script.js"></script>
 
 </body>
-
 </html>
