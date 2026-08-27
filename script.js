@@ -1,993 +1,1793 @@
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
+/* =====================================
+   TACTICAL STRIKE
+   FPS TÁTICO
+===================================== */
 
-const menu = document.getElementById("menu");
-const game = document.getElementById("game");
-const gameOver = document.getElementById("gameOver");
-
-const healthText = document.getElementById("health");
-const scoreText = document.getElementById("score");
-const levelText = document.getElementById("level");
-const bestText = document.getElementById("best");
-const bestMenu = document.getElementById("bestMenu");
-
-const finalScore = document.getElementById("finalScore");
-const finalLevel = document.getElementById("finalLevel");
-
-const powerFill = document.getElementById("powerFill");
-const bossWarning = document.getElementById("bossWarning");
-
-let W, H;
-
-function resize() {
-    W = canvas.width = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-}
-
-resize();
-window.addEventListener("resize", resize);
-
-/* =========================
-   ESTADO DO JOGO
-========================= */
-
-let playing = false;
-
-let score = 0;
-let level = 1;
-let health = 100;
-let best = Number(localStorage.getItem("neonBest")) || 0;
-
-let kills = 0;
-let spawnTimer = 0;
-let shootCooldown = 0;
-let power = 0;
+let scene;
+let camera;
+let renderer;
 
 let player;
+
 let enemies = [];
-let bullets = [];
-let particles = [];
-let coins = [];
-let powerUps = [];
+let walls = [];
+
+let playing = false;
+let roundActive = false;
+
+let health = 100;
+let armor = 100;
+
+let money = 800;
+
+let ctScore = 0;
+let trScore = 0;
+
+let round = 1;
+
+let roundTime = 115;
+
+let ammo = 30;
+let reserve = 90;
+
+let currentWeapon = "ak";
+
+let shooting = false;
+
+let yaw = 0;
+let pitch = 0;
+
+let pointerLocked = false;
+
+let shootTimer = 0;
 
 let keys = {};
-let mouse = {
-    x: W / 2,
-    y: H / 2,
-    down: false
+
+let bombPlanted = false;
+
+
+/* =====================================
+   ARMAS
+===================================== */
+
+const weapons = {
+
+    glock: {
+        name: "Glock-18",
+        price: 200,
+        damage: 24,
+        head: 70,
+        fireRate: 16,
+        maxAmmo: 20,
+        reserve: 100,
+        spread: .012
+    },
+
+    deagle: {
+        name: "Desert Eagle",
+        price: 700,
+        damage: 55,
+        head: 120,
+        fireRate: 35,
+        maxAmmo: 7,
+        reserve: 35,
+        spread: .018
+    },
+
+    ak: {
+        name: "AK-47",
+        price: 2700,
+        damage: 36,
+        head: 140,
+        fireRate: 8,
+        maxAmmo: 30,
+        reserve: 90,
+        spread: .014
+    },
+
+    m4: {
+        name: "M4A1",
+        price: 3100,
+        damage: 32,
+        head: 125,
+        fireRate: 7,
+        maxAmmo: 30,
+        reserve: 90,
+        spread: .011
+    },
+
+    awp: {
+        name: "AWP",
+        price: 4750,
+        damage: 115,
+        head: 450,
+        fireRate: 60,
+        maxAmmo: 5,
+        reserve: 30,
+        spread: .003
+    }
+
 };
 
-bestText.textContent = best;
-bestMenu.textContent = best;
 
-/* =========================
-   CONTROLES
-========================= */
+/* =====================================
+   INIT
+===================================== */
 
-window.addEventListener("keydown", e => {
-    keys[e.key.toLowerCase()] = true;
+function init() {
 
-    if (
-        ["arrowup", "arrowdown", "arrowleft", "arrowright", " "]
-        .includes(e.key.toLowerCase())
-    ) {
-        e.preventDefault();
-    }
-});
+    scene =
+        new THREE.Scene();
 
-window.addEventListener("keyup", e => {
-    keys[e.key.toLowerCase()] = false;
-});
-
-canvas.addEventListener("mousemove", e => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-});
-
-canvas.addEventListener("mousedown", () => {
-    mouse.down = true;
-});
-
-window.addEventListener("mouseup", () => {
-    mouse.down = false;
-});
-
-/* CONTROLE MOBILE */
-
-canvas.addEventListener("touchstart", e => {
-    const t = e.touches[0];
-
-    mouse.x = t.clientX;
-    mouse.y = t.clientY;
-    mouse.down = true;
-}, { passive: true });
-
-canvas.addEventListener("touchmove", e => {
-    const t = e.touches[0];
-
-    mouse.x = t.clientX;
-    mouse.y = t.clientY;
-}, { passive: true });
-
-canvas.addEventListener("touchend", () => {
-    mouse.down = false;
-});
-
-/* =========================
-   CLASSES
-========================= */
-
-class Player {
-
-    constructor() {
-        this.x = W / 2;
-        this.y = H / 2;
-        this.radius = 17;
-        this.speed = 5;
-        this.angle = 0;
-    }
-
-    update() {
-
-        let dx = 0;
-        let dy = 0;
-
-        if (keys.w || keys.arrowup) dy--;
-        if (keys.s || keys.arrowdown) dy++;
-        if (keys.a || keys.arrowleft) dx--;
-        if (keys.d || keys.arrowright) dx++;
-
-        if (dx || dy) {
-            const length = Math.hypot(dx, dy);
-
-            this.x += dx / length * this.speed;
-            this.y += dy / length * this.speed;
-        }
-
-        this.x = Math.max(20, Math.min(W - 20, this.x));
-        this.y = Math.max(20, Math.min(H - 20, this.y));
-
-        this.angle = Math.atan2(
-            mouse.y - this.y,
-            mouse.x - this.x
+    scene.background =
+        new THREE.Color(
+            0x11161b
         );
 
-        if (mouse.down) shoot();
-    }
-
-    draw() {
-
-        ctx.save();
-
-        ctx.translate(this.x, this.y);
-        ctx.rotate(this.angle);
-
-        ctx.shadowBlur = 25;
-        ctx.shadowColor = "#00f7ff";
-
-        /* corpo */
-
-        ctx.fillStyle = "#00f7ff";
-
-        ctx.beginPath();
-        ctx.moveTo(23, 0);
-        ctx.lineTo(-13, -14);
-        ctx.lineTo(-7, 0);
-        ctx.lineTo(-13, 14);
-        ctx.closePath();
-        ctx.fill();
-
-        /* núcleo */
-
-        ctx.shadowBlur = 15;
-        ctx.shadowColor = "white";
-
-        ctx.fillStyle = "white";
-
-        ctx.beginPath();
-        ctx.arc(2, 0, 5, 0, Math.PI * 2);
-        ctx.fill();
-
-        ctx.restore();
-    }
-}
-
-class Enemy {
-
-    constructor(type = "normal") {
-
-        this.type = type;
-
-        const side = Math.floor(Math.random() * 4);
-
-        if (side === 0) {
-            this.x = Math.random() * W;
-            this.y = -40;
-        } else if (side === 1) {
-            this.x = W + 40;
-            this.y = Math.random() * H;
-        } else if (side === 2) {
-            this.x = Math.random() * W;
-            this.y = H + 40;
-        } else {
-            this.x = -40;
-            this.y = Math.random() * H;
-        }
-
-        if (type === "fast") {
-            this.radius = 11;
-            this.speed = 2.8 + level * .08;
-            this.health = 1;
-            this.color = "#ffe600";
-            this.points = 20;
-        }
-
-        else if (type === "tank") {
-            this.radius = 25;
-            this.speed = .7 + level * .04;
-            this.health = 4 + Math.floor(level / 3);
-            this.color = "#a020f0";
-            this.points = 50;
-        }
-
-        else {
-            this.radius = 16;
-            this.speed = 1.2 + level * .08;
-            this.health = 1 + Math.floor(level / 7);
-            this.color = "#ff1744";
-            this.points = 10;
-        }
-    }
-
-    update() {
-
-        const dx = player.x - this.x;
-        const dy = player.y - this.y;
-
-        const distance = Math.hypot(dx, dy);
-
-        this.x += dx / distance * this.speed;
-        this.y += dy / distance * this.speed;
-
-        if (distance < this.radius + player.radius) {
-
-            health -= this.type === "tank" ? .8 : 1.5;
-
-            createExplosion(
-                this.x,
-                this.y,
-                this.color,
-                4
-            );
-
-            this.x = -9999;
-        }
-    }
-
-    draw() {
-
-        ctx.save();
-
-        ctx.shadowBlur = 22;
-        ctx.shadowColor = this.color;
-
-        ctx.fillStyle = this.color;
-
-        ctx.beginPath();
-        ctx.arc(
-            this.x,
-            this.y,
-            this.radius,
-            0,
-            Math.PI * 2
-        );
-        ctx.fill();
-
-        ctx.fillStyle = "#ffffff55";
-
-        ctx.beginPath();
-        ctx.arc(
-            this.x,
-            this.y,
-            this.radius * .35,
-            0,
-            Math.PI * 2
-        );
-        ctx.fill();
-
-        ctx.restore();
-    }
-}
-
-class Bullet {
-
-    constructor(x, y, angle) {
-
-        this.x = x;
-        this.y = y;
-        this.radius = 4;
-        this.speed = 12;
-
-        this.vx = Math.cos(angle) * this.speed;
-        this.vy = Math.sin(angle) * this.speed;
-    }
-
-    update() {
-
-        this.x += this.vx;
-        this.y += this.vy;
-    }
-
-    draw() {
-
-        ctx.save();
-
-        ctx.shadowBlur = 15;
-        ctx.shadowColor = "#ffe600";
-
-        ctx.fillStyle = "#ffe600";
-
-        ctx.beginPath();
-        ctx.arc(
-            this.x,
-            this.y,
-            this.radius,
-            0,
-            Math.PI * 2
-        );
-        ctx.fill();
-
-        ctx.restore();
-    }
-}
-
-class Particle {
-
-    constructor(x, y, color) {
-
-        this.x = x;
-        this.y = y;
-        this.color = color;
-
-        const angle = Math.random() * Math.PI * 2;
-        const speed = Math.random() * 6 + 1;
-
-        this.vx = Math.cos(angle) * speed;
-        this.vy = Math.sin(angle) * speed;
-
-        this.life = 1;
-        this.size = Math.random() * 4 + 1;
-    }
-
-    update() {
-
-        this.x += this.vx;
-        this.y += this.vy;
-
-        this.vx *= .96;
-        this.vy *= .96;
-
-        this.life -= .025;
-    }
-
-    draw() {
-
-        ctx.globalAlpha = this.life;
-        ctx.fillStyle = this.color;
-
-        ctx.beginPath();
-        ctx.arc(
-            this.x,
-            this.y,
-            this.size,
-            0,
-            Math.PI * 2
-        );
-        ctx.fill();
-
-        ctx.globalAlpha = 1;
-    }
-}
-
-class Coin {
-
-    constructor(x, y) {
-
-        this.x = x;
-        this.y = y;
-        this.radius = 9;
-        this.life = 600;
-    }
-
-    update() {
-
-        this.life--;
-
-        if (
-            Math.hypot(
-                this.x - player.x,
-                this.y - player.y
-            ) < this.radius + player.radius
-        ) {
-
-            score += 50;
-
-            createExplosion(
-                this.x,
-                this.y,
-                "#ffe600",
-                10
-            );
-
-            this.life = 0;
-        }
-    }
-
-    draw() {
-
-        ctx.save();
-
-        ctx.shadowBlur = 20;
-        ctx.shadowColor = "#ffe600";
-
-        ctx.fillStyle = "#ffe600";
-
-        ctx.beginPath();
-        ctx.arc(
-            this.x,
-            this.y,
-            this.radius,
-            0,
-            Math.PI * 2
-        );
-        ctx.fill();
-
-        ctx.fillStyle = "#fff8a0";
-
-        ctx.beginPath();
-        ctx.arc(
-            this.x,
-            this.y,
-            4,
-            0,
-            Math.PI * 2
-        );
-        ctx.fill();
-
-        ctx.restore();
-    }
-}
-
-class PowerUp {
-
-    constructor(x, y) {
-
-        this.x = x;
-        this.y = y;
-        this.radius = 13;
-        this.life = 700;
-    }
-
-    update() {
-
-        this.life--;
-
-        if (
-            Math.hypot(
-                this.x - player.x,
-                this.y - player.y
-            ) < this.radius + player.radius
-        ) {
-
-            power = Math.min(100, power + 35);
-
-            health = Math.min(100, health + 20);
-
-            createExplosion(
-                this.x,
-                this.y,
-                "#00f7ff",
-                20
-            );
-
-            this.life = 0;
-        }
-    }
-
-    draw() {
-
-        ctx.save();
-
-        ctx.shadowBlur = 25;
-        ctx.shadowColor = "#00f7ff";
-
-        ctx.strokeStyle = "#00f7ff";
-        ctx.lineWidth = 3;
-
-        ctx.beginPath();
-        ctx.arc(
-            this.x,
-            this.y,
-            this.radius,
-            0,
-            Math.PI * 2
-        );
-        ctx.stroke();
-
-        ctx.fillStyle = "#00f7ff";
-
-        ctx.fillRect(
-            this.x - 3,
-            this.y - 8,
-            6,
-            16
+    scene.fog =
+        new THREE.Fog(
+            0x11161b,
+            15,
+            80
         );
 
-        ctx.fillRect(
-            this.x - 8,
-            this.y - 3,
-            16,
-            6
+
+    camera =
+        new THREE.PerspectiveCamera(
+            75,
+            innerWidth / innerHeight,
+            .1,
+            300
         );
 
-        ctx.restore();
-    }
-}
 
-/* =========================
-   EFEITOS
-========================= */
+    renderer =
+        new THREE.WebGLRenderer({
+            antialias: true
+        });
 
-function createExplosion(x, y, color, amount = 12) {
-
-    for (let i = 0; i < amount; i++) {
-        particles.push(
-            new Particle(x, y, color)
-        );
-    }
-}
-
-/* =========================
-   TIRO
-========================= */
-
-function shoot() {
-
-    if (shootCooldown > 0) return;
-
-    const angle = Math.atan2(
-        mouse.y - player.y,
-        mouse.x - player.x
+    renderer.setSize(
+        innerWidth,
+        innerHeight
     );
 
-    bullets.push(
-        new Bullet(
-            player.x + Math.cos(angle) * 20,
-            player.y + Math.sin(angle) * 20,
-            angle
+    renderer.setPixelRatio(
+        Math.min(
+            devicePixelRatio,
+            2
         )
     );
 
-    shootCooldown = 8;
+    renderer.shadowMap.enabled = true;
+
+    document.body.appendChild(
+        renderer.domElement
+    );
+
+
+    createLights();
+    createMap();
+    createPlayer();
+
+    addEvents();
+
+    animate();
 }
 
-/* =========================
-   INIMIGOS
-========================= */
 
-function spawnEnemy() {
+/* =====================================
+   LIGHTS
+===================================== */
 
-    let type = "normal";
+function createLights() {
 
-    const chance = Math.random();
+    const ambient =
+        new THREE.AmbientLight(
+            0x9aa5ad,
+            1.7
+        );
 
-    if (level >= 3 && chance < .18) {
-        type = "fast";
-    }
+    scene.add(
+        ambient
+    );
 
-    if (level >= 5 && chance < .12) {
-        type = "tank";
-    }
 
-    enemies.push(new Enemy(type));
+    const sun =
+        new THREE.DirectionalLight(
+            0xffffff,
+            2
+        );
+
+    sun.position.set(
+        20,
+        30,
+        15
+    );
+
+    sun.castShadow = true;
+
+    scene.add(
+        sun
+    );
+
 }
 
-/* =========================
-   BOSS
-========================= */
 
-function spawnBoss() {
+/* =====================================
+   MAPA
+===================================== */
 
-    bossWarning.classList.remove("show");
+function createMap() {
 
-    void bossWarning.offsetWidth;
+    /* chão */
 
-    bossWarning.classList.add("show");
+    const floor =
+        new THREE.Mesh(
+            new THREE.PlaneGeometry(
+                100,
+                100
+            ),
+            new THREE.MeshStandardMaterial({
+                color: 0x252a2d
+            })
+        );
 
-    setTimeout(() => {
+    floor.rotation.x =
+        -Math.PI / 2;
 
-        const boss = new Enemy("tank");
+    floor.receiveShadow = true;
 
-        boss.radius = 55;
-        boss.health = 20 + level * 3;
-        boss.speed = .45;
-        boss.points = 500;
-        boss.color = "#ff006e";
+    scene.add(
+        floor
+    );
 
-        boss.x = W / 2;
-        boss.y = -100;
 
-        enemies.push(boss);
+    /* paredes externas */
 
-    }, 1200);
-}
+    wall(
+        0,
+        4,
+        -48,
+        96,
+        2
+    );
 
-/* =========================
-   COLISÃO
-========================= */
+    wall(
+        0,
+        4,
+        48,
+        96,
+        2
+    );
 
-function collision(a, b) {
+    wall(
+        -48,
+        4,
+        0,
+        2,
+        96
+    );
 
-    return Math.hypot(
-        a.x - b.x,
-        a.y - b.y
-    ) < a.radius + b.radius;
-}
+    wall(
+        48,
+        4,
+        0,
+        2,
+        96
+    );
 
-/* =========================
-   UPDATE
-========================= */
 
-function update() {
+    /* corredor central */
 
-    if (!playing) return;
+    wall(
+        -12,
+        3,
+        0,
+        2,
+        32
+    );
 
-    player.update();
+    wall(
+        12,
+        3,
+        0,
+        2,
+        32
+    );
 
-    if (shootCooldown > 0) {
-        shootCooldown--;
-    }
 
-    spawnTimer--;
+    /* caixas */
 
-    if (spawnTimer <= 0) {
+    for (
+        let i = 0;
+        i < 18;
+        i++
+    ) {
 
-        spawnEnemy();
+        const x =
+            Math.random() * 65 - 32;
 
-        spawnTimer = Math.max(
-            18,
-            65 - level * 4
+        const z =
+            Math.random() * 65 - 32;
+
+        crate(
+            x,
+            z
         );
     }
 
-    enemies.forEach(e => e.update());
-    bullets.forEach(b => b.update());
-    particles.forEach(p => p.update());
-    coins.forEach(c => c.update());
-    powerUps.forEach(p => p.update());
 
-    /* TIROS */
+    /* áreas A/B */
 
-    for (let i = enemies.length - 1; i >= 0; i--) {
+    crate(
+        -28,
+        -28
+    );
 
-        const enemy = enemies[i];
+    crate(
+        28,
+        28
+    );
+}
 
-        for (let j = bullets.length - 1; j >= 0; j--) {
 
-            const bullet = bullets[j];
+function wall(
+    x,
+    y,
+    z,
+    width,
+    depth
+) {
 
-            if (collision(enemy, bullet)) {
+    const mesh =
+        new THREE.Mesh(
+            new THREE.BoxGeometry(
+                width,
+                y * 2,
+                depth
+            ),
+            new THREE.MeshStandardMaterial({
+                color: 0x343a3e
+            })
+        );
 
-                enemy.health--;
+    mesh.position.set(
+        x,
+        y,
+        z
+    );
 
-                bullets.splice(j, 1);
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
 
-                createExplosion(
-                    bullet.x,
-                    bullet.y,
-                    "#ffe600",
-                    3
+    scene.add(
+        mesh
+    );
+
+    walls.push(
+        mesh
+    );
+}
+
+
+function crate(
+    x,
+    z
+) {
+
+    const mesh =
+        new THREE.Mesh(
+            new THREE.BoxGeometry(
+                4,
+                4,
+                4
+            ),
+            new THREE.MeshStandardMaterial({
+                color: 0x665038
+            })
+        );
+
+    mesh.position.set(
+        x,
+        2,
+        z
+    );
+
+    mesh.castShadow = true;
+
+    scene.add(
+        mesh
+    );
+
+    walls.push(
+        mesh
+    );
+}
+
+
+/* =====================================
+   PLAYER
+===================================== */
+
+function createPlayer() {
+
+    player =
+        new THREE.Object3D();
+
+    player.position.set(
+        0,
+        1.7,
+        35
+    );
+
+    player.add(
+        camera
+    );
+
+    scene.add(
+        player
+    );
+}
+
+
+/* =====================================
+   INPUT
+===================================== */
+
+function addEvents() {
+
+    window.addEventListener(
+        "keydown",
+        e => {
+
+            keys[
+                e.key.toLowerCase()
+            ] = true;
+
+            if (
+                e.key.toLowerCase()
+                === "r"
+            ) {
+
+                reload();
+            }
+
+            if (
+                e.key.toLowerCase()
+                === "b"
+            ) {
+
+                toggleBuy();
+            }
+        }
+    );
+
+
+    window.addEventListener(
+        "keyup",
+        e => {
+
+            keys[
+                e.key.toLowerCase()
+            ] = false;
+        }
+    );
+
+
+    document.addEventListener(
+        "mousemove",
+        mouseMove
+    );
+
+
+    document.addEventListener(
+        "mousedown",
+        e => {
+
+            if (
+                e.button === 0
+            ) {
+
+                shooting = true;
+
+                shoot();
+            }
+        }
+    );
+
+
+    document.addEventListener(
+        "mouseup",
+        e => {
+
+            if (
+                e.button === 0
+            ) {
+
+                shooting = false;
+            }
+        }
+    );
+
+
+    document.addEventListener(
+        "pointerlockchange",
+        () => {
+
+            pointerLocked =
+                document.pointerLockElement
+                === renderer.domElement;
+        }
+    );
+
+
+    renderer.domElement.addEventListener(
+        "click",
+        () => {
+
+            if (
+                playing &&
+                !pointerLocked
+            ) {
+
+                renderer.domElement.requestPointerLock();
+            }
+        }
+    );
+
+
+    document
+        .getElementById("play")
+        .onclick =
+        startGame;
+
+
+    document
+        .getElementById("restart")
+        ?.addEventListener(
+            "click",
+            startGame
+        );
+
+
+    document
+        .getElementById("continue")
+        .onclick =
+        nextRound;
+
+
+    document
+        .getElementById("closeBuy")
+        .onclick =
+        () => {
+
+            document.getElementById(
+                "buy"
+            ).style.display = "none";
+        };
+
+
+    document
+        .querySelectorAll(
+            "[data-gun]"
+        )
+        .forEach(
+            button => {
+
+                button.onclick =
+                    () => {
+
+                        buy(
+                            button.dataset.gun
+                        );
+                    };
+            }
+        );
+
+
+    window.addEventListener(
+        "resize",
+        resize
+    );
+}
+
+
+/* =====================================
+   MOUSE
+===================================== */
+
+function mouseMove(e) {
+
+    if (!pointerLocked) return;
+
+    yaw -=
+        e.movementX * .002;
+
+    pitch -=
+        e.movementY * .002;
+
+    pitch =
+        THREE.MathUtils.clamp(
+            pitch,
+            -1.45,
+            1.45
+        );
+
+    player.rotation.y =
+        yaw;
+
+    camera.rotation.x =
+        pitch;
+}
+
+
+/* =====================================
+   MOVIMENTO
+===================================== */
+
+function updatePlayer() {
+
+    if (!roundActive) return;
+
+    const direction =
+        new THREE.Vector3();
+
+    if (keys.w)
+        direction.z--;
+
+    if (keys.s)
+        direction.z++;
+
+    if (keys.a)
+        direction.x--;
+
+    if (keys.d)
+        direction.x++;
+
+
+    if (
+        direction.length()
+    ) {
+
+        direction.normalize();
+
+        direction.applyAxisAngle(
+            new THREE.Vector3(
+                0,
+                1,
+                0
+            ),
+            yaw
+        );
+
+        player.position.add(
+            direction.multiplyScalar(
+                .11
+            )
+        );
+    }
+
+
+    player.position.x =
+        THREE.MathUtils.clamp(
+            player.position.x,
+            -44,
+            44
+        );
+
+    player.position.z =
+        THREE.MathUtils.clamp(
+            player.position.z,
+            -44,
+            44
+        );
+}
+
+
+/* =====================================
+   SHOOT
+===================================== */
+
+function shoot() {
+
+    if (!roundActive) return;
+
+    if (!pointerLocked) return;
+
+    const weapon =
+        weapons[
+            currentWeapon
+        ];
+
+    if (
+        shootTimer > 0
+    ) return;
+
+
+    if (
+        ammo <= 0
+    ) {
+
+        showMessage(
+            "SEM MUNIÇÃO"
+        );
+
+        return;
+    }
+
+
+    ammo--;
+
+    shootTimer =
+        weapon.fireRate;
+
+
+    /* RECOIL */
+
+    camera.rotation.x -=
+        weapon.spread *
+        (1 + Math.random() * 2);
+
+
+    const ray =
+        new THREE.Raycaster();
+
+    ray.setFromCamera(
+        new THREE.Vector2(
+            0,
+            0
+        ),
+        camera
+    );
+
+
+    const targets = [];
+
+
+    enemies.forEach(
+        enemy => {
+
+            targets.push(
+                enemy.body
+            );
+
+            targets.push(
+                enemy.head
+            );
+        }
+    );
+
+
+    const hits =
+        ray.intersectObjects(
+            targets
+        );
+
+
+    if (
+        hits.length
+    ) {
+
+        const object =
+            hits[0].object;
+
+        const enemy =
+            enemies.find(
+                e =>
+                    e.body === object ||
+                    e.head === object
+            );
+
+
+        if (enemy) {
+
+            const headshot =
+                object === enemy.head;
+
+            const damage =
+                headshot
+                    ? weapon.head
+                    : weapon.damage;
+
+
+            enemy.hp -=
+                damage;
+
+
+            showHitMarker(
+                headshot
+            );
+
+
+            if (
+                enemy.hp <= 0
+            ) {
+
+                killEnemy(
+                    enemy,
+                    headshot
                 );
-
-                if (enemy.health <= 0) {
-
-                    score += enemy.points;
-                    kills++;
-
-                    createExplosion(
-                        enemy.x,
-                        enemy.y,
-                        enemy.color,
-                        enemy.radius > 40 ? 40 : 15
-                    );
-
-                    if (Math.random() < .3) {
-                        coins.push(
-                            new Coin(enemy.x, enemy.y)
-                        );
-                    }
-
-                    if (Math.random() < .08) {
-                        powerUps.push(
-                            new PowerUp(enemy.x, enemy.y)
-                        );
-                    }
-
-                    enemies.splice(i, 1);
-
-                    if (kills % 15 === 0) {
-                        level++;
-
-                        if (level % 5 === 0) {
-                            spawnBoss();
-                        }
-                    }
-                }
-
-                break;
             }
         }
     }
 
-    bullets = bullets.filter(
-        b =>
-            b.x > -50 &&
-            b.x < W + 50 &&
-            b.y > -50 &&
-            b.y < H + 50
-    );
 
-    enemies = enemies.filter(
-        e => e.x > -5000
-    );
+    updateHUD();
+}
 
-    particles = particles.filter(
-        p => p.life > 0
-    );
 
-    coins = coins.filter(
-        c => c.life > 0
-    );
+/* =====================================
+   HIT MARKER
+===================================== */
 
-    powerUps = powerUps.filter(
-        p => p.life > 0
-    );
+function showHitMarker(
+    headshot
+) {
 
-    /* POWER */
-
-    power += .025;
-
-    if (power >= 100) {
-        power = 0;
-
-        health = Math.min(
-            100,
-            health + 10
+    const crosshair =
+        document.getElementById(
+            "crosshair"
         );
-    }
+
+    crosshair.style.color =
+        headshot
+            ? "#d6a82d"
+            : "white";
+
+    setTimeout(
+        () => {
+
+            crosshair.style.color =
+                "white";
+
+        },
+        100
+    );
+}
+
+
+/* =====================================
+   RELOAD
+===================================== */
+
+function reload() {
+
+    const weapon =
+        weapons[
+            currentWeapon
+        ];
+
+    if (
+        ammo >=
+        weapon.maxAmmo
+    ) return;
+
+    if (
+        reserve <= 0
+    ) return;
+
+
+    showMessage(
+        "RECARREGANDO..."
+    );
+
+
+    setTimeout(
+        () => {
+
+            const need =
+                weapon.maxAmmo -
+                ammo;
+
+            const amount =
+                Math.min(
+                    need,
+                    reserve
+                );
+
+            ammo += amount;
+
+            reserve -= amount;
+
+            updateHUD();
+
+        },
+        800
+    );
+}
+
+
+/* =====================================
+   ENEMIGOS
+===================================== */
+
+function spawnEnemy() {
+
+    const group =
+        new THREE.Group();
+
+
+    const body =
+        new THREE.Mesh(
+            new THREE.BoxGeometry(
+                1.2,
+                1.5,
+                .7
+            ),
+            new THREE.MeshStandardMaterial({
+                color: 0xa83d35
+            })
+        );
+
+    body.position.y =
+        1;
+
+
+    const head =
+        new THREE.Mesh(
+            new THREE.SphereGeometry(
+                .42,
+                12,
+                12
+            ),
+            new THREE.MeshStandardMaterial({
+                color: 0xc27b5e
+            })
+        );
+
+    head.position.y =
+        2;
+
+
+    group.add(
+        body
+    );
+
+    group.add(
+        head
+    );
+
+
+    const angle =
+        Math.random() *
+        Math.PI * 2;
+
+    const distance =
+        25 +
+        Math.random() * 12;
+
+
+    group.position.set(
+        Math.cos(angle) *
+        distance,
+        0,
+        Math.sin(angle) *
+        distance
+    );
+
+
+    scene.add(
+        group
+    );
+
+
+    const enemy = {
+
+        group,
+
+        body,
+
+        head,
+
+        hp:
+            100 +
+            round * 15,
+
+        speed:
+            .018 +
+            round * .002,
+
+        shotTimer:
+            80 +
+            Math.random() * 100
+
+    };
+
+
+    enemies.push(
+        enemy
+    );
+}
+
+
+/* =====================================
+   UPDATE BOTS
+===================================== */
+
+function updateEnemies() {
+
+    enemies.forEach(
+        enemy => {
+
+            const direction =
+                new THREE.Vector3()
+                    .subVectors(
+                        player.position,
+                        enemy.group.position
+                    );
+
+
+            direction.y = 0;
+
+            const distance =
+                direction.length();
+
+
+            if (
+                distance > 4
+            ) {
+
+                direction.normalize();
+
+                enemy.group.position.add(
+                    direction.multiplyScalar(
+                        enemy.speed
+                    )
+                );
+            }
+
+
+            enemy.group.lookAt(
+                player.position.x,
+                0,
+                player.position.z
+            );
+
+
+            enemy.shotTimer--;
+
+
+            if (
+                enemy.shotTimer <= 0 &&
+                distance < 35
+            ) {
+
+                enemyShoot(
+                    enemy
+                );
+
+                enemy.shotTimer =
+                    80 +
+                    Math.random() * 120;
+            }
+
+
+            if (
+                distance < 2
+            ) {
+
+                damagePlayer(
+                    .4
+                );
+            }
+        }
+    );
+}
+
+
+/* =====================================
+   BOT ATIRA
+===================================== */
+
+function enemyShoot(
+    enemy
+) {
+
+    const accuracy =
+        Math.random();
+
+
+    if (
+        accuracy < .45
+    ) return;
+
+
+    damagePlayer(
+        8 +
+        Math.random() * 10
+    );
+
+
+    addKillFeed(
+        "INIMIGO",
+        "VOCÊ"
+    );
+}
+
+
+/* =====================================
+   DANO
+===================================== */
+
+function damagePlayer(
+    damage
+) {
+
+    if (!roundActive) return;
+
+
+    const armorDamage =
+        Math.min(
+            armor,
+            damage * .5
+        );
+
+
+    armor -=
+        armorDamage;
+
+    health -=
+        damage -
+        armorDamage;
+
 
     updateHUD();
 
-    if (health <= 0) {
-        endGame();
-    }
-}
 
-/* =========================
-   HUD
-========================= */
-
-function updateHUD() {
-
-    healthText.textContent =
-        Math.max(0, Math.floor(health));
-
-    scoreText.textContent = score;
-    levelText.textContent = level;
-
-    bestText.textContent =
-        Math.max(best, score);
-
-    powerFill.style.width =
-        power + "%";
-}
-
-/* =========================
-   FUNDO
-========================= */
-
-function drawBackground() {
-
-    ctx.fillStyle = "#03030b";
-
-    ctx.fillRect(
-        0,
-        0,
-        W,
-        H
-    );
-
-    /* grade */
-
-    ctx.strokeStyle = "#0b1640";
-    ctx.lineWidth = 1;
-
-    const grid = 55;
-
-    for (
-        let x = 0;
-        x < W;
-        x += grid
+    if (
+        health <= 0
     ) {
 
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, H);
-        ctx.stroke();
-    }
+        health = 0;
 
-    for (
-        let y = 0;
-        y < H;
-        y += grid
+        endRound(
+            false,
+            "Você foi eliminado."
+        );
+    }
+}
+
+
+/* =====================================
+   KILL
+===================================== */
+
+function killEnemy(
+    enemy,
+    headshot
+) {
+
+    const index =
+        enemies.indexOf(
+            enemy
+        );
+
+    if (
+        index === -1
+    ) return;
+
+
+    scene.remove(
+        enemy.group
+    );
+
+    enemies.splice(
+        index,
+        1
+    );
+
+
+    scoreMoney(
+        300
+    );
+
+
+    addKillFeed(
+        "VOCÊ" +
+        (headshot
+            ? " 🎯"
+            : ""),
+        "INIMIGO"
+    );
+
+
+    if (
+        enemies.length === 0
     ) {
 
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(W, y);
-        ctx.stroke();
-    }
-
-    /* brilho central */
-
-    const gradient = ctx.createRadialGradient(
-        W / 2,
-        H / 2,
-        0,
-        W / 2,
-        H / 2,
-        Math.max(W, H) * .7
-    );
-
-    gradient.addColorStop(
-        0,
-        "rgba(0,100,255,.08)"
-    );
-
-    gradient.addColorStop(
-        1,
-        "rgba(0,0,0,0)"
-    );
-
-    ctx.fillStyle = gradient;
-
-    ctx.fillRect(
-        0,
-        0,
-        W,
-        H
-    );
-}
-
-/* =========================
-   DRAW
-========================= */
-
-function draw() {
-
-    drawBackground();
-
-    coins.forEach(c => c.draw());
-    powerUps.forEach(p => p.draw());
-
-    particles.forEach(p => p.draw());
-
-    bullets.forEach(b => b.draw());
-    enemies.forEach(e => e.draw());
-
-    if (player) {
-        player.draw();
+        endRound(
+            true,
+            "Todos os inimigos foram eliminados."
+        );
     }
 }
 
-/* =========================
-   LOOP
-========================= */
 
-function loop() {
+/* =====================================
+   DINHEIRO
+===================================== */
 
-    update();
-    draw();
+function scoreMoney(
+    amount
+) {
 
-    requestAnimationFrame(loop);
+    money += amount;
+
+    updateHUD();
 }
 
-/* =========================
-   INICIAR
-========================= */
+
+/* =====================================
+   BUY MENU
+===================================== */
+
+function toggleBuy() {
+
+    if (!roundActive) return;
+
+    const buy =
+        document.getElementById(
+            "buy"
+        );
+
+    buy.style.display =
+        buy.style.display === "flex"
+            ? "none"
+            : "flex";
+
+
+    document.getElementById(
+        "buyMoney"
+    ).textContent =
+        money;
+}
+
+
+function buy(
+    gun
+) {
+
+    if (
+        gun === "armor"
+    ) {
+
+        if (
+            money >= 650
+        ) {
+
+            money -= 650;
+
+            armor = 100;
+
+            updateHUD();
+        }
+
+        return;
+    }
+
+
+    const weapon =
+        weapons[gun];
+
+    if (!weapon) return;
+
+
+    if (
+        money <
+        weapon.price
+    ) {
+
+        showMessage(
+            "DINHEIRO INSUFICIENTE"
+        );
+
+        return;
+    }
+
+
+    money -=
+        weapon.price;
+
+    currentWeapon =
+        gun;
+
+    ammo =
+        weapon.maxAmmo;
+
+    reserve =
+        weapon.reserve;
+
+
+    updateHUD();
+
+
+    showMessage(
+        weapon.name +
+        " COMPRADA"
+    );
+}
+
+
+/* =====================================
+   ROUND
+===================================== */
 
 function startGame() {
 
-    menu.style.display = "none";
-    game.style.display = "block";
-    gameOver.style.display = "none";
+    document.getElementById(
+        "menu"
+    ).style.display =
+        "none";
 
-    score = 0;
-    level = 1;
-    health = 100;
-    kills = 0;
-    power = 0;
+    document.getElementById(
+        "game"
+    ).style.display =
+        "block";
 
-    enemies = [];
-    bullets = [];
-    particles = [];
-    coins = [];
-    powerUps = [];
-
-    spawnTimer = 20;
-    shootCooldown = 0;
-
-    player = new Player();
 
     playing = true;
+
+    startRound();
+}
+
+
+function startRound() {
+
+    roundActive = true;
+
+    roundTime = 115;
+
+    health = 100;
+
+    armor = 0;
+
+    bombPlanted = false;
+
+
+    player.position.set(
+        0,
+        1.7,
+        35
+    );
+
+
+    enemies.forEach(
+        e =>
+            scene.remove(
+                e.group
+            )
+    );
+
+    enemies = [];
+
+
+    const amount =
+        Math.min(
+            2 + round,
+            12
+        );
+
+
+    for (
+        let i = 0;
+        i < amount;
+        i++
+    ) {
+
+        spawnEnemy();
+    }
+
+
+    const weapon =
+        weapons[
+            currentWeapon
+        ];
+
+
+    ammo =
+        weapon.maxAmmo;
+
+    reserve =
+        weapon.reserve;
+
 
     updateHUD();
 }
 
-/* =========================
-   GAME OVER
-========================= */
 
-function endGame() {
+/* =====================================
+   END ROUND
+===================================== */
 
-    playing = false;
+function endRound(
+    playerWon,
+    reason
+) {
 
-    if (score > best) {
+    if (!roundActive) return;
 
-        best = score;
+    roundActive = false;
 
-        localStorage.setItem(
-            "neonBest",
-            best
+
+    if (playerWon) {
+
+        ctScore++;
+
+        money += 3250;
+
+        document.getElementById(
+            "roundTitle"
+        ).textContent =
+            "ROUND VENCIDO";
+
+    } else {
+
+        trScore++;
+
+        money += 1400;
+
+        document.getElementById(
+            "roundTitle"
+        ).textContent =
+            "ROUND PERDIDO";
+    }
+
+
+    document.getElementById(
+        "roundReason"
+    ).textContent =
+        reason;
+
+
+    document.getElementById(
+        "roundEnd"
+    ).style.display =
+        "flex";
+
+
+    document.exitPointerLock();
+
+    updateHUD();
+}
+
+
+/* =====================================
+   PRÓXIMO ROUND
+===================================== */
+
+function nextRound() {
+
+    document.getElementById(
+        "roundEnd"
+    ).style.display =
+        "none";
+
+
+    round++;
+
+
+    if (
+        ctScore >= 13 ||
+        trScore >= 13
+    ) {
+
+        ctScore = 0;
+        trScore = 0;
+        round = 1;
+
+        showMessage(
+            "NOVO MATCH"
         );
     }
 
-    finalScore.textContent = score;
-    finalLevel.textContent = level;
 
-    bestText.textContent = best;
-    bestMenu.textContent = best;
-
-    gameOver.style.display = "flex";
+    startRound();
 }
 
-/* =========================
-   BOTÕES
-========================= */
 
-document
-    .getElementById("playBtn")
-    .addEventListener("click", startGame);
+/* =====================================
+   TIMER
+===================================== */
 
-document
-    .getElementById("restartBtn")
-    .addEventListener("click", startGame);
+function updateTimer() {
 
-document
-    .getElementById("menuBtn")
-    .addEventListener("click", () => {
+    if (!roundActive) return;
 
-        playing = false;
+    roundTime -=
+        1 / 60;
 
-        gameOver.style.display = "none";
-        game.style.display = "none";
-        menu.style.display = "flex";
 
-        bestMenu.textContent = best;
-    });
+    if (
+        roundTime <= 0
+    ) {
 
-/* =========================
-   COMEÇA O LOOP
-========================= */
+        roundTime = 0;
 
-loop();
+        endRound(
+            false,
+            "O tempo acabou."
+        );
+    }
+
+
+    const minutes =
+        Math.floor(
+            roundTime / 60
+        );
+
+    const seconds =
+        Math.floor(
+            roundTime % 60
+        );
+
+
+    document.getElementById(
+        "timer"
+    ).textContent =
+        String(minutes)
+            .padStart(2, "0")
+        + ":" +
+        String(seconds)
+            .padStart(2, "0");
+}
+
+
+/* =====================================
+   HUD
+===================================== */
+
+function updateHUD() {
+
+    const weapon =
+        weapons[
+            currentWeapon
+        ];
+
+
+    document.getElementById(
+        "health"
+    ).textContent =
+        Math.max(
+            0,
+            Math.floor(
+                health
+            )
+        );
+
+
+    document.getElementById(
+        "armor"
+    ).textContent =
+        Math.max(
+            0,
+            Math.floor(
+                armor
+            )
+        );
+
+
+    document.getElementById(
+        "ammo"
+    ).textContent =
+        ammo;
+
+
+    document.getElementById(
+        "reserve"
+    ).textContent =
+        reserve;
+
+
+    document.getElementById(
+        "weaponName"
+    ).textContent =
+        weapon.name;
+
+
+    document.getElementById(
+        "moneyValue"
+    ).textContent =
+        money;
+
+
+    document.getElementById(
+        "ctScore"
+    ).textContent =
+        ctScore;
+
+
+    document.getElementById(
+        "trScore"
+    ).textContent =
+        trScore;
+
+
+    document.getElementById(
+        "buyMoney"
+    ).textContent =
+        money;
+}
+
+
+/* =====================================
+   KILL FEED
+===================================== */
+
+function addKillFeed(
+    killer,
+    victim
+) {
+
+    const feed =
+        document.getElementById(
+            "killFeed"
+        );
+
+
+    const line =
+        document.createElement(
+            "div"
+        );
+
+    line.className =
+        "kill";
+
+
+    line.innerHTML =
+        `<b>${killer}</b> ⚔ ${victim}`;
+
+
+    feed.appendChild(
+        line
+    );
+
+
+    setTimeout(
+        () => {
+
+            line.remove();
+
+        },
+        3000
+    );
+}
+
+
+/* =====================================
+   MESSAGE
+===================================== */
+
+function showMessage(
+    text
+) {
+
+    const old =
+        document.getElementById(
+            "tempMessage"
+        );
+
+
+    if (old)
+        old.remove();
+
+
+    const message =
+        document.createElement(
+            "div"
+        );
+
+
+    message.id =
+        "tempMessage";
+
+
+    message.textContent =
+        text;
+
+
+    message.style.position =
+        "fixed";
+
+    message.style.top =
+        "105px";
+
+    message.style.left =
+        "50%";
+
+    message.style.transform =
+        "translateX(-50%)";
+
+    message.style.zIndex =
+        "30";
+
+    message.style.color =
+        "#d6a82d";
+
+    message.style.fontWeight =
+        "bold";
+
+
+    document.body.appendChild(
+        message
+    );
+
+
+    setTimeout(
+        () => {
+
+            message.remove();
+
+        },
+        1300
+    );
+}
+
+
+/* =====================================
+   ANIMATION
+===================================== */
+
+function animate() {
+
+    requestAnimationFrame(
+        animate
+    );
+
+
+    if (playing) {
+
+        updatePlayer();
+
+        updateEnemies();
+
+        updateTimer();
+
+
+        if (
+            shootTimer > 0
+        ) {
+
+            shootTimer--;
+        }
+
+
+        if (
+            shooting
+        ) {
+
+            shoot();
+        }
+    }
+
+
+    renderer.render(
+        scene,
+        camera
+    );
+}
+
+
+/* =====================================
+   RESIZE
+===================================== */
+
+function resize() {
+
+    camera.aspect =
+        innerWidth /
+        innerHeight;
+
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(
+        innerWidth,
+        innerHeight
+    );
+}
+
+
+/* =====================================
+   START
+===================================== */
+
+init();
