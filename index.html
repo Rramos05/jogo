@@ -3,88 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neon Survivor</title>
+    <title>Tactical Strike</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <div id="menu" class="screen">
-        <div class="logo">NEON<br><span>SURVIVOR</span></div>
+<div id="menu">
+    <div class="brand">TACTICAL<span>STRIKE</span></div>
 
-        <p>Sobreviva. Destrua. Evolua.</p>
+    <p>FPS TÁTICO • COMPETITIVO</p>
 
-        <div class="menu-stats">
-            <div>🏆 Recorde <b id="bestMenu">0</b></div>
+    <button id="play">JOGAR</button>
+
+    <small>
+        WASD • Mouse • Clique para atirar • R recarrega • B compra
+    </small>
+</div>
+
+<div id="game">
+
+    <div id="top">
+
+        <div class="team ct">
+            CT <b id="ctScore">0</b>
         </div>
 
-        <button id="playBtn">JOGAR</button>
+        <div id="roundInfo">
+            <strong id="timer">01:55</strong>
+            <small id="roundText">ROUND 1</small>
+        </div>
 
-        <small>WASD / SETAS • MOUSE / TOQUE</small>
+        <div class="team tr">
+            <b id="trScore">0</b> TR
+        </div>
+
     </div>
 
-    <main id="game">
-        <header class="hud">
-            <div class="hud-box">
-                <span>❤️</span>
-                <div>
-                    <small>VIDA</small>
-                    <strong id="health">100</strong>
-                </div>
+    <div id="killFeed"></div>
+
+    <div id="crosshair">
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+    </div>
+
+    <div id="hud">
+
+        <div class="leftHud">
+
+            <div class="health">
+                <span>♥</span>
+                <b id="health">100</b>
             </div>
 
-            <div class="hud-box">
-                <span>⭐</span>
-                <div>
-                    <small>PONTOS</small>
-                    <strong id="score">0</strong>
-                </div>
+            <div class="armor">
+                <span>◆</span>
+                <b id="armor">100</b>
             </div>
 
-            <div class="hud-box">
-                <span>🌊</span>
-                <div>
-                    <small>NÍVEL</small>
-                    <strong id="level">1</strong>
-                </div>
-            </div>
-
-            <div class="hud-box">
-                <span>🏆</span>
-                <div>
-                    <small>RECORDE</small>
-                    <strong id="best">0</strong>
-                </div>
-            </div>
-        </header>
-
-        <div id="powerBar">
-            <div id="powerFill"></div>
         </div>
 
-        <canvas id="canvas"></canvas>
+        <div id="weapon">
 
-        <div id="bossWarning">
-            ⚠️ BOSS INCOMING ⚠️
-        </div>
-
-        <div id="gameOver" class="screen">
-            <h1>GAME OVER</h1>
-
-            <div class="result">
-                <p>Pontuação</p>
-                <strong id="finalScore">0</strong>
+            <div class="weaponName" id="weaponName">
+                AK-47
             </div>
 
-            <div class="result">
-                <p>Nível alcançado</p>
-                <strong id="finalLevel">1</strong>
+            <div class="ammo">
+                <b id="ammo">30</b>
+                /
+                <span id="reserve">90</span>
             </div>
 
-            <button id="restartBtn">JOGAR NOVAMENTE</button>
-            <button id="menuBtn" class="secondary">MENU</button>
         </div>
-    </main>
 
-    <script src="script.js"></script>
+        <div id="money">
+            $<span id="moneyValue">800</span>
+        </div>
+
+    </div>
+
+    <div id="radar">
+        <div class="radarPlayer"></div>
+    </div>
+
+    <div id="buy">
+
+        <div class="buyPanel">
+
+            <h2>ARSENAL</h2>
+
+            <p>Dinheiro: $<span id="buyMoney">800</span></p>
+
+            <button data-gun="glock">
+                1 — GLOCK-18
+                <span>$200</span>
+            </button>
+
+            <button data-gun="deagle">
+                2 — DESERT EAGLE
+                <span>$700</span>
+            </button>
+
+            <button data-gun="ak">
+                3 — AK-47
+                <span>$2700</span>
+            </button>
+
+            <button data-gun="m4">
+                4 — M4A1
+                <span>$3100</span>
+            </button>
+
+            <button data-gun="awp">
+                5 — AWP
+                <span>$4750</span>
+            </button>
+
+            <button data-gun="armor">
+                6 — COLETE
+                <span>$650</span>
+            </button>
+
+            <button id="closeBuy">
+                FECHAR
+            </button>
+
+        </div>
+
+    </div>
+
+    <div id="roundEnd">
+
+        <h1 id="roundTitle">ROUND VENCIDO</h1>
+
+        <p id="roundReason"></p>
+
+        <button id="continue">
+            CONTINUAR
+        </button>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script src="script.js"></script>
+
 </body>
 </html>
