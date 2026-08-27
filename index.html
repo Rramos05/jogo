@@ -1,183 +1,90 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <meta
-        name="description"
-        content="Ruan Ramos Barañano — redes sociais e contato."
-    >
-
-    <meta name="theme-color" content="#050505">
-
-    <title>Ruan Ramos Barañano</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-        rel="stylesheet"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Survivor</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-    <!-- Cursor -->
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
+    <div id="menu" class="screen">
+        <div class="logo">NEON<br><span>SURVIVOR</span></div>
 
-    <!-- Fundo -->
-    <div class="background">
-        <div class="glow glow-one"></div>
-        <div class="glow glow-two"></div>
-        <div class="grid"></div>
+        <p>Sobreviva. Destrua. Evolua.</p>
+
+        <div class="menu-stats">
+            <div>🏆 Recorde <b id="bestMenu">0</b></div>
+        </div>
+
+        <button id="playBtn">JOGAR</button>
+
+        <small>WASD / SETAS • MOUSE / TOQUE</small>
     </div>
 
-    <!-- Partículas -->
-    <div id="particles"></div>
-
-    <main class="page">
-
-        <section class="profile">
-
-            <!-- pequeno indicador -->
-            <div class="status">
-                <span class="status-dot"></span>
-                <span>ONLINE</span>
+    <main id="game">
+        <header class="hud">
+            <div class="hud-box">
+                <span>❤️</span>
+                <div>
+                    <small>VIDA</small>
+                    <strong id="health">100</strong>
+                </div>
             </div>
 
-            <!-- linha superior -->
-            <div class="top-line">
-                <span></span>
+            <div class="hud-box">
+                <span>⭐</span>
+                <div>
+                    <small>PONTOS</small>
+                    <strong id="score">0</strong>
+                </div>
             </div>
 
-            <!-- Nome -->
-            <div class="name-wrapper">
-
-                <p class="eyebrow">
-                    BEM-VINDO
-                </p>
-
-                <h1>
-                    RUAN
-                    <span>RAMOS</span>
-                    <strong>BARAÑANO</strong>
-                </h1>
-
-                <p class="subtitle">
-                    ME ENCONTRE NAS REDES
-                </p>
-
+            <div class="hud-box">
+                <span>🌊</span>
+                <div>
+                    <small>NÍVEL</small>
+                    <strong id="level">1</strong>
+                </div>
             </div>
 
-            <!-- Links -->
-            <nav class="links" aria-label="Redes sociais e contato">
+            <div class="hud-box">
+                <span>🏆</span>
+                <div>
+                    <small>RECORDE</small>
+                    <strong id="best">0</strong>
+                </div>
+            </div>
+        </header>
 
-                <a
-                    href="https://www.instagram.com/ruannn05_/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="social-card"
-                    data-magnetic
-                >
+        <div id="powerBar">
+            <div id="powerFill"></div>
+        </div>
 
-                    <div class="icon instagram-icon">
-                        <svg
-                            viewBox="0 0 24 24"
-                            aria-hidden="true"
-                        >
-                            <rect
-                                x="3"
-                                y="3"
-                                width="18"
-                                height="18"
-                                rx="5"
-                            />
+        <canvas id="canvas"></canvas>
 
-                            <circle
-                                cx="12"
-                                cy="12"
-                                r="4"
-                            />
+        <div id="bossWarning">
+            ⚠️ BOSS INCOMING ⚠️
+        </div>
 
-                            <circle
-                                cx="17.5"
-                                cy="6.5"
-                                r="1"
-                                class="dot"
-                            />
-                        </svg>
-                    </div>
+        <div id="gameOver" class="screen">
+            <h1>GAME OVER</h1>
 
-                    <div class="card-text">
-                        <small>ME SIGA NO</small>
-                        <strong>INSTAGRAM</strong>
-                    </div>
+            <div class="result">
+                <p>Pontuação</p>
+                <strong id="finalScore">0</strong>
+            </div>
 
-                    <div class="arrow">↗</div>
+            <div class="result">
+                <p>Nível alcançado</p>
+                <strong id="finalLevel">1</strong>
+            </div>
 
-                </a>
-
-                <a
-                    href="https://wa.me/5553997094670"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="social-card"
-                    data-magnetic
-                >
-
-                    <div class="icon whatsapp-icon">
-                        <svg
-                            viewBox="0 0 24 24"
-                            aria-hidden="true"
-                        >
-                            <path
-                                d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.6 4.2 1.7 6L.2 24l6.3-1.7a11.8 11.8 0 0 0 5.6 1.4h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.2-6.2-3.5-8.4ZM12.1 21.7c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.8 9.8 0 0 1-1.5-5.2c0-5.4 4.4-9.8 9.8-9.8 2.6 0 5.1 1 6.9 2.9a9.7 9.7 0 0 1 2.9 6.9c0 5.4-4.4 9.8-9.8 9.8Z"
-                            />
-
-                            <path
-                                d="M17.7 14.3c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-1.7-.8-2.8-1.5-3.9-3.4-.3-.5.3-.5.8-1.6.1-.2.1-.4 0-.6-.1-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.8s1.2 3.2 1.4 3.4c.2.2 2.4 3.7 5.8 5.1.8.4 1.5.6 2 .7.8.3 1.6.2 2.2.1.7-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.6-.4Z"
-                            />
-                        </svg>
-                    </div>
-
-                    <div class="card-text">
-                        <small>FALE COMIGO</small>
-                        <strong>WHATSAPP</strong>
-                    </div>
-
-                    <div class="arrow">↗</div>
-
-                </a>
-
-            </nav>
-
-            <!-- rodapé -->
-            <footer>
-
-                <div class="bottom-line"></div>
-
-                <p>
-                    © 2026
-                    <span>RUAN RAMOS BARAÑANO</span>
-                </p>
-
-            </footer>
-
-        </section>
-
+            <button id="restartBtn">JOGAR NOVAMENTE</button>
+            <button id="menuBtn" class="secondary">MENU</button>
+        </div>
     </main>
 
     <script src="script.js"></script>
-
 </body>
 </html>
